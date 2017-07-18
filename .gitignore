@@ -32,3 +32,4 @@ Website/hosting.Generic.json
 Website/web.Generic.config
 Website/web.GenericProd.config
 Website/Data/DataFolder/InitialInstall.txt
+Website/Properties/launchSettings.Generic.json
