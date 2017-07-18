@@ -1,0 +1,66 @@
+{
+  "MimeSection": {
+    "MimeTypes": [
+      {
+        "Type": "text/plain",
+        "Extensions": ".txt;.css;.scss;.less"
+      },
+      {
+        "Type": "text/html",
+        "Extensions": ".html;.htm"
+      },
+      {
+        "Type": "image/gif",
+        "ImageUse": true,
+        "Extensions": ".gif"
+      },
+      {
+        "Type": "image/png",
+        "ImageUse": true,
+        "Extensions": ".png"
+      },
+      {
+        "Type": "image/x-png",
+        "ImageUse": true,
+        "Extensions": ".png"
+      },
+      {
+        "Type": "image/jpeg",
+        "ImageUse": true,
+        "Extensions": ".jpe;.jpeg;.jpg"
+      },
+      {
+        "Type": "image/pjpeg",
+        "ImageUse": true,
+        "Extensions": ".jpe;.jpeg;.jpg"
+      },
+      {
+        "Type": "application/x-zip-compressed",
+        "PackageUse": true,
+        "Extensions": ".zip"
+      },
+      {
+        "Type": "application/octet-stream",
+        "PackageUse": true,
+        "Extensions": ".zip"
+      },
+      {
+        "Type": "application/x-shockwave-flash",
+        "FlashUse": true,
+        "Extensions": ".swf"
+      },
+      {
+        "Type": "application/pdf",
+        "Extensions": ".pdf"
+      },
+      {
+        "Type": "application/msword",
+        "Extensions": ".doc;.docx"
+      },
+      {
+        "Type": "application/rtf",
+        "Extensions": ".rtf"
+      }
+    ]
+  }
+}

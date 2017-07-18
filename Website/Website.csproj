@@ -1,0 +1,172 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+    <AssemblyName>YetaWF</AssemblyName>
+    <RootNamespace>YetaWF2</RootNamespace>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <!-- Precompiled views only work if all cshtml are in the web project marked content - unfortunately that's not compatible with YetaWF's modular structure -->
+    <!-- TODO: Review for final -->
+    <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DefineConstants>MVC6</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <!-- TODO: We'll limit this to x86 for now due to https://github.com/aspnet/Hosting/issues/1115 -->
+    <!-- assuming this will be fixed for final -->
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- TODO: Review for final release - this is a workaround for slow solution load -->
+    <Compile Remove="wwwroot\lib\**" />
+    <Content Remove="wwwroot\lib\**" />
+    <Compile Remove="Areas\**" />
+    <Compile Remove="Data\**" />
+    <Compile Remove="Sites\**" />
+    <Compile Remove="SiteTemplates\**" />
+    <Compile Remove="VaultPrivate\**" />
+    <Compile Remove="wwwroot\AddonsBundles\**" />
+    <Compile Remove="wwwroot\AddonsCustom\**" />
+    <Compile Remove="wwwroot\AddOns\**" />
+    <Compile Remove="wwwroot\Maintenance\**" />
+    <Compile Remove="wwwroot\SiteFiles\**" />
+    <Compile Remove="wwwroot\Vault\**" />
+    <Content Remove="Areas\**" />
+    <Content Remove="Data\**" />
+    <Content Remove="Sites\**" />
+    <Content Remove="SiteTemplates\**" />
+    <Content Remove="VaultPrivate\**" />
+    <Content Remove="wwwroot\AddonsBundles\**" />
+    <Content Remove="wwwroot\AddonsCustom\**" />
+    <Content Remove="wwwroot\AddOns\**" />
+    <Content Remove="wwwroot\Vault\**" />
+    <Content Remove="wwwroot\Maintenance\**" />
+    <Content Remove="wwwroot\SiteFiles\**" />
+    <EmbeddedResource Remove="Areas\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="Sites\**" />
+    <EmbeddedResource Remove="SiteTemplates\**" />
+    <EmbeddedResource Remove="VaultPrivate\**" />
+    <EmbeddedResource Remove="wwwroot\AddonsBundles\**" />
+    <EmbeddedResource Remove="wwwroot\AddonsCustom\**" />
+    <EmbeddedResource Remove="wwwroot\AddOns\**" />
+    <EmbeddedResource Remove="wwwroot\Maintenance\**" />
+    <EmbeddedResource Remove="wwwroot\SiteFiles\**" />
+    <EmbeddedResource Remove="wwwroot\Vault\**" />
+    <None Remove="Areas\**" />
+    <None Remove="Data\**" />
+    <None Remove="Sites\**" />
+    <None Remove="SiteTemplates\**" />
+    <None Remove="VaultPrivate\**" />
+    <None Remove="wwwroot\AddonsBundles\**" />
+    <None Remove="wwwroot\AddonsCustom\**" />
+    <None Remove="wwwroot\AddOns\**" />
+    <None Remove="wwwroot\Maintenance\**" />
+    <None Remove="wwwroot\SiteFiles\**" />
+    <None Remove="wwwroot\Vault\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <None Include="bower.json" />
+    <Content Remove="bower.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="app.config_MVC6" />
+    <None Remove="Website.csproj_MVC6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ApiExplorer" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.DataAnnotations" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Xml" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Localization" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.0.0-preview2-final" />
+    <!-- Precompiled views only work if all cshtml are in the web project marked content - unfortunately that's not compatible with YetaWF's modular structure -->
+    <!--<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.ViewCompilation" Version="2.0.0-preview2-final" PrivateAssets="All" />-->
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.0.0-preview2-final" /> 
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.WebApiCompatShim" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Rewrite" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0-preview2-final" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0-preview2-final" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataProvider\File\File.csproj" />
+    <ProjectReference Include="..\DataProvider\SQL\SQL.csproj" />
+    <ProjectReference Include="..\DataProvider\Localization\Localization.csproj" />
+    <ProjectReference Include="..\DataProvider\ModuleDefinition\ModuleDefinition.csproj" />
+    <ProjectReference Include="..\CoreComponents\Core\Core.csproj" />
+    <ProjectReference Include="..\CoreComponents\CssHttpHandler\CssHttpHandler.csproj" />
+    <ProjectReference Include="..\CoreComponents\ImageHttpHandler\ImageHttpHandler.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\AddThis\AddThis.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Backups\Backups.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Basics\Basics.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Blog\Blog.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\BootstrapCarousel\BootstrapCarousel.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\CurrencyConverter\CurrencyConverter.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Dashboard\Dashboard.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\DevTests\DevTests.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Feed\Feed.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Feedback\Feedback.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Identity\Identity.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\IFrame\IFrame.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\ImageRepository\ImageRepository.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\KeepAlive\KeepAlive.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Languages\Languages.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Lightbox\Lightbox.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Logging\Logging.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Menus\Menus.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\ModuleEdit\ModuleEdit.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Modules\Modules.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Packages\Packages.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\PageEar\PageEar.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\PageEdit\PageEdit.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Pages\Pages.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Scheduler\Scheduler.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Search\Search.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Security\Security.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\SiteProperties\SiteProperties.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Sites\Sites.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\SlideShow\SlideShow.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\SyntaxHighlighter\SyntaxHighlighter.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Text\Text.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\TinyLanguage\TinyLanguage.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\TinyLogin\TinyLogin.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\UserProfile\UserProfile.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\UserSettings\UserSettings.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Visitors\Visitors.csproj" />
+    <ProjectReference Include="..\Skins\YetaWF\BootstrapSample\BootstrapSample.csproj" />
+    <ProjectReference Include="..\Skins\YetaWF\BusinessCasualSkin\BusinessCasualSkin.csproj" />
+  </ItemGroup>
+
+</Project>

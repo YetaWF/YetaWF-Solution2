@@ -1,0 +1,12 @@
+[submodule "CoreComponents"]
+	path = CoreComponents
+	url = https://github.com/YetaWF/YetaWF-CoreComponents
+[submodule "Skins/YetaWF"]
+	path = Skins/YetaWF
+	url = https://github.com/YetaWF/YetaWF-Skins
+[submodule "Modules/YetaWF"]
+	path = Modules/YetaWF
+	url = https://github.com/YetaWF/YetaWF-Modules
+[submodule "DataProvider"]
+	path = DataProvider
+	url = https://github.com/YetaWF/YetaWF-DataProvider
