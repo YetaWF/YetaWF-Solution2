@@ -9,8 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CopySite", "CopySite", "{25
 	ProjectSection(SolutionItems) = preProject
 		Utilities\CopySite\CopySite FROM DEV.bat = Utilities\CopySite\CopySite FROM DEV.bat
 		Utilities\CopySite\CopySite FROM DEV.txt = Utilities\CopySite\CopySite FROM DEV.txt
-		Utilities\CopySite\CopySite PROD.bat = Utilities\CopySite\CopySite PROD.bat
-		Utilities\CopySite\CopySite PROD.txt = Utilities\CopySite\CopySite PROD.txt
+		Utilities\CopySite\CopySite TO PROD.bat = Utilities\CopySite\CopySite TO PROD.bat
+		Utilities\CopySite\CopySite TO PROD.txt = Utilities\CopySite\CopySite TO PROD.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataProvider", "DataProvider", "{3D6DCCA8-B3FB-45DB-B37E-7F29DBB124D0}"
