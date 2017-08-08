@@ -1,32 +1,16 @@
 {
-  "name": "YetaWF2",
+  "name": "yetawf",
+  "description": "A site built using YetaWF",
+  "main": "",
+  "license": "GPL-3.0",
+  "homepage": "",
   "private": true,
   "dependencies": {
-    "bootstrap": "v3.3.7",
-    "ckeditor": "4.6.2",
-    "clipboard": "v1.6.1",
-    "free-jqgrid": "4.14.0",
-    "normalize-css": "4.1.1",
-    "jquery": "3.2.1",
-    "jquery-color": "2.1.2",
-    "jquery-validation": "1.16.0",
-    "jquery-validation-unobtrusive": "3.2.6",
-    "jquery-ui": "1.12.1",
-    "jstree": "3.3.4",
-    "kendo-ui": "2017.1.411",
-    "modernizr": "v3.5.0",
-    "smartmenus": "1.0.1",
-    "swfobject": "2.3-beta+rc1",
-    "SyntaxHighlighter": "3.0.83",
-    "ui-contextmenu": "v1.17.0",
-    "urijs": "v1.18.10"
+    "kendo-ui": "2017.1.411"
   },
-  "resolutions": {
-    "jstree": "3.3.4",
-    "ui-contextmenu": "v1.17.0",
-    "urijs": "v1.18.10",
-    "jquery": "3.2.1",
-    "kendo-ui": "2017.1.411",
-    "modernizr": "v3.5.0"
-  }
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ]
 }

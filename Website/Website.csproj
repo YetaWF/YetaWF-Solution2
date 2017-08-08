@@ -16,6 +16,7 @@
     <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>2.4</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -31,6 +32,14 @@
     <!-- TODO: Review for final release - this is a workaround for slow solution load -->
     <Compile Remove="wwwroot\lib\**" />
     <Content Remove="wwwroot\lib\**" />
+    <Compile Remove="node_modules\**" />
+    <Content Remove="node_modules\**" />
+    <None Remove="node_modules\**" />
+    <EmbeddedResource Remove="node_modules\**" />
+    <Compile Remove="bower_components\**" />
+    <Content Remove="bower_components\**" />
+    <None Remove="bower_components\**" />
+    <Compile Remove="bower_components\**" />
     <Compile Remove="Areas\**" />
     <Compile Remove="Data\**" />
     <Compile Remove="Sites\**" />
@@ -168,5 +177,9 @@
     <ProjectReference Include="..\Skins\YetaWF\BootstrapSample\BootstrapSample.csproj" />
     <ProjectReference Include="..\Skins\YetaWF\BusinessCasualSkin\BusinessCasualSkin.csproj" />
   </ItemGroup>
+
+  <Target Name="Gulp" AfterTargets="AfterBuild">
+    <Exec Command="gulp $(Configuration)Build" />
+  </Target>
 
 </Project>

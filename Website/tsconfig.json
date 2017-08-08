@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es5",
+    "module": "none",
+    "declaration": true,
+    "importHelpers": true,
+    "skipLibCheck": true,
+    "noEmitHelpers": false,
+    "jsx": "react",
+    "strict": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "alwaysStrict": false,
+    "jsxFactory": "YetaWF_Basics.createElement",
+    "types": [ "jquery", "jqueryui", "kendo-ui", "YetaWFCore" ]
+  },
+  "compileOnSave": true,
+  "typeAcquisition": { "enable": false },
+  "exclude": [
+    "./bower_components",
+    "./node_modules",
+    "./wwwroot"
+  ]
+}

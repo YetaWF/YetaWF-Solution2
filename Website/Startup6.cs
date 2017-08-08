@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
@@ -223,7 +224,7 @@ namespace YetaWF.App_Start {
             app.MapWhen(
                 context => {
                     string path = context.Request.Path.ToString().ToLower();
-                    bool match = path.EndsWith(".css") || path.EndsWith(".scss") || path.EndsWith(".less");
+                    bool match = path.EndsWith(".css");
                     if (match)
                         StartRequest(context);
                     return match;
@@ -260,6 +261,20 @@ namespace YetaWF.App_Start {
                         }
                     }
                 }
+                app.UseStaticFiles(new StaticFileOptions {
+                    FileProvider = new PhysicalFileProvider(Path.Combine(YetaWFManager.RootFolderWebProject, @"node_modules")),
+                    RequestPath = new PathString("/node_modules"),
+                    OnPrepareResponse = (context) => {
+                        YetaWFManager.SetStaticCacheInfo(context.Context.Response);
+                    }
+                });
+                app.UseStaticFiles(new StaticFileOptions {
+                    FileProvider = new PhysicalFileProvider(Path.Combine(YetaWFManager.RootFolderWebProject, @"bower_components")),
+                    RequestPath = new PathString("/bower_components"),
+                    OnPrepareResponse = (context) => {
+                        YetaWFManager.SetStaticCacheInfo(context.Context.Response);
+                    }
+                });
                 app.UseStaticFiles(new StaticFileOptions {
                     ContentTypeProvider = provider,
                     OnPrepareResponse = (context) => {
