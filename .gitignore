@@ -6,15 +6,15 @@
 
 .vs/
 artifacts/
+packages/
 
 Website/Areas/
 Website/bower_components/
-Website/Data/DataFolder
 Website/Data/PackageMap.txt
 Website/Data/UpgradeLogFile.txt
 Website/Sites
 Website/Properties/PublishProfiles/
-Website/SiteTemplates
+Website/SiteTemplates/*.txt
 Website/node_modules/
 
 Website/wwwroot/Addons/
@@ -23,23 +23,21 @@ Website/wwwroot/AddonsBundles/
 Website/wwwroot/lib/
 Website/wwwroot/_references.js
 
-packages/
-
 Website/package-lock.json
 
-Website/Data/DataFolder/InitialInstall.txt
+Website/Data/appsettings.YetaWFDist5.json
+Website/Data/Appsettings.Generic.json
+Website/Data/Appsettings.GenericProd.json
 Website/Data/LanguageSettings.Generic.json
 Website/Data/MimeSettings.Generic.json
-Website/Data/appsettings.Generic.json
-Website/Data/appsettings.GenericProd.json
-Website/Data/appsettings.YetaWFDist5.json
-Website/Properties/launchSettings.Generic.json
 
-Website/Website.Generic.csproj_MVC6
+Website/Data/DataFolder/InitialInstall.txt
+
+Website/Properties/launchSettings.Generic.json
 
 Website/app.Generic.config
 Website/hosting.Generic.json
 Website/web.Generic.config
 Website/web.GenericProd.config
-
+Website/Website.Generic.csproj_MVC6
 YetaWF2.Generic.sln
