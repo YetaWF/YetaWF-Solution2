@@ -2,6 +2,8 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/ovmr42gt5ucurfei/branch/master?svg=true)](https://ci.appveyor.com/project/YetaWF/yetawf-solution/branch/master)
 
+*STOP* - Do not simply retrieve the repository. There [are a few easy steps](https://yetawf.com/Documentation/YetaWF/Topic/g_installing_git) you need to follow to correctly install YetaWF.
+
 Overview
 ========
 
@@ -27,8 +29,7 @@ Adding/removing languages is possible at any time, not just at design-time.
 Links
 -----
 
-STOP - Do not simply retrieve the repository. There are a few easy steps you need to follow to correctly install YetaWF.
-Depending on how you want to install it you can either use our [MakeSite utility](https://yetawf.com/Documentation/YetaWF/Topic/g_installing) which guides you through the whole process, or you can retrieve the repository following [these steps](https://yetawf.com/Documentation/YetaWF/Topic/g_installing_git).
+*STOP* - Do not simply retrieve the repository. There [are a few easy steps](https://yetawf.com/Documentation/YetaWF/Topic/g_installing_git) you need to follow to correctly install YetaWF.
 
 * [YetaWF.com](https://yetawf.com)
 * [Documentation](https://yetawf.com/Documentation/YetaWF)
