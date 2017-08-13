@@ -123,7 +123,7 @@ gulp.task('less-global', () =>
 /* Javascript minify */
 var minify = require("gulp-minify");
 gulp.task('minify-js', () =>
-    gulp.src(["AddOns/**/*.js",
+    gulp.src(["wwwroot/AddOns/**/*.js",
             "wwwroot/AddOnsCustom/**/*.js",
             "node_modules/jquery-validation-unobtrusive/*.js",
             "node_modules/urijs/src/*.js",
