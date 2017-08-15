@@ -84,19 +84,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
     <None Include="bower.json" />
     <Content Remove="bower.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-    </None>
     <None Update="web.Prod.config" />
-    <None Update="web.SOFTELSRV1.config" />
     <None Remove="app.config_MVC6" />
     <None Remove="Website.csproj_MVC6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\appsettings.json" />
+    <Content Include="Data\appsettings.Prod.json" />
+    <Content Include="Data\LanguageSettings.json" />
+    <Content Include="Data\MimeSettings.json" />
   </ItemGroup>
 
   <ItemGroup>
