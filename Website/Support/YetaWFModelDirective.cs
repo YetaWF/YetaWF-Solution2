@@ -24,7 +24,11 @@ namespace YetaWF2.Support
         public static readonly DirectiveDescriptor Directive = DirectiveDescriptor.CreateDirective(
             "model",
             DirectiveKind.SingleLine,
-            builder => builder.AddTypeToken());
+            builder =>
+            {
+                builder.AddTypeToken();
+                builder.Usage = DirectiveUsage.FileScopedSinglyOccurring;
+            });
 
         public static IRazorEngineBuilder Register(IRazorEngineBuilder builder)
         {
@@ -33,7 +37,7 @@ namespace YetaWF2.Support
             return builder;
         }
 
-        public static string GetModelType(DocumentIRNode document, out bool asis)
+        public static string GetModelType(DocumentIntermediateNode document, out bool asis)
         {
             if (document == null)
             {
@@ -44,7 +48,7 @@ namespace YetaWF2.Support
             return GetModelType(document, visitor, out asis);
         }
 
-        private static string GetModelType(DocumentIRNode document, Visitor visitor, out bool asis)
+        private static string GetModelType(DocumentIntermediateNode document, Visitor visitor, out bool asis)
         {
             asis = false;
             visitor.Visit(document);
@@ -62,7 +66,7 @@ namespace YetaWF2.Support
 
             if (document.DocumentKind == RazorPageDocumentClassifierPass.RazorPageDocumentKind)
             {
-                return visitor.Class.Name;
+                return visitor.Class.ClassName;
             }
             else
             {
@@ -81,7 +85,7 @@ namespace YetaWF2.Support
         private static Regex reInherits1 = new Regex(@"^\s*[a-zA-Z0-9_\.]+\<(\s*[a-zA-Z0-9_\.]+\s*\,){0,1}\s*(?'model'[a-zA-Z0-9_\.\<\> \,]+\?{0,1})\s*\>\s*$", RegexOptions.Multiline);
         //$$$END-MOD
 
-        internal class Pass : RazorIRPassBase, IRazorDirectiveClassifierPass
+        internal class Pass : IntermediateNodePassBase, IRazorDirectiveClassifierPass
         {
             private readonly bool _designTime;
 
@@ -93,18 +97,18 @@ namespace YetaWF2.Support
             // Runs after the @inherits directive
             public override int Order => 5;
 
-            protected override void ExecuteCore(RazorCodeDocument codeDocument, DocumentIRNode irDocument)
+            protected override void ExecuteCore(RazorCodeDocument codeDocument, DocumentIntermediateNode documentNode)
             {
                 var visitor = new Visitor();
                 bool asis;
-                var modelType = GetModelType(irDocument, visitor, out asis);
+                var modelType = GetModelType(documentNode, visitor, out asis);
 
                 if (_designTime)
                 {
                     // Alias the TModel token to a known type.
                     // This allows design time compilation to succeed for Razor files where the token isn't replaced.
                     var typeName = $"global::{typeof(object).FullName}";
-                    var usingNode = new UsingStatementIRNode()
+                    var usingNode = new UsingDirectiveIntermediateNode()
                     {
                         Content = $"TModel = {typeName}"
                     };
@@ -114,33 +118,19 @@ namespace YetaWF2.Support
                 if (asis) return;
 
                 var baseType = visitor.Class?.BaseType?.Replace("<TModel>", "<" + modelType + ">");
-                for (var i = visitor.InheritsDirectives.Count - 1 ; i >= 0 ; i--)
-                {
-                    var directive = visitor.InheritsDirectives[i];
-                    var tokens = directive.Tokens.ToArray();
-                    if (tokens.Length >= 1)
-                    {
-                        baseType = tokens[0].Content.Replace("<TModel>", "<" + modelType + ">");
-                        tokens[0].Content = baseType;
-                        break;
-                    }
-                }
-
                 visitor.Class.BaseType = baseType;
             }
         }
 
-        private class Visitor : RazorIRNodeWalker
+        private class Visitor : IntermediateNodeWalker
         {
-            public NamespaceDeclarationIRNode Namespace { get; private set; }
+            public NamespaceDeclarationIntermediateNode Namespace { get; private set; }
 
-            public ClassDeclarationIRNode Class { get; private set; }
+            public ClassDeclarationIntermediateNode Class { get; private set; }
 
-            public IList<DirectiveIRNode> InheritsDirectives { get; } = new List<DirectiveIRNode>();
+            public IList<DirectiveIntermediateNode> ModelDirectives { get; } = new List<DirectiveIntermediateNode>();
 
-            public IList<DirectiveIRNode> ModelDirectives { get; } = new List<DirectiveIRNode>();
-
-            public override void VisitNamespaceDeclaration(NamespaceDeclarationIRNode node)
+            public override void VisitNamespaceDeclaration(NamespaceDeclarationIntermediateNode node)
             {
                 if (Namespace == null)
                 {
@@ -150,7 +140,7 @@ namespace YetaWF2.Support
                 base.VisitNamespaceDeclaration(node);
             }
 
-            public override void VisitClassDeclaration(ClassDeclarationIRNode node)
+            public override void VisitClassDeclaration(ClassDeclarationIntermediateNode node)
             {
                 if (Class == null)
                 {
@@ -160,15 +150,11 @@ namespace YetaWF2.Support
                 base.VisitClassDeclaration(node);
             }
 
-            public override void VisitDirective(DirectiveIRNode node)
+            public override void VisitDirective(DirectiveIntermediateNode node)
             {
-                if (node.Descriptor == Directive)
+                if (node.Directive == Directive)
                 {
                     ModelDirectives.Add(node);
-                }
-                else if (node.Descriptor.Name == "inherits")
-                {
-                    InheritsDirectives.Add(node);
                 }
             }
         }

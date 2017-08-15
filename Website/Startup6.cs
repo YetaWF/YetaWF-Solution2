@@ -12,23 +12,19 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Razor.Extensions;
-using Microsoft.AspNetCore.Mvc.Razor.Internal;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.AspNetCore.Razor.Language.Extensions;
 using Microsoft.AspNetCore.Rewrite;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using YetaWF.Core;
 using YetaWF.Core.Controllers;
 using YetaWF.Core.Extensions;
@@ -41,7 +37,6 @@ using YetaWF.Core.Packages;
 using YetaWF.Core.Pages;
 using YetaWF.Core.Site;
 using YetaWF.Core.Support;
-using YetaWF.Core.Upload;
 using YetaWF.Core.Views;
 using YetaWF2.Middleware;
 using YetaWF2.Support;
@@ -87,7 +82,7 @@ namespace YetaWF.App_Start {
             services.AddResponseCompression();
 
             // set antiforgery cookie
-            services.AddAntiforgery(opts => opts.CookieName = "__ReqVerToken_" + YetaWFManager.DefaultSiteName);
+            services.AddAntiforgery(opts => opts.Cookie.Name = "__ReqVerToken_" + YetaWFManager.DefaultSiteName);
             // antiforgery filter for conditional antiforgery attribute
             services.AddSingleton<ConditionalAntiForgeryTokenFilter>();
 
@@ -107,8 +102,12 @@ namespace YetaWF.App_Start {
                     NamespaceDirective.Register(builder);
                     PageDirective.Register(builder);
 
-                    builder.AddTargetExtension(new InjectDirectiveTargetExtension());
-                    builder.AddTargetExtension(new TemplateTargetExtension() {
+                    FunctionsDirective.Register(builder);
+                    InheritsDirective.Register(builder);
+                    SectionDirective.Register(builder);
+
+                    builder.AddTargetExtension(new TemplateTargetExtension()
+                    {
                         TemplateTypeName = "global::Microsoft.AspNetCore.Mvc.Razor.HelperResult",
                     });
 
@@ -117,6 +116,7 @@ namespace YetaWF.App_Start {
                     builder.Features.Add(new ViewComponentTagHelperPass());
                     builder.Features.Add(new RazorPageDocumentClassifierPass());
                     builder.Features.Add(new MvcViewDocumentClassifierPass());
+                    builder.Features.Add(new AssemblyAttributeInjectionPass());
 
                     if (!builder.DesignTime) {
                         builder.Features.Add(new InstrumentationPass());
@@ -147,7 +147,7 @@ namespace YetaWF.App_Start {
             string sessionCookie = WebConfigHelper.GetValue<string>("SessionState", "CookieName", ".YetaWF.Session", Package: false);
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(sessionTimeout);
-                options.CookieName = sessionCookie;
+                options.Cookie.Name = sessionCookie;
             });
 
             services.AddSingleton<IAuthorizationHandler, ResourceAuthorizeHandler>();

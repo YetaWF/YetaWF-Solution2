@@ -26,6 +26,8 @@ namespace YetaWF.App_Start {
 #if DEBUG
                     //logging.AddDebug();
 #endif
+                    //https://github.com/aspnet/Announcements/issues/241
+                    //https://github.com/aspnet/Hosting/issues/1069
                     //$$logging.UseConfiguration(hostingContext.Configuration.GetSection("Logging"));
                 })
                 .UseKestrel()

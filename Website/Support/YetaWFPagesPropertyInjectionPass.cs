@@ -13,53 +13,45 @@ using Microsoft.AspNetCore.Razor.Language.Intermediate;
 
 namespace YetaWF2.Support
 {
-    public class YetaWFPagesPropertyInjectionPass : RazorIRPassBase, IRazorIROptimizationPass
+    public class YetaWFPagesPropertyInjectionPass : IntermediateNodePassBase, IRazorOptimizationPass
     {
-        protected override void ExecuteCore(RazorCodeDocument codeDocument, DocumentIRNode irDocument)
+        protected override void ExecuteCore(RazorCodeDocument codeDocument, DocumentIntermediateNode documentNode)
         {
-            if (irDocument.DocumentKind != RazorPageDocumentClassifierPass.RazorPageDocumentKind)
+            if (documentNode.DocumentKind != RazorPageDocumentClassifierPass.RazorPageDocumentKind)
             {
                 return;
             }
 
             bool asis;
-            var modelType = YetaWFModelDirective.GetModelType(irDocument, out asis);
+            var modelType = YetaWFModelDirective.GetModelType(documentNode, out asis);
             var visitor = new Visitor();
-            visitor.Visit(irDocument);
+            visitor.Visit(documentNode);
 
             var @class = visitor.Class;
 
             var viewDataType = $"global::Microsoft.AspNetCore.Mvc.ViewFeatures.ViewDataDictionary<{modelType}>";
-            var vddProperty = new CSharpStatementIRNode()
+            var vddProperty = new CSharpCodeIntermediateNode();
+            vddProperty.Children.Add(new IntermediateToken()
             {
-                Parent = @class
-            };
-            RazorIRBuilder.Create(vddProperty)
-                .Add(new RazorIRToken()
-                {
-                    Kind = RazorIRToken.TokenKind.CSharp,
+                Kind = TokenKind.CSharp,
                     Content = $"public {viewDataType} ViewData => ({viewDataType})PageContext?.ViewData;",
-                });
+            });
             @class.Children.Add(vddProperty);
 
-            var modelProperty = new CSharpStatementIRNode()
+            var modelProperty = new CSharpCodeIntermediateNode();
+            modelProperty.Children.Add(new IntermediateToken()
             {
-                Parent = @class
-            };
-            RazorIRBuilder.Create(modelProperty)
-                .Add(new RazorIRToken()
-                {
-                    Kind = RazorIRToken.TokenKind.CSharp,
+                Kind = TokenKind.CSharp,
                     Content = $"public {modelType} Model => ViewData.Model;",
                 });
             @class.Children.Add(modelProperty);
         }
 
-        private class Visitor : RazorIRNodeWalker
+        private class Visitor : IntermediateNodeWalker
         {
-            public ClassDeclarationIRNode Class { get; private set; }
+            public ClassDeclarationIntermediateNode Class { get; private set; }
 
-            public override void VisitClassDeclaration(ClassDeclarationIRNode node)
+            public override void VisitClassDeclaration(ClassDeclarationIntermediateNode node)
             {
                 if (Class == null)
                 {

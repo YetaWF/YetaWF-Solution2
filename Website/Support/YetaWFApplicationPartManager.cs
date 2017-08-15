@@ -2,20 +2,18 @@
 
 #if MVC6
 
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Internal;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using YetaWF.Core.Packages;
 
-namespace YetaWF2.Support {
-    
+namespace YetaWF2.Support
+{
+
     public class YetaWFApplicationPartManager : ApplicationPartManager {
         public YetaWFApplicationPartManager() {
 
