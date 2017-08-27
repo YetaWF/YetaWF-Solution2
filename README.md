@@ -1,6 +1,6 @@
 ![Yet Another Web Framework](logo.jpg)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/ovmr42gt5ucurfei/branch/master?svg=true)](https://ci.appveyor.com/project/YetaWF/yetawf-solution/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/acqxwlupqbgfii5p/branch/master?svg=true)](https://ci.appveyor.com/project/YetaWF/yetawf-solution2/branch/master)
 
 *STOP* - Do not simply retrieve the repository. There [are a few easy steps](https://yetawf.com/Documentation/YetaWF/Topic/g_installing_git) you need to follow to correctly install YetaWF.
 
