@@ -21,8 +21,3 @@ MaintenancePage Offline For Maintenance.html
 ### In order to run an ASP.NET Core application on IIS you need to install the .NET Core Windows Server Hosting bundle on the server.
 ### For more information see https://docs.microsoft.com/en-us/aspnet/core/publishing/iis#install-the-net-core-windows-server-hosting-bundle
 
-### FIRST TIME INSTALL!
-### C++ Runtime for Visual Studio 2012 x64 is required for NSASS
-### Install x64 or x86 depending on target system
-### Download from https://www.microsoft.com/en-us/download/details.aspx?id=30679
-

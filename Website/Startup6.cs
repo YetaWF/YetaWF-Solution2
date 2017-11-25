@@ -226,7 +226,7 @@ namespace YetaWF.App_Start {
                     string path = context.Request.Path.ToString().ToLower();
                     bool match = path.EndsWith(".css");
                     if (match)
-                        StartRequest(context);
+                        StartRequest(context, true);
                     return match;
                 },
                 appBranch => {
@@ -239,7 +239,7 @@ namespace YetaWF.App_Start {
                     string path = context.Request.Path.ToString().ToLower();
                     bool match = path == "/filehndlr.image" || path == "/file.image";
                     if (match)
-                        StartRequest(context);
+                        StartRequest(context, true);
                     return match;
                 },
                 appBranch => {
@@ -263,14 +263,14 @@ namespace YetaWF.App_Start {
                 }
                 app.UseStaticFiles(new StaticFileOptions {
                     FileProvider = new PhysicalFileProvider(Path.Combine(YetaWFManager.RootFolderWebProject, @"node_modules")),
-                    RequestPath = new PathString("/node_modules"),
+                    RequestPath = new PathString("/" + Globals.NodeModulesFolder),
                     OnPrepareResponse = (context) => {
                         YetaWFManager.SetStaticCacheInfo(context.Context.Response);
                     }
                 });
                 app.UseStaticFiles(new StaticFileOptions {
                     FileProvider = new PhysicalFileProvider(Path.Combine(YetaWFManager.RootFolderWebProject, @"bower_components")),
-                    RequestPath = new PathString("/bower_components"),
+                    RequestPath = new PathString("/" + Globals.BowerComponentsFolder),
                     OnPrepareResponse = (context) => {
                         YetaWFManager.SetStaticCacheInfo(context.Context.Response);
                     }
@@ -285,7 +285,7 @@ namespace YetaWF.App_Start {
 
             // Everything else
             app.Use(async (context, next) => {
-                StartRequest(context);
+                StartRequest(context, false);
                 await next();
             });
 
@@ -331,31 +331,43 @@ namespace YetaWF.App_Start {
             }
         }
 
-        public void StartRequest(HttpContext httpContext) {
+        public void StartRequest(HttpContext httpContext, bool isStaticHost) {
 
             HttpRequest httpReq = httpContext.Request;
 
             // Determine which Site folder to use based on URL provided
             bool forcedHost = false, newSwitch = false;
+            bool staticHost = false;
+
             string host = httpReq.Query[Globals.Link_ForceSite];
+            string host2 = null;
+
+            host = httpReq.Query[Globals.Link_ForceSite];
             if (!string.IsNullOrWhiteSpace(host)) {
                 newSwitch = true;
                 YetaWFManager.SetRequestedDomain(host);
             }
             if (string.IsNullOrWhiteSpace(host) && httpContext.Session != null)
                 host = httpContext.Session.GetString(Globals.Link_ForceSite);
+
             if (string.IsNullOrWhiteSpace(host))
                 host = httpReq.Host.Host;
             else
                 forcedHost = true;
+
             // beautify the host name a bit
             if (host.Length > 1)
                 host = char.ToUpper(host[0]) + host.Substring(1).ToLower();
             else
                 host = host.ToUpper();
 
-            string host2 = null;
-
+            SiteDefinition site = null;
+            if (isStaticHost)
+                site = SiteDefinition.LoadStaticSiteDefinition(host);
+            if (site != null) {
+                if (forcedHost || newSwitch) throw new InternalError("Static item for forced or new host");
+                staticHost = true;
+            } else { 
             // check if such a site definition exists (accounting for www. or other subdomain)
             string[] domParts = host.Split(new char[] { '.' });
             if (domParts.Length > 2) {
@@ -363,7 +375,7 @@ namespace YetaWF.App_Start {
                     host2 = host;
                 host = string.Join(".", domParts, domParts.Length - 2, 2);// get just domain as a fallback
             }
-            SiteDefinition site = null;
+
             if (!string.IsNullOrWhiteSpace(host2)) {
                 site = SiteDefinition.LoadSiteDefinition(host2);
                 if (site != null)
@@ -392,6 +404,7 @@ namespace YetaWF.App_Start {
                     }
                 }
             }
+            }
             // We have a valid request for a known domain or the default domain
             // create a YetaWFManager object to keep track of everything (it serves
             // as a global anchor for everything we need to know while processing this request)
@@ -399,6 +412,7 @@ namespace YetaWF.App_Start {
             // Site properties are ONLY valid AFTER this call to YetaWFManager.MakeInstance
 
             manager.CurrentSite = site;
+            manager.IsStaticSite = staticHost;
 
             manager.HostUsed = httpReq.Host.Host;
             manager.HostPortUsed = httpReq.Host.Port ?? 80;
@@ -428,7 +442,7 @@ namespace YetaWF.App_Start {
                 }
             }
             // Make sure we're using the "official" URL, otherwise redirect 301
-            if (site.EnforceSiteUrl) {
+            if (!staticHost && site.EnforceSiteUrl) {
                 if (uri.IsAbsoluteUri) {
                     if (!manager.IsLocalHost && !forcedHost && string.Compare(manager.HostUsed, site.SiteDomain, true) != 0) {
                         UriBuilder newUrl = new UriBuilder(uri);
@@ -443,6 +457,20 @@ namespace YetaWF.App_Start {
             // IE rejects our querystrings that have encoded "?" (%3D) even though that's completely valid
             // so we have to turn of XSS protection (which is not necessary in YetaWF anyway)
             httpContext.Response.Headers.Add("X-Xss-Protection", "0");
+
+            if (manager.IsStaticSite)
+                RemoveCookiesForStatics(httpContext);
+        }
+
+        private void RemoveCookiesForStatics(HttpContext context) {
+            // Clear all cookies for static requests
+            List<string> cookiesToClear = new List<string>();
+            foreach (string name in context.Request.Cookies.Keys) cookiesToClear.Add(name);
+            foreach (string name in cookiesToClear) {
+                context.Response.Cookies.Delete(name);
+            }
+            // this cookie is added by filehndlr.image
+            //context.Response.Cookies.Delete("ASP.NET_SessionId");
         }
 
         private Uri RemoveQsKeyFromUri(Uri uri, IQueryCollection queryColl, string qsKey) {
