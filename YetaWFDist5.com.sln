@@ -121,6 +121,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TawkTo", "Modules\YetaWF\Ta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Panels", "Modules\YetaWF\Panels\Panels.csproj", "{9EED7794-1004-4434-9A92-BEC8BD349AD8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefaultSkin", "Skins\YetaWF\DefaultSkin\DefaultSkin.csproj", "{79627CE7-8740-4610-A0BB-89136EF92011}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -323,6 +325,10 @@ Global
 		{9EED7794-1004-4434-9A92-BEC8BD349AD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EED7794-1004-4434-9A92-BEC8BD349AD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EED7794-1004-4434-9A92-BEC8BD349AD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79627CE7-8740-4610-A0BB-89136EF92011}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79627CE7-8740-4610-A0BB-89136EF92011}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79627CE7-8740-4610-A0BB-89136EF92011}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79627CE7-8740-4610-A0BB-89136EF92011}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -378,6 +384,7 @@ Global
 		{62C98892-E144-4FA6-AE1D-F4FD1A437A8C} = {64E4FF64-35EE-41EC-AD69-78B39C011B1C}
 		{FC519C32-6457-42EC-AD7A-5817270C6056} = {2814D707-63E6-4220-9AFD-D710B95E8B09}
 		{9EED7794-1004-4434-9A92-BEC8BD349AD8} = {2814D707-63E6-4220-9AFD-D710B95E8B09}
+		{79627CE7-8740-4610-A0BB-89136EF92011} = {64E4FF64-35EE-41EC-AD69-78B39C011B1C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F151937E-7D28-481E-A5B3-A2F239F3C8FC}
