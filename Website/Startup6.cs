@@ -1,9 +1,13 @@
-﻿/* Copyright © 2017 Softel vdm, Inc. - http://yetawf.com/Documentation/YetaWF/Licensing */
+﻿/* Copyright © 2018 Softel vdm, Inc. - https://yetawf.com/Documentation/YetaWF/Licensing */
 
 #if MVC6
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -27,6 +31,7 @@ using System.Collections.Generic;
 using System.IO;
 using YetaWF.Core;
 using YetaWF.Core.Controllers;
+using YetaWF.Core.DataProvider;
 using YetaWF.Core.Extensions;
 using YetaWF.Core.HttpHandler;
 using YetaWF.Core.Identity;
@@ -80,6 +85,27 @@ namespace YetaWF.App_Start {
             services.AddScoped<IViewRenderService, ViewRenderService>();
 
             services.AddResponseCompression();
+
+            //TODO: Signalr.ConfigureServices(services);
+
+            services.Configure<KeyManagementOptions>(options =>
+            {
+                options.XmlRepository = new DataProtectionKeyRepository();
+            });
+
+            //https://stackoverflow.com/questions/43860631/how-do-i-handle-validateantiforgerytoken-across-linux-servers
+            //https://nicolas.guelpa.me/blog/2017/01/11/dotnet-core-data-protection-keys-repository.html
+            //https://long2know.com/2017/06/net-core-sql-dataprotection-key-storage-provider-using-entity-framework/
+            var encryptionSettings = new AuthenticatedEncryptorConfiguration() {
+                EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
+                ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
+            };
+            services
+                .AddDataProtection()
+                .PersistKeysToAppSettings()
+                .SetDefaultKeyLifetime(new TimeSpan(100*365, 0, 0, 0))
+                .SetApplicationName("__YetaWFDP_" + YetaWFManager.DefaultSiteName)
+                .UseCryptographicAlgorithms(encryptionSettings);
 
             // set antiforgery cookie
             services.AddAntiforgery(opts => opts.Cookie.Name = "__ReqVerToken_" + YetaWFManager.DefaultSiteName);
@@ -283,6 +309,8 @@ namespace YetaWF.App_Start {
                 });
             }
 
+            //TODO: Signalr.ConfigureHubs(app);
+
             // Everything else
             app.Use(async (context, next) => {
                 StartRequest(context, false);
@@ -316,6 +344,8 @@ namespace YetaWF.App_Start {
 
                         YetaWFManager manager = YetaWFManager.MakeInitialThreadInstance(new SiteDefinition() { SiteDomain = "__STARTUP" }); // while loading packages we need a manager
 
+                        // External data providers
+                        ExternalDataProviders.RegisterExternalDataProviders();
                         // Call all classes that expose the interface IInitializeApplicationStartup
                         YetaWF.Core.Support.Startup.CallStartupClasses();
 
@@ -447,6 +477,13 @@ namespace YetaWF.App_Start {
                     if (!manager.IsLocalHost && !forcedHost && string.Compare(manager.HostUsed, site.SiteDomain, true) != 0) {
                         UriBuilder newUrl = new UriBuilder(uri);
                         newUrl.Host = site.SiteDomain;
+                        if (site.EnforceSitePort) {
+                            if (newUrl.Scheme == "https") {
+                                newUrl.Port = site.PortNumberSSLEval;
+                            } else {
+                                newUrl.Port = site.PortNumberEval;
+                            }
+                        }
                         Logging.AddLog("301 Moved Permanently - {0}", newUrl.ToString()).Truncate(100);
                         httpContext.Response.StatusCode = 301;
                         httpContext.Response.Headers.Add("Location", newUrl.ToString());
