@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.IO;
+using YetaWF2.Logger;
 
 namespace YetaWF.App_Start {
 
@@ -22,13 +23,13 @@ namespace YetaWF.App_Start {
                 .UseConfiguration(config)
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .ConfigureLogging((hostingContext, logging) => {
-                    logging.AddConsole();
+                    //$$logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                    logging.ClearProviders();
+
+                    logging.AddYetaWFLogger();
 #if DEBUG
-                    //logging.AddDebug();
+                    logging.AddDebug();
 #endif
-                    //https://github.com/aspnet/Announcements/issues/241
-                    //https://github.com/aspnet/Hosting/issues/1069
-                    //$$logging.UseConfiguration(hostingContext.Configuration.GetSection("Logging"));
                 })
                 .UseKestrel()
                 .UseIISIntegration()

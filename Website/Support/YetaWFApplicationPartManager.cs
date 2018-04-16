@@ -35,9 +35,11 @@ namespace YetaWF2.Support
                 Assembly found = (from Assembly a in assemblies where a.ManifestModule.FullyQualifiedName == file select a).FirstOrDefault();
                 if (found == null) {
                     Assembly newAssembly = null;
-                    try {
-                        newAssembly = Assembly.LoadFile(file);
-                    } catch (Exception) { }
+                    if (!file.EndsWith("\\libuv.dll")) {// avoid exception spam
+                        try {
+                            newAssembly = Assembly.LoadFile(file);
+                        } catch (Exception) { }
+                    }
                     if (newAssembly != null) {
                         Package package = new Package(newAssembly);
                         if (package.IsValid) {

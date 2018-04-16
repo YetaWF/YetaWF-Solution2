@@ -121,6 +121,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Redis.Core" Version="1.0.3" />
     <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.0.0" />
@@ -143,6 +144,7 @@
     <ProjectReference Include="..\Modules\YetaWF\Basics\Basics.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Blog\Blog.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\BootstrapCarousel\BootstrapCarousel.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\Caching\Caching.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\CurrencyConverter\CurrencyConverter.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Dashboard\Dashboard.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\DevTests\DevTests.csproj" />

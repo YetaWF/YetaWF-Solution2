@@ -12,7 +12,9 @@ using System.Xml.Linq;
 using YetaWF.Core.Support;
 
 namespace YetaWF2.Support {
+
     public class DataProtectionKeyRepository : IXmlRepository {
+
         public IReadOnlyCollection<XElement> GetAllElements() {
             string s = WebConfigHelper.GetValue<string>("DataProtection", "List", null, false);
             if (s == null) return new List<XElement>();
@@ -28,7 +30,7 @@ namespace YetaWF2.Support {
 
             string s = YetaWFManager.JsonSerialize(list);
             WebConfigHelper.SetValue<string>("DataProtection", "List", s, false);
-            WebConfigHelper.Save();
+            WebConfigHelper.SaveAsync().Wait();// oh well
         }
     }
 

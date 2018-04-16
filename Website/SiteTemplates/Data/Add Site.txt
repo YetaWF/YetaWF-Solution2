@@ -1,4 +1,4 @@
-﻿### Copyright © 2017 Softel vdm, Inc. - https://yetawf.com/Documentation/YetaWF/Licensing
+﻿### Copyright © 2018 Softel vdm, Inc. - https://yetawf.com/Documentation/YetaWF/Licensing
 ###
 ### Site properties for sites added using template in Data folder
 ### This is executed after all packages have been imported
@@ -28,8 +28,8 @@ YetaWF.SiteProperties, YetaWF.Modules.SiteProperties.Modules.SitePropertiesModul
     CurrentSite.jQueryUISkin = "Start"
     CurrentSite.KendoUISkin = "Blue Opal"
 
-	CurrentSite.CssLocation = 1
-	CurrentSite.JSLocation = 1
+    CurrentSite.CssLocation = 1
+    CurrentSite.JSLocation = 1
     InitComplete()
 
 YetaWF.Identity, YetaWF.Modules.Identity.Modules.UsersBrowseModule

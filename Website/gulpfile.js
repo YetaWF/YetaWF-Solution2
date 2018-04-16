@@ -21,13 +21,13 @@ gulp.task('ReleaseBuild', () => {
 var ts = require('gulp-typescript');
 var sourcemaps = require('gulp-sourcemaps');
 var tsFolders = [
-            "wwwroot/**/*.ts",
-            "wwwroot/**/*.tsx",
-            "!wwwroot/**/*.d.ts",
-            "!lib/**",
-            "!lib",
-            "!wwwroot/AddOns/YetaWF/Core/_JS/**",
-            "!wwwroot/AddOns/YetaWF/Core/_JS"
+    "wwwroot/**/*.ts",
+    "wwwroot/**/*.tsx",
+    "!wwwroot/**/*.d.ts",
+    "!lib/**",
+    "!lib",
+    "!wwwroot/AddOns/YetaWF/Core/_JS/**",
+    "!wwwroot/AddOns/YetaWF/Core/_JS"
 ];
 gulp.task('ts', () => {
     var tsProject = ts.createProject('tsconfig.json');
@@ -60,11 +60,11 @@ gulp.task("tslint", () =>
 /* Scss Compile */
 var sass = require('gulp-sass');
 var sassFolders = [
-            "wwwroot/AddOns/**/*.scss",
-            "wwwroot/Vault/**/*.scss",
-            "VaultPrivate/**/*.scss",
-            "!wwwroot/AddOns/YetaWF/Core/_JS/**",
-            "!wwwroot/AddOns/YetaWF/Core/_JS"
+    "wwwroot/AddOns/**/*.scss",
+    "wwwroot/Vault/**/*.scss",
+    "VaultPrivate/**/*.scss",
+    "!wwwroot/AddOns/YetaWF/Core/_JS/**",
+    "!wwwroot/AddOns/YetaWF/Core/_JS"
 ];
 gulp.task('sass', () =>
     gulp.src(sassFolders, { follow: true })
@@ -82,13 +82,13 @@ gulp.task('sass', () =>
 /* Less Compile */
 var less = require('gulp-less');
 var lessFolders = [
-            "wwwroot/AddOns/**/*.less",
-            "wwwroot/Vault/**/*.less",
-            "VaultPrivate/**/*.less",
-            //"!AddOns/YetaWF/Core/_JS/**",
-            //"!AddOns/YetaWF/Core/_JS",
-            "!**/*.min.less",
-            "!**/*.pack.less"
+    "wwwroot/AddOns/**/*.less",
+    "wwwroot/Vault/**/*.less",
+    "VaultPrivate/**/*.less",
+    //"!AddOns/YetaWF/Core/_JS/**",
+    //"!AddOns/YetaWF/Core/_JS",
+    "!**/*.min.less",
+    "!**/*.pack.less"
 ]
 gulp.task('less', () =>
     gulp.src(lessFolders, { follow: true })
