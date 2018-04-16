@@ -235,8 +235,6 @@ namespace YetaWF.App_Start {
             IMemoryCache memoryCache = (IMemoryCache)ServiceProvider.GetService(typeof(IMemoryCache));
             YetaWFManager.Init(ServiceProvider, httpContextAccessor, memoryCache);
 
-            await Logging.SetupLoggingAsync();
-
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
                 //app.UseBrowserLink();
@@ -368,6 +366,11 @@ namespace YetaWF.App_Start {
 
                         // Stop startup log file
                         Logging.UnregisterLogging(startupLog);
+
+                        YetaWFManager.Syncify(async () => { // startup code
+                            // start real logging
+                            await Logging.SetupLoggingAsync();
+                        });
 
                         YetaWFManager.RemoveThreadInstance(); // Remove startup manager
 
