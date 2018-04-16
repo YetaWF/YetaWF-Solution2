@@ -45,7 +45,7 @@ namespace YetaWF2.Logger {
                 default:
                 case LogLevel.Trace: level = Logging.LevelEnum.Trace; break;
                 case LogLevel.Debug: level = Logging.LevelEnum.Trace; break;
-                case LogLevel.Information: level = Logging.LevelEnum.Info; break;
+                case LogLevel.Information: level = Logging.LevelEnum.Trace; break;// information is very spammy, make it trace instead
                 case LogLevel.Warning: level = Logging.LevelEnum.Warning; break;
                 case LogLevel.Error: level = Logging.LevelEnum.Error; break;
                 case LogLevel.Critical: level = Logging.LevelEnum.Error; break;
