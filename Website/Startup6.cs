@@ -340,41 +340,41 @@ namespace YetaWF.App_Start {
 
             if (!YetaWF.Core.Support.Startup.Started) {
 
-                using (_lockObject.Lock()) {
+                using (_lockObject.Lock()) { // protect from duplicate startup
 
                     if (!YetaWF.Core.Support.Startup.Started) {
 
-                        // Create a startup log file
-                        StartupLogging startupLog = new StartupLogging();
-                        Logging.RegisterLogging(startupLog);
-
-                        Logging.AddLog("StartYetaWF starting");
-
-                        YetaWFManager manager = YetaWFManager.MakeInitialThreadInstance(new SiteDefinition() { SiteDomain = "__STARTUP" }); // while loading packages we need a manager
-                        YetaWFManager.Syncify(async () =>
-                        {
-                            // External data providers
-                            ExternalDataProviders.RegisterExternalDataProviders();
-                            // Call all classes that expose the interface IInitializeApplicationStartup
-                            await YetaWF.Core.Support.Startup.CallStartupClassesAsync();
-
-                            if (!YetaWF.Core.Support.Startup.MultiInstance)
-                                await Package.UpgradeToNewPackagesAsync();
-
-                            YetaWF.Core.Support.Startup.Started = true;
-                        });
-
-                        // Stop startup log file
-                        Logging.UnregisterLogging(startupLog);
-
                         YetaWFManager.Syncify(async () => { // startup code
+
+                            // Create a startup log file
+                            StartupLogging startupLog = new StartupLogging();
+                            await Logging.RegisterLoggingAsync(startupLog);
+
+                            Logging.AddLog("StartYetaWF starting");
+
+                            YetaWFManager manager = YetaWFManager.MakeInitialThreadInstance(new SiteDefinition() { SiteDomain = "__STARTUP" }); // while loading packages we need a manager
+                            YetaWFManager.Syncify(async () => {
+                                // External data providers
+                                ExternalDataProviders.RegisterExternalDataProviders();
+                                // Call all classes that expose the interface IInitializeApplicationStartup
+                                await YetaWF.Core.Support.Startup.CallStartupClassesAsync();
+
+                                if (!YetaWF.Core.Support.Startup.MultiInstance)
+                                    await Package.UpgradeToNewPackagesAsync();
+
+                                YetaWF.Core.Support.Startup.Started = true;
+                            });
+
+                            // Stop startup log file
+                            Logging.UnregisterLogging(startupLog);
+
                             // start real logging
                             await Logging.SetupLoggingAsync();
+
+                            YetaWFManager.RemoveThreadInstance(); // Remove startup manager
+
+                            Logging.AddLog("StartYetaWF completed");
                         });
-
-                        YetaWFManager.RemoveThreadInstance(); // Remove startup manager
-
-                        Logging.AddLog("StartYetaWF completed");
                     }
                 }
             }
