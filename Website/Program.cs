@@ -28,7 +28,7 @@ namespace YetaWF.App_Start {
 
                     logging.AddYetaWFLogger();
 #if DEBUG
-                    logging.AddDebug();
+                    //logging.AddDebug();
 #endif
                 })
                 .UseKestrel()
