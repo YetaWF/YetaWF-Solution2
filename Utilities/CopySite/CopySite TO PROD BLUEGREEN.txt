@@ -1,0 +1,30 @@
+﻿# SQL Databases
+# Production system
+ProdDB yourDEVdatabasename,yourPRODdatabasename{-BLUEGREEN},sqlservername,username,password
+# additional ProdDB statements if you have more DBs
+
+# Relative location of the website we want to deploy
+SiteLocation C:\targetpath.....\yoursite{-BLUEGREEN}
+
+# The location of the ZIP file
+ZipFile C:\targetpath.....\Website.zip
+
+# STOP site and apppool
+RunFirst C:\windows\system32\inetsrv\appcmd.exe stop site /site.name:yoursite{-BLUEGREEN}
+RunFirstIgnore C:\windows\system32\inetsrv\appcmd.exe stop apppool /apppool.name:yoursite{-BLUEGREEN}
+
+# START site and apppool
+Run C:\windows\system32\inetsrv\appcmd.exe start apppool /apppool.name:yoursite{-BLUEGREEN}
+Run C:\windows\system32\inetsrv\appcmd.exe start site /site.name:yoursite{-BLUEGREEN}
+
+# Update proxy to switch to new site
+Run Copy /Y "Web{-BLUEGREEN}.config"  "yoursite-BlueGreen\Web.config"
+# Update health checks
+RunIgnore Del "C:\targetpath.....\yoursite-Blue\_hc.html"
+RunIgnore Del "C:\targetpath.....\yoursite-Green\_hc.html"
+Run Copy /Y "_hc.html"  "C:\targetpath.....\yoursite-{BLUEGREEN}\_hc.html"
+
+# STOP the "other" site and apppool
+Run C:\windows\system32\inetsrv\appcmd.exe stop site /site.name:yoursite{-BLUEGREEN-OTHER}
+RunIgnore C:\windows\system32\inetsrv\appcmd.exe stop apppool /apppool.name:yoursite{-BLUEGREEN-OTHER}
+
