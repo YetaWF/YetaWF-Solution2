@@ -191,14 +191,14 @@
     <ProjectReference Include="..\Skins\YetaWF\BootstrapSample\BootstrapSample.csproj" />
     <ProjectReference Include="..\Skins\YetaWF\BusinessCasualSkin\BusinessCasualSkin.csproj" />
     <ProjectReference Include="..\Skins\YetaWF\DefaultSkin\DefaultSkin.csproj" />
-  </ItemGroup>
+  </ItemGroup> 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.Extensions.Caching.SqlConfig.Tools" Version="1.0.0-msbuild3-final" />
-  </ItemGroup>
+  </ItemGroup> 
   <ItemGroup>
     <Folder Include="logs\" />
   </ItemGroup>
-
+  
   <Target Name="Gulp" AfterTargets="AfterBuild">
     <Exec Command="gulp $(Configuration)Build" />
   </Target>
