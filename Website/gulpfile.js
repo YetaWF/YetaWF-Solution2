@@ -4,14 +4,14 @@
 // when running sass, use "npm rebuild node-sass".
 
 var gulp = require('gulp');
-var print = require('gulp-print');
+var print = require('gulp-print').default;
 var ext_replace = require('gulp-ext-replace');
 var replace = require('gulp-replace');
 var lec = require('gulp-line-ending-corrector');
 
 var runSequence = require('run-sequence');
 gulp.task('DebugBuild', () => {
-    runSequence(['sass', 'less'], 'ts');
+    runSequence(['sass', 'less'] ,'ts');
 });
 gulp.task('ReleaseBuild', () => {
     runSequence(['sass', 'less', 'less-global'], ['ts', 'tslint'], ["minify-js", "minify-css", "minify-globals-css"]);
@@ -40,7 +40,7 @@ gulp.task('ts', () => {
         .pipe(gulp.dest(function (file) {
             return file.base;
         }));
-}
+    }
 );
 
 /* TypeScript Lint */
@@ -89,7 +89,7 @@ var lessFolders = [
     //"!AddOns/YetaWF/Core/_JS",
     "!**/*.min.less",
     "!**/*.pack.less"
-]
+];
 gulp.task('less', () =>
     gulp.src(lessFolders, { follow: true })
         .pipe(print())
@@ -151,7 +151,7 @@ gulp.task('minify-css', () =>
             "wwwroot/Vault/**/*.css",
             "VaultPrivate/**/*.css",
             "node_modules/normalize-css/*.css",
-            "node_modules/smartmenus/dist/addons/bootstrap/*.css",
+            "node_modules/smartmenus/dist/addons/bootstrap-4/*.css",
             //"!AddOns/YetaWF/Core/_JS/google.com.swfobject/**",
             //"!AddOns/YetaWF/Core/_JS/google.com.swfobject",
             "!**/*.min.css",

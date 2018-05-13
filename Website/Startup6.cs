@@ -61,9 +61,9 @@ namespace YetaWF.App_Start {
         public Startup6(IHostingEnvironment env, ILoggerFactory loggerFactory) {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile(Path.Combine(Globals.DataFolder, AppSettingsFile), optional: false, reloadOnChange: true)
+                .AddJsonFile(Path.Combine(Globals.DataFolder, AppSettingsFile), optional: false, reloadOnChange: false)
 #if DEBUG
-                .AddJsonFile(Path.Combine(Globals.DataFolder, AppSettingsFileDebug), optional: true)
+                .AddJsonFile(Path.Combine(Globals.DataFolder, AppSettingsFileDebug), optional: true, reloadOnChange: false)
 #endif
                 ;
             //builder.AddEnvironmentVariables(); // not used

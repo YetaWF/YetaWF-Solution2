@@ -3,8 +3,6 @@ YetaWF.Backups 3.0.0
 YetaWF.Basics 3.0.0
 YetaWF.Blog 3.0.0
 YetaWF.BootstrapCarousel 3.0.0
-YetaWF.BootstrapSample 3.0.0
-YetaWF.BusinessCasualSkin 3.0.0
 YetaWF.Caching 3.0.0
 YetaWF.Core 3.0.0
 YetaWF.Core.CssHttpHandler 3.0.0

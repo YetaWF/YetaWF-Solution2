@@ -25,6 +25,9 @@
     <DefineConstants>DEBUG;MVC6;NETCOREAPP2_0;NETCOREAPP</DefineConstants>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <ApplicationIcon />
+    <OutputType>WinExe</OutputType>
+    <StartupObject />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -112,36 +115,40 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.ApiExplorer" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.DataAnnotations" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Xml" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Localization" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ApiExplorer" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.DataAnnotations" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Xml" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Localization" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.0.4" />
     <!-- Precompiled views only work if all cshtml are in the web project marked content - unfortunately that's not compatible with YetaWF's modular structure -->
     <!--<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.ViewCompilation" Version="2.0.0" PrivateAssets="All" />-->
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Rewrite" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Rewrite" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.3" />
     <PackageReference Include="Microsoft.Extensions.Caching.Redis.Core" Version="1.0.3" />
-    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="2.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.2" />
     <!--<PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.0" />-->
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.Extensions.Caching.SqlConfig.Tools" Version="1.0.0-msbuild3-final" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CoreComponents\Core\Core.csproj" />
@@ -188,17 +195,12 @@
     <ProjectReference Include="..\Modules\YetaWF\UserProfile\UserProfile.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\UserSettings\UserSettings.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Visitors\Visitors.csproj" />
-    <ProjectReference Include="..\Skins\YetaWF\BootstrapSample\BootstrapSample.csproj" />
-    <ProjectReference Include="..\Skins\YetaWF\BusinessCasualSkin\BusinessCasualSkin.csproj" />
     <ProjectReference Include="..\Skins\YetaWF\DefaultSkin\DefaultSkin.csproj" />
-  </ItemGroup> 
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.Extensions.Caching.SqlConfig.Tools" Version="1.0.0-msbuild3-final" />
-  </ItemGroup> 
+  </ItemGroup>
   <ItemGroup>
     <Folder Include="logs\" />
   </ItemGroup>
-  
+
   <Target Name="Gulp" AfterTargets="AfterBuild">
     <Exec Command="gulp $(Configuration)Build" />
   </Target>
