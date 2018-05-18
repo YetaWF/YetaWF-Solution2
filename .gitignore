@@ -41,3 +41,5 @@ Website/web.Generic.config
 Website/web.GenericProd.config
 Website/Website.Generic.csproj_MVC6
 YetaWF2.Generic.sln
+Website/Data/StartupLogFile.txt
+Website/Data/InitialInstall.txt

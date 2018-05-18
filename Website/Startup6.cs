@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationM
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
@@ -29,10 +28,10 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using YetaWF.Core;
 using YetaWF.Core.Controllers;
 using YetaWF.Core.DataProvider;
-using YetaWF.Core.Extensions;
 using YetaWF.Core.HttpHandler;
 using YetaWF.Core.Identity;
 using YetaWF.Core.Language;
@@ -62,9 +61,9 @@ namespace YetaWF.App_Start {
         public Startup6(IHostingEnvironment env, ILoggerFactory loggerFactory) {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile(Path.Combine(Globals.DataFolder, AppSettingsFile), optional: false, reloadOnChange: true)
+                .AddJsonFile(Path.Combine(Globals.DataFolder, AppSettingsFile), optional: false, reloadOnChange: false)
 #if DEBUG
-                .AddJsonFile(Path.Combine(Globals.DataFolder, AppSettingsFileDebug), optional: true)
+                .AddJsonFile(Path.Combine(Globals.DataFolder, AppSettingsFileDebug), optional: true, reloadOnChange: false)
 #endif
                 ;
             //builder.AddEnvironmentVariables(); // not used
@@ -73,8 +72,8 @@ namespace YetaWF.App_Start {
             YetaWFManager.RootFolder = env.WebRootPath;
             YetaWFManager.RootFolderWebProject = env.ContentRootPath;
 
-            WebConfigHelper.Init(Path.Combine(YetaWFManager.RootFolderWebProject, Globals.DataFolder, AppSettingsFile));
-            LanguageSection.Init(Path.Combine(YetaWFManager.RootFolderWebProject, Globals.DataFolder, LanguageSettingsFile));
+            WebConfigHelper.InitAsync(Path.Combine(YetaWFManager.RootFolderWebProject, Globals.DataFolder, AppSettingsFile)).Wait();
+            LanguageSection.InitAsync(Path.Combine(YetaWFManager.RootFolderWebProject, Globals.DataFolder, LanguageSettingsFile)).Wait();
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -119,7 +118,6 @@ namespace YetaWF.App_Start {
             services.AddSingleton<ApplicationPartManager>(new YetaWFApplicationPartManager());
 
             // We need to handle ModelDirective to derive the Model type (otherwise we'll end up with "dynamic") for all our views
-            // This is most likely going to change as we're using an unreleased version of MVC
             // Such a hack... TODO: Research if there is a cleaner way in ModelDirective
             services.AddSingleton(typeof(RazorEngine), s => {
                 return RazorEngine.Create(builder => {
@@ -153,19 +151,30 @@ namespace YetaWF.App_Start {
             services.AddMemoryCache();
 
             // Memory or distributed caching
-            string sqlConn =  WebConfigHelper.GetValue<string>("SessionState", "SqlCache-Connection", null, Package: false);
-            string sqlSchema =  WebConfigHelper.GetValue<string>("SessionState", "SqlCache-Schema", null, Package: false);
-            string sqlTable =  WebConfigHelper.GetValue<string>("SessionState", "SqlCache-Table", null, Package: false);
-            if (string.IsNullOrWhiteSpace(sqlConn) || string.IsNullOrWhiteSpace(sqlSchema) || string.IsNullOrWhiteSpace(sqlTable)) {
-                services.AddDistributedMemoryCache();
-            } else {
-                // Create sql table (in .\src folder): dotnet sql-cache create "Data Source=...;Initial Catalog=...;Integrated Security=True;" dbo SessionCache
-                // to use distributed sql server cache
-                services.AddDistributedSqlServerCache(options => {
-                    options.ConnectionString = sqlConn;
-                    options.SchemaName = sqlSchema;
-                    options.TableName = sqlTable;
+            string distProvider = WebConfigHelper.GetValue<string>("SessionState", "Provider", "", Package: false).ToLower();
+            if (distProvider == "redis") {
+                string config = WebConfigHelper.GetValue<string>("SessionState", "RedisConfig", "localhost:6379", Package: false);
+                services.AddDistributedRedisCache(o => {
+                    o.Configuration = config;
                 });
+            } else if (distProvider == "sql") {
+                string sqlConn = WebConfigHelper.GetValue<string>("SessionState", "SqlConnection", null, Package: false);
+                string sqlSchema = WebConfigHelper.GetValue<string>("SessionState", "SqlSchema", null, Package: false);
+                string sqlTable = WebConfigHelper.GetValue<string>("SessionState", "SqlTable", null, Package: false);
+                if (string.IsNullOrWhiteSpace(sqlConn) || string.IsNullOrWhiteSpace(sqlSchema) || string.IsNullOrWhiteSpace(sqlTable)) {
+                    services.AddDistributedMemoryCache();
+                } else {
+                    // Create sql table (in .\src folder): dotnet sql-cache create "Data Source=...;Initial Catalog=...;Integrated Security=True;" dbo SessionCache
+                    // to use distributed sql server cache
+                    // MAKE SURE TO CHANGE \\ TO \ WHEN COPYING THE CONNECTION STRING!!!
+                    services.AddDistributedSqlServerCache(options => {
+                        options.ConnectionString = sqlConn;
+                        options.SchemaName = sqlSchema;
+                        options.TableName = sqlTable;
+                    });
+                }
+            } else {
+                services.AddDistributedMemoryCache();
             }
 
             // Session state
@@ -216,14 +225,15 @@ namespace YetaWF.App_Start {
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider svp) {
+            ConfigureAsync(app, env, svp).Wait(); // sync Wait because we want to be async in Configure()/ConfigureAsync()
+        }
+        public async Task ConfigureAsync(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider svp) {
 
             ServiceProvider = svp;
 
             IHttpContextAccessor httpContextAccessor = (IHttpContextAccessor)ServiceProvider.GetService(typeof(IHttpContextAccessor));
             IMemoryCache memoryCache = (IMemoryCache)ServiceProvider.GetService(typeof(IMemoryCache));
             YetaWFManager.Init(ServiceProvider, httpContextAccessor, memoryCache);
-
-            Logging.SetupLogging();
 
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
@@ -250,10 +260,7 @@ namespace YetaWF.App_Start {
             app.MapWhen(
                 context => {
                     string path = context.Request.Path.ToString().ToLower();
-                    bool match = path.EndsWith(".css");
-                    if (match)
-                        StartRequest(context, true);
-                    return match;
+                    return path.EndsWith(".css");
                 },
                 appBranch => {
                     appBranch.UseMiddleware<CssMiddleware>();
@@ -263,10 +270,7 @@ namespace YetaWF.App_Start {
             app.MapWhen(
                 context => {
                     string path = context.Request.Path.ToString().ToLower();
-                    bool match = path == "/filehndlr.image" || path == "/file.image";
-                    if (match)
-                        StartRequest(context, true);
-                    return match;
+                    return path == "/filehndlr.image";
                 },
                 appBranch => {
                     appBranch.UseMiddleware<ImageMiddleware>();
@@ -276,7 +280,7 @@ namespace YetaWF.App_Start {
             {
                 FileExtensionContentTypeProvider provider = new FileExtensionContentTypeProvider();
                 MimeSection staticMimeSect = new MimeSection();
-                staticMimeSect.Init(Path.Combine(Globals.DataFolder, MimeSection.MimeSettingsFile));
+                await staticMimeSect.InitAsync(Path.Combine(Globals.DataFolder, MimeSection.MimeSettingsFile));
                 List<MimeSection.MimeEntry> mimeTypes = staticMimeSect.GetMimeTypes();
                 if (mimeTypes != null) {
                     foreach (MimeSection.MimeEntry entry in mimeTypes) {
@@ -313,7 +317,7 @@ namespace YetaWF.App_Start {
 
             // Everything else
             app.Use(async (context, next) => {
-                StartRequest(context, false);
+                await StartupRequest.StartRequestAsync(context, false);
                 await next();
             });
 
@@ -330,192 +334,50 @@ namespace YetaWF.App_Start {
             StartYetaWF();
         }
 
-        private static object lockObject = new object();
+        private static AsyncLock _lockObject = new AsyncLock();
 
         public void StartYetaWF() {
 
             if (!YetaWF.Core.Support.Startup.Started) {
 
-                lock (lockObject) {
+                using (_lockObject.Lock()) { // protect from duplicate startup
 
                     if (!YetaWF.Core.Support.Startup.Started) {
 
-                        Logging.AddLog("StartYetaWF starting");
+                        YetaWFManager.Syncify(async () => { // startup code
 
-                        YetaWFManager manager = YetaWFManager.MakeInitialThreadInstance(new SiteDefinition() { SiteDomain = "__STARTUP" }); // while loading packages we need a manager
+                            // Create a startup log file
+                            StartupLogging startupLog = new StartupLogging();
+                            await Logging.RegisterLoggingAsync(startupLog);
 
-                        // External data providers
-                        ExternalDataProviders.RegisterExternalDataProviders();
-                        // Call all classes that expose the interface IInitializeApplicationStartup
-                        YetaWF.Core.Support.Startup.CallStartupClasses();
+                            Logging.AddLog("StartYetaWF starting");
 
-                        Package.UpgradeToNewPackages();
+                            YetaWFManager manager = YetaWFManager.MakeInitialThreadInstance(new SiteDefinition() { SiteDomain = "__STARTUP" }); // while loading packages we need a manager
+                            YetaWFManager.Syncify(async () => {
+                                // External data providers
+                                ExternalDataProviders.RegisterExternalDataProviders();
+                                // Call all classes that expose the interface IInitializeApplicationStartup
+                                await YetaWF.Core.Support.Startup.CallStartupClassesAsync();
 
-                        YetaWF.Core.Support.Startup.Started = true;
+                                if (!YetaWF.Core.Support.Startup.MultiInstance)
+                                    await Package.UpgradeToNewPackagesAsync();
 
-                        YetaWFManager.RemoveThreadInstance(); // Remove startup manager
+                                YetaWF.Core.Support.Startup.Started = true;
+                            });
 
-                        Logging.AddLog("StartYetaWF completed");
+                            // Stop startup log file
+                            Logging.UnregisterLogging(startupLog);
+
+                            // start real logging
+                            await Logging.SetupLoggingAsync();
+
+                            YetaWFManager.RemoveThreadInstance(); // Remove startup manager
+
+                            Logging.AddLog("StartYetaWF completed");
+                        });
                     }
                 }
             }
-        }
-
-        public void StartRequest(HttpContext httpContext, bool isStaticHost) {
-
-            HttpRequest httpReq = httpContext.Request;
-
-            // Determine which Site folder to use based on URL provided
-            bool forcedHost = false, newSwitch = false;
-            bool staticHost = false;
-
-            string host = httpReq.Query[Globals.Link_ForceSite];
-            string host2 = null;
-
-            host = httpReq.Query[Globals.Link_ForceSite];
-            if (!string.IsNullOrWhiteSpace(host)) {
-                newSwitch = true;
-                YetaWFManager.SetRequestedDomain(host);
-            }
-            if (string.IsNullOrWhiteSpace(host) && httpContext.Session != null)
-                host = httpContext.Session.GetString(Globals.Link_ForceSite);
-
-            if (string.IsNullOrWhiteSpace(host))
-                host = httpReq.Host.Host;
-            else
-                forcedHost = true;
-
-            // beautify the host name a bit
-            if (host.Length > 1)
-                host = char.ToUpper(host[0]) + host.Substring(1).ToLower();
-            else
-                host = host.ToUpper();
-
-            SiteDefinition site = null;
-            if (isStaticHost)
-                site = SiteDefinition.LoadStaticSiteDefinition(host);
-            if (site != null) {
-                if (forcedHost || newSwitch) throw new InternalError("Static item for forced or new host");
-                staticHost = true;
-            } else { 
-            // check if such a site definition exists (accounting for www. or other subdomain)
-            string[] domParts = host.Split(new char[] { '.' });
-            if (domParts.Length > 2) {
-                if (domParts.Length > 3 || domParts[0] != "www")
-                    host2 = host;
-                host = string.Join(".", domParts, domParts.Length - 2, 2);// get just domain as a fallback
-            }
-
-            if (!string.IsNullOrWhiteSpace(host2)) {
-                site = SiteDefinition.LoadSiteDefinition(host2);
-                if (site != null)
-                    host = host2;
-            }
-            if (site == null) {
-                site = SiteDefinition.LoadSiteDefinition(host);
-                if (site == null) {
-                    if (forcedHost) { // non-existent site requested
-                        Logging.AddErrorLog("404 Not Found");
-                        httpContext.Response.StatusCode = 404;
-                        return;
-                    }
-                    site = SiteDefinition.LoadSiteDefinition(null);
-                    if (site == null) {
-                        if (SiteDefinition.INITIAL_INSTALL) {
-                            // use a skeleton site for initial install
-                            // this will be updated when the model is installed
-                            site = new SiteDefinition {
-                                Identity = SiteDefinition.SiteIdentitySeed,
-                                SiteDomain = host,
-                            };
-                        } else {
-                            throw new InternalError("Couldn't obtain a SiteDefinition object");
-                        }
-                    }
-                }
-            }
-            }
-            // We have a valid request for a known domain or the default domain
-            // create a YetaWFManager object to keep track of everything (it serves
-            // as a global anchor for everything we need to know while processing this request)
-            YetaWFManager manager = YetaWFManager.MakeInstance(httpContext, host);
-            // Site properties are ONLY valid AFTER this call to YetaWFManager.MakeInstance
-
-            manager.CurrentSite = site;
-            manager.IsStaticSite = staticHost;
-
-            manager.HostUsed = httpReq.Host.Host;
-            manager.HostPortUsed = httpReq.Host.Port ?? 80;
-            manager.HostSchemeUsed = httpReq.Scheme;
-
-            Uri uri = new Uri(UriHelper.GetDisplayUrl(httpReq));
-            if (forcedHost && newSwitch) {
-                if (!manager.HasSuperUserRole) { // if superuser, don't log off (we could be creating a new site)
-                    // A somewhat naive way to log a user off, but it's working well and also handles 3rd party logins correctly.
-                    // Since this is only used during site development, it's not critical
-                    string logoffUrl = WebConfigHelper.GetValue<string>("MvcApplication", "LogoffUrl", null, Package:false);
-                    if (string.IsNullOrWhiteSpace(logoffUrl))
-                        throw new InternalError("MvcApplication LogoffUrl not defined in web.cofig/appsettings.json - this is required to switch between sites so we can log off the site-specific currently logged in user");
-                    Uri newUri;
-                    if (uri.IsLoopback) {
-                        // add where we need to go next (w/o the forced domain, we're already on this domain (localhost))
-                        newUri = RemoveQsKeyFromUri(uri, httpReq.Query, Globals.Link_ForceSite);
-                    } else {
-                        newUri = new Uri("http://" + host);// new site to display
-                    }
-                    logoffUrl += YetaWFManager.UrlEncodeArgs(newUri.ToString());
-                    logoffUrl += (logoffUrl.Contains("?") ? "&" : "?") + "ResetForcedDomain=false";
-                    Logging.AddLog("302 Found - {0}", logoffUrl).Truncate(100);
-                    httpContext.Response.StatusCode = 302;
-                    httpContext.Response.Headers.Add("Location", manager.CurrentSite.MakeUrl(logoffUrl));
-                    return;
-                }
-            }
-            // Make sure we're using the "official" URL, otherwise redirect 301
-            if (!staticHost && site.EnforceSiteUrl) {
-                if (uri.IsAbsoluteUri) {
-                    if (!manager.IsLocalHost && !forcedHost && string.Compare(manager.HostUsed, site.SiteDomain, true) != 0) {
-                        UriBuilder newUrl = new UriBuilder(uri);
-                        newUrl.Host = site.SiteDomain;
-                        if (site.EnforceSitePort) {
-                            if (newUrl.Scheme == "https") {
-                                newUrl.Port = site.PortNumberSSLEval;
-                            } else {
-                                newUrl.Port = site.PortNumberEval;
-                            }
-                        }
-                        Logging.AddLog("301 Moved Permanently - {0}", newUrl.ToString()).Truncate(100);
-                        httpContext.Response.StatusCode = 301;
-                        httpContext.Response.Headers.Add("Location", newUrl.ToString());
-                        return;
-                    }
-                }
-            }
-            // IE rejects our querystrings that have encoded "?" (%3D) even though that's completely valid
-            // so we have to turn of XSS protection (which is not necessary in YetaWF anyway)
-            httpContext.Response.Headers.Add("X-Xss-Protection", "0");
-
-            if (manager.IsStaticSite)
-                RemoveCookiesForStatics(httpContext);
-        }
-
-        private void RemoveCookiesForStatics(HttpContext context) {
-            // Clear all cookies for static requests
-            List<string> cookiesToClear = new List<string>();
-            foreach (string name in context.Request.Cookies.Keys) cookiesToClear.Add(name);
-            foreach (string name in cookiesToClear) {
-                context.Response.Cookies.Delete(name);
-            }
-            // this cookie is added by filehndlr.image
-            //context.Response.Cookies.Delete("ASP.NET_SessionId");
-        }
-
-        private Uri RemoveQsKeyFromUri(Uri uri, IQueryCollection queryColl, string qsKey) {
-            UriBuilder newUri = new UriBuilder(uri);
-            QueryHelper query = QueryHelper.FromQueryCollection(queryColl);
-            query.Remove(qsKey);
-            newUri.Query = query.ToQueryString();
-            return newUri.Uri;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿### Copyright © 2017 Softel vdm, Inc. - https://yetawf.com/Documentation/YetaWF/Licensing
+﻿### Copyright © 2018 Softel vdm, Inc. - https://yetawf.com/Documentation/YetaWF/Licensing
 ###
 ### Site properties for sites added using template in Data folder
 ### This is executed after all packages have been imported
@@ -21,15 +21,16 @@ YetaWF.SiteProperties, YetaWF.Modules.SiteProperties.Modules.SitePropertiesModul
     CurrentSite.ExternalAccountSetupUrl = "/User/Setup External Account"
     CurrentSite.NotFoundUrl = "/Errors/404"
 
-    CurrentSite.SelectedSkin.Collection = "YetaWF/BootstrapSample/BootstrapSkin"
+    CurrentSite.SelectedSkin.Collection = "YetaWF/DefaultSkin/DefaultSkin"
     CurrentSite.SelectedSkin.FileName = "Default.cshtml"
-    CurrentSite.SelectedPopupSkin.Collection = "YetaWF/BootstrapSample/BootstrapSkin"
+    CurrentSite.SelectedPopupSkin.Collection = "YetaWF/DefaultSkin/DefaultSkin"
     CurrentSite.SelectedPopupSkin.FileName = "Popup.cshtml"
     CurrentSite.jQueryUISkin = "Start"
     CurrentSite.KendoUISkin = "Blue Opal"
+    CurrentSite.BootstrapSkin = "Bootstrap Default"
 
-	CurrentSite.CssLocation = 1
-	CurrentSite.JSLocation = 1
+    CurrentSite.CssLocation = 1
+    CurrentSite.JSLocation = 1
     InitComplete()
 
 YetaWF.Identity, YetaWF.Modules.Identity.Modules.UsersBrowseModule

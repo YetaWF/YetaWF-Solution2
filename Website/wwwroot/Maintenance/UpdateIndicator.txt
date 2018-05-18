@@ -2,6 +2,6 @@
 During site startup, all packages will be updated/created automatically.
 The contents of this file are irrelevant, only its presence in the root folder of the site determines whether the packages are updated/created.
 
-To avoid data loss, the data for packages that are removed is never performed automatically.
+To avoid data loss, the removal of data for packages that are removed is never performed automatically.
 
 This file (when added to the root of a YetaWF website) is deleted once the site is restarted and the packages have been updated/created.
