@@ -43,3 +43,4 @@ Website/Website.Generic.csproj_MVC6
 YetaWF2.Generic.sln
 Website/Data/StartupLogFile.txt
 Website/Data/InitialInstall.txt
+Website/Localization/

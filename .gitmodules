@@ -10,3 +10,6 @@
 [submodule "DataProvider"]
 	path = DataProvider
 	url = https://github.com/YetaWF/YetaWF-DataProvider
+[submodule "Localization/en-US/YetaWF"]
+	path = Localization/en-US/YetaWF
+	url = https://github.com/YetaWF/Localization-YetaWF-Modules-en-US

@@ -11,10 +11,10 @@ var lec = require('gulp-line-ending-corrector');
 
 var runSequence = require('run-sequence');
 gulp.task('DebugBuild', () => {
-    runSequence(['sass', 'less'] ,'ts');
+    runSequence(['sass', 'less'] ,'ts', 'copydts');
 });
 gulp.task('ReleaseBuild', () => {
-    runSequence(['sass', 'less', 'less-global'], ['ts', 'tslint'], ["minify-js", "minify-css", "minify-globals-css"]);
+    runSequence(['sass', 'less'], ['ts', 'tslint'], 'copydts', ["minify-js", "minify-css"]);
 });
 
 /* TypeScript Compile */
@@ -25,9 +25,7 @@ var tsFolders = [
     "wwwroot/**/*.tsx",
     "!wwwroot/**/*.d.ts",
     "!lib/**",
-    "!lib",
-    "!wwwroot/AddOns/YetaWF/Core/_JS/**",
-    "!wwwroot/AddOns/YetaWF/Core/_JS"
+    "!lib"
 ];
 gulp.task('ts', () => {
     var tsProject = ts.createProject('tsconfig.json');
@@ -57,14 +55,26 @@ gulp.task("tslint", () =>
         }))
 );
 
+/* TypeScript Lint - 1 file */
+gulp.task("tslint1", () =>
+    gulp.src(["**/Basics.ts"], { follow: true }) // <<<< file name here
+        .pipe(print())
+        .pipe(tslint({
+            formatter: "msbuild",
+            configuration: "./tslint.json"
+        }))
+        .pipe(tslint.report({
+            reportLimit: 50
+        }))
+);
+
+
 /* Scss Compile */
 var sass = require('gulp-sass');
 var sassFolders = [
     "wwwroot/AddOns/**/*.scss",
     "wwwroot/Vault/**/*.scss",
     "VaultPrivate/**/*.scss",
-    "!wwwroot/AddOns/YetaWF/Core/_JS/**",
-    "!wwwroot/AddOns/YetaWF/Core/_JS"
 ];
 gulp.task('sass', () =>
     gulp.src(sassFolders, { follow: true })
@@ -85,8 +95,6 @@ var lessFolders = [
     "wwwroot/AddOns/**/*.less",
     "wwwroot/Vault/**/*.less",
     "VaultPrivate/**/*.less",
-    //"!AddOns/YetaWF/Core/_JS/**",
-    //"!AddOns/YetaWF/Core/_JS",
     "!**/*.min.less",
     "!**/*.pack.less"
 ];
@@ -102,21 +110,6 @@ gulp.task('less', () =>
 );
 
 
-gulp.task('less-global', () =>
-    gulp.src([
-            "something/**/.less",
-            "!**/*.min.less",
-            "!**/*.pack.less"
-        ], { follow: true })
-        .pipe(print())
-        .pipe(less())
-        .pipe(ext_replace(".css"))
-        .pipe(lec({ eolc: 'CRLF' })) //OMG - We'll deal with it later...
-        .pipe(gulp.dest(function (file) {
-            return file.base;
-        }))
-);
-
 /* Javascript minify */
 var minify = require("gulp-minify");
 gulp.task('minify-js', () =>
@@ -124,8 +117,6 @@ gulp.task('minify-js', () =>
             "wwwroot/AddOnsCustom/**/*.js",
             "node_modules/jquery-validation-unobtrusive/*.js",
             "node_modules/urijs/src/*.js",
-            //"!wwwroot/AddOns/YetaWF/Core/_JS/google.com.swfobject/**",
-            //"!wwwroot/AddOns/YetaWF/Core/_JS/google.com.swfobject",
             "!**/*.min.js",
             "!**/*.pack.js"
         ], { follow: true })
@@ -152,8 +143,6 @@ gulp.task('minify-css', () =>
             "VaultPrivate/**/*.css",
             "node_modules/normalize-css/*.css",
             "node_modules/smartmenus/dist/addons/bootstrap-4/*.css",
-            //"!AddOns/YetaWF/Core/_JS/google.com.swfobject/**",
-            //"!AddOns/YetaWF/Core/_JS/google.com.swfobject",
             "!**/*.min.css",
             "!**/*.pack.css"
         ], { follow: true })
@@ -169,26 +158,24 @@ gulp.task('minify-css', () =>
         }))
 );
 
-/* CSS Minify for global addons */
-gulp.task('minify-globals-css', () =>
-    gulp.src(["wwwroot/AddOns/YetaWF/Core/_JS/**/*.css",
-            "!**/*.min.css",
-            "!**/*.pack.css"
-        ], { follow: true })
+/* Copy required *.d.ts files */
+var dtsFolders = [
+    "wwwroot/AddOns/YetaWF/Core/_Addons/Basics/*.d.ts",
+    "wwwroot/AddOns/YetaWF/Core/_Addons/Forms/*.d.ts",
+    "wwwroot/AddOns/YetaWF/Core/_Addons/Popups/*.d.ts",
+    "wwwroot/AddOns/YetaWF/ComponentsHTML/_Addons/Forms/*.d.ts",
+    "wwwroot/AddOns/YetaWF/ComponentsHTML/_Addons/Popups/*.d.ts",
+    "wwwroot/AddOns/YetaWF/ComponentsHTML/_Main/ComponentsHTML.d.ts",
+];
+gulp.task('copydts', function () {
+    gulp.src(dtsFolders, { follow: true })
         .pipe(print())
-        .pipe(cleanCSS({
-            compatibility: 'ie8',
-            inline: ['local'], // enables local inlining
-            rebase: false // don't change url()
-        }))
-        .pipe(ext_replace(".min.css"))
-        .pipe(gulp.dest(function (file) {
-            return file.base;
-        }))
-);
+        .pipe(gulp.dest('./node_modules/@types/YetaWF/HTML/'));
+});
 
 gulp.task('watch', function () {
     gulp.watch(tsFolders, ['ts']);
+    gulp.watch(dtsFolders, ['copydts']);
     gulp.watch(sassFolders, ['sass']);
     gulp.watch(lessFolders, ['less']);
 });
