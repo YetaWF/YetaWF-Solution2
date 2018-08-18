@@ -161,6 +161,7 @@
     <ProjectReference Include="..\Modules\YetaWF\Blog\Blog.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\BootstrapCarousel\BootstrapCarousel.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Caching\Caching.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\ComponentsHTML\ComponentsHTML.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\CurrencyConverter\CurrencyConverter.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Dashboard\Dashboard.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\DevTests\DevTests.csproj" />
@@ -169,7 +170,6 @@
     <ProjectReference Include="..\Modules\YetaWF\Identity\Identity.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\IFrame\IFrame.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\ImageRepository\ImageRepository.csproj" />
-    <ProjectReference Include="..\Modules\YetaWF\KeepAlive\KeepAlive.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Languages\Languages.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Lightbox\Lightbox.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Logging\Logging.csproj" />
@@ -186,7 +186,6 @@
     <ProjectReference Include="..\Modules\YetaWF\Security\Security.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\SiteProperties\SiteProperties.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Sites\Sites.csproj" />
-    <ProjectReference Include="..\Modules\YetaWF\SlideShow\SlideShow.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\SyntaxHighlighter\SyntaxHighlighter.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\TawkTo\TawkTo.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Text\Text.csproj" />
