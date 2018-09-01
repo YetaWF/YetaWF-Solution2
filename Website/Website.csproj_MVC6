@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <AssemblyName>YetaWF</AssemblyName>
     <RootNamespace>YetaWF2</RootNamespace>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
@@ -97,6 +96,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="logs\" />
     <None Include="bower.json" />
     <Content Remove="bower.json" />
   </ItemGroup>
