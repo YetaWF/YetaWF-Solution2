@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "noImplicitAny": false,
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     "removeComments": false,
     "sourceMap": true,
     "target": "es5",
@@ -11,14 +11,20 @@
     "skipLibCheck": true,
     "noEmitHelpers": false,
     "jsx": "react",
+    "jsxFactory": "$YetaWF.createElement",
     "strict": true,
+    "alwaysStrict": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
-    "alwaysStrict": false,
-    "jsxFactory": "YetaWF_Basics.createElement",
-    "types": [ "jquery", "jqueryui", "kendo-ui", "YetaWFCore" ]
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "preserveSymlinks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "strictNullChecks": true,
+    "types": [ "jquery", "jqueryui", "kendo-ui", "urijs", "jquery-validation-unobtrusive" ]
   },
-  "compileOnSave": true,
+  "compileOnSave": false,
   "typeAcquisition": { "enable": false },
   "exclude": [
     "./bower_components",

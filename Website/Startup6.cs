@@ -44,7 +44,6 @@ using YetaWF.Core.Support;
 using YetaWF.Core.Views;
 using YetaWF2.Middleware;
 using YetaWF2.Support;
-using YetaWF2.Support.ViewEngine;
 
 namespace YetaWF.App_Start {
 
@@ -107,46 +106,15 @@ namespace YetaWF.App_Start {
                 .UseCryptographicAlgorithms(encryptionSettings);
 
             // set antiforgery cookie
-            services.AddAntiforgery(opts => opts.Cookie.Name = "__ReqVerToken_" + YetaWFManager.DefaultSiteName);
+            services.AddAntiforgery(opts => {
+                opts.Cookie.Name = "__ReqVerToken_" + YetaWFManager.DefaultSiteName;
+                opts.SuppressXFrameOptionsHeader = true;
+            });
             // antiforgery filter for conditional antiforgery attribute
             services.AddSingleton<ConditionalAntiForgeryTokenFilter>();
 
-            // We need our own view engine so we have more control over initialization/termination
-            services.AddSingleton<IRazorViewEngine, YetaWFRazorViewEngine>();
-
             // We replace the ApplicationPartManager so we can inject assemblies
             services.AddSingleton<ApplicationPartManager>(new YetaWFApplicationPartManager());
-
-            // We need to handle ModelDirective to derive the Model type (otherwise we'll end up with "dynamic") for all our views
-            // Such a hack... TODO: Research if there is a cleaner way in ModelDirective
-            services.AddSingleton(typeof(RazorEngine), s => {
-                return RazorEngine.Create(builder => {
-                    YetaWFInjectDirective.Register(builder);//<<<
-                    YetaWFModelDirective.Register(builder);//<<<
-                    NamespaceDirective.Register(builder);
-                    PageDirective.Register(builder);
-
-                    FunctionsDirective.Register(builder);
-                    InheritsDirective.Register(builder);
-                    SectionDirective.Register(builder);
-
-                    builder.AddTargetExtension(new TemplateTargetExtension()
-                    {
-                        TemplateTypeName = "global::Microsoft.AspNetCore.Mvc.Razor.HelperResult",
-                    });
-
-                    builder.Features.Add(new ModelExpressionPass());
-                    builder.Features.Add(new PagesPropertyInjectionPass());
-                    builder.Features.Add(new ViewComponentTagHelperPass());
-                    builder.Features.Add(new RazorPageDocumentClassifierPass());
-                    builder.Features.Add(new MvcViewDocumentClassifierPass());
-                    builder.Features.Add(new AssemblyAttributeInjectionPass());
-
-                    if (!builder.DesignTime) {
-                        builder.Features.Add(new InstrumentationPass());
-                    }
-                });
-            });
 
             services.AddMemoryCache();
 
@@ -295,20 +263,20 @@ namespace YetaWF.App_Start {
                     FileProvider = new PhysicalFileProvider(Path.Combine(YetaWFManager.RootFolderWebProject, @"node_modules")),
                     RequestPath = new PathString("/" + Globals.NodeModulesFolder),
                     OnPrepareResponse = (context) => {
-                        YetaWFManager.SetStaticCacheInfo(context.Context.Response);
+                        YetaWFManager.SetStaticCacheInfo(context.Context);
                     }
                 });
                 app.UseStaticFiles(new StaticFileOptions {
                     FileProvider = new PhysicalFileProvider(Path.Combine(YetaWFManager.RootFolderWebProject, @"bower_components")),
                     RequestPath = new PathString("/" + Globals.BowerComponentsFolder),
                     OnPrepareResponse = (context) => {
-                        YetaWFManager.SetStaticCacheInfo(context.Context.Response);
+                        YetaWFManager.SetStaticCacheInfo(context.Context);
                     }
                 });
                 app.UseStaticFiles(new StaticFileOptions {
                     ContentTypeProvider = provider,
                     OnPrepareResponse = (context) => {
-                        YetaWFManager.SetStaticCacheInfo(context.Context.Response);
+                        YetaWFManager.SetStaticCacheInfo(context.Context);
                     }
                 });
             }
