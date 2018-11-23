@@ -6,7 +6,6 @@
 var gulp = require('gulp');
 var print = require('gulp-print').default;
 var ext_replace = require('gulp-ext-replace');
-var replace = require('gulp-replace');
 var lec = require('gulp-line-ending-corrector');
 
 var runSequence = require('run-sequence');
@@ -76,18 +75,24 @@ var sassFolders = [
     "wwwroot/Vault/**/*.scss",
     "VaultPrivate/**/*.scss",
 ];
-gulp.task('sass', () =>
+gulp.task('sass', () => {
+
+    var postcss = require('gulp-postcss');
+    //var sourcemaps = require('gulp-sourcemaps');
+    var autoprefixer = require('autoprefixer');
+
     gulp.src(sassFolders, { follow: true })
         .pipe(print())
-        .pipe(replace('@import "../../../../../../../../Website/node_modules/bootswatch/','@import "../../../../../../../../../Website/node_modules/bootswatch/'))
-        .pipe(sass())
+        .pipe(sass({
+            includePaths: "node_modules",
+         }))
         .pipe(ext_replace('.css'))
         .pipe(lec({ eolc: 'CRLF' })) //OMG - We'll deal with it later...
+        .pipe(postcss([autoprefixer()]))
         .pipe(gulp.dest(function (file) {
             return file.base;
-        })
-    )
-);
+        }));
+});
 
 /* Less Compile */
 var less = require('gulp-less');
@@ -166,6 +171,7 @@ var dtsFolders = [
     "wwwroot/AddOns/YetaWF/ComponentsHTML/_Addons/Forms/*.d.ts",
     "wwwroot/AddOns/YetaWF/ComponentsHTML/_Addons/Popups/*.d.ts",
     "wwwroot/AddOns/YetaWF/ComponentsHTML/_Main/ComponentsHTML.d.ts",
+	"wwwroot/AddOns/YetaWF/ComponentsHTML/_Templates/**/*.d.ts",
 ];
 gulp.task('copydts', function () {
     gulp.src(dtsFolders, { follow: true })
