@@ -122,8 +122,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Xml" Version="2.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Localization" Version="2.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.1.3" />
-    <!-- Precompiled views only work if all cshtml are in the web project marked content - unfortunately that's not compatible with YetaWF's modular structure -->
-    <!--<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.ViewCompilation" Version="2.0.0" PrivateAssets="All" />-->
     <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.1.3" />
