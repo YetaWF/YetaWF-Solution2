@@ -12,37 +12,37 @@
       {
         "Type": "image/gif",
         "ImageUse": true,
-        "Extensions": ".gif",
+        "Extensions": ".gif"
       },
       {
         "Type": "image/png",
         "ImageUse": true,
-        "Extensions": ".png",
+        "Extensions": ".png"
       },
       {
         "Type": "image/x-png",
         "ImageUse": true,
-        "Extensions": ".png",
+        "Extensions": ".png"
       },
       {
         "Type": "image/jpeg",
         "ImageUse": true,
-        "Extensions": ".jpe;.jpeg;.jpg",
+        "Extensions": ".jpe;.jpeg;.jpg"
       },
       {
         "Type": "image/pjpeg",
         "ImageUse": true,
-        "Extensions": ".jpe;.jpeg;.jpg",
+        "Extensions": ".jpe;.jpeg;.jpg"
       },
       {
         "Type": "application/x-zip-compressed",
         "PackageUse": true,
-        "Extensions": ".zip",
+        "Extensions": ".zip"
       },
       {
         "Type": "application/octet-stream",
         "PackageUse": true,
-        "Extensions": ".zip",
+        "Extensions": ".zip"
       },
       {
         "Type": "application/x-shockwave-flash",
@@ -51,15 +51,15 @@
       },
       {
         "Type": "application/pdf",
-        "Extensions": ".pdf",
+        "Extensions": ".pdf"
       },
       {
         "Type": "application/msword",
-        "Extensions": ".doc;.docx",
+        "Extensions": ".doc;.docx"
       },
       {
         "Type": "application/rtf",
-        "Extensions": ".rtf",
+        "Extensions": ".rtf"
       }
     ]
   }

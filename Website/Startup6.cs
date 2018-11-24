@@ -12,12 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Mvc.Razor.Extensions;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Razor.Language;
-using Microsoft.AspNetCore.Razor.Language.Extensions;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Caching.Memory;
@@ -50,7 +45,6 @@ namespace YetaWF.App_Start {
     public class Startup6 {
 
         private IConfigurationRoot Configuration { get; }
-        private IServiceProvider ServiceProvider = null;
         private IServiceCollection Services = null;
 
         private const string AppSettingsFile = "appsettings.json";
@@ -114,7 +108,8 @@ namespace YetaWF.App_Start {
             services.AddSingleton<ConditionalAntiForgeryTokenFilter>();
 
             // We replace the ApplicationPartManager so we can inject assemblies
-            services.AddSingleton<ApplicationPartManager>(new YetaWFApplicationPartManager());
+            //$$$$$$$$$$$$$$ TODO: Disabled for now, use case testing in private sites pending
+            //$$$ services.AddSingleton<ApplicationPartManager>(new YetaWFApplicationPartManager());
 
             services.AddMemoryCache();
 
@@ -186,7 +181,7 @@ namespace YetaWF.App_Start {
 
                 // Error handling for controllers, not used, we handle action errors instead so this is not needed
                 // options.Filters.Add(new ControllerExceptionFilterAttribute()); // controller exception filter, not used
-            });
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             // We need our own view engine so we have more control over initialization/termination
             services.Configure<MvcViewOptions>(options => { });
         }
@@ -197,11 +192,9 @@ namespace YetaWF.App_Start {
         }
         public async Task ConfigureAsync(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider svp) {
 
-            ServiceProvider = svp;
-
-            IHttpContextAccessor httpContextAccessor = (IHttpContextAccessor)ServiceProvider.GetService(typeof(IHttpContextAccessor));
-            IMemoryCache memoryCache = (IMemoryCache)ServiceProvider.GetService(typeof(IMemoryCache));
-            YetaWFManager.Init(ServiceProvider, httpContextAccessor, memoryCache);
+            IHttpContextAccessor httpContextAccessor = (IHttpContextAccessor)svp.GetService(typeof(IHttpContextAccessor));
+            IMemoryCache memoryCache = (IMemoryCache)svp.GetService(typeof(IMemoryCache));
+            YetaWFManager.Init(httpContextAccessor, memoryCache);
 
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
@@ -292,11 +285,13 @@ namespace YetaWF.App_Start {
             app.UseAuthentication();
 
             app.UseMvc(routes => {
+
                 Logging.AddLog("Calling AreaRegistration.RegisterPackages()");
                 AreaRegistrationBase.RegisterPackages(routes);
 
                 Logging.AddLog("Adding catchall route");
                 routes.MapRoute(name: "Page", template: "{*path}", defaults: new { controller = "Page", action = "Show" });
+
             });
 
             StartYetaWF();

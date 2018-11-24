@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>YetaWF</AssemblyName>
     <RootNamespace>YetaWF2</RootNamespace>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
@@ -11,8 +11,6 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-    <!-- Precompiled views only work if all cshtml are in the web project marked content - unfortunately that's not compatible with YetaWF's modular structure -->
-    <!-- TODO: Review for final -->
     <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
@@ -39,7 +37,9 @@
 
   <ItemGroup>
     <!-- TODO: Review for final release - this is a workaround for slow solution load -->
+    <Compile Remove="wwwroot\AddOnsCustom\**" />
     <Compile Remove="wwwroot\lib\**" />
+    <Content Remove="wwwroot\AddOnsCustom\**" />
     <Content Remove="wwwroot\lib\**" />
     <Compile Remove="node_modules\**" />
     <Content Remove="node_modules\**" />
@@ -55,7 +55,6 @@
     <Compile Remove="SiteTemplates\**" />
     <Compile Remove="VaultPrivate\**" />
     <Compile Remove="wwwroot\AddonsBundles\**" />
-    <Compile Remove="wwwroot\AddonsCustom\**" />
     <Compile Remove="wwwroot\AddOns\**" />
     <Compile Remove="wwwroot\Maintenance\**" />
     <Compile Remove="wwwroot\SiteFiles\**" />
@@ -66,7 +65,6 @@
     <Content Remove="SiteTemplates\**" />
     <Content Remove="VaultPrivate\**" />
     <Content Remove="wwwroot\AddonsBundles\**" />
-    <Content Remove="wwwroot\AddonsCustom\**" />
     <Content Remove="wwwroot\AddOns\**" />
     <Content Remove="wwwroot\Vault\**" />
     <Content Remove="wwwroot\Maintenance\**" />
@@ -77,7 +75,7 @@
     <EmbeddedResource Remove="SiteTemplates\**" />
     <EmbeddedResource Remove="VaultPrivate\**" />
     <EmbeddedResource Remove="wwwroot\AddonsBundles\**" />
-    <EmbeddedResource Remove="wwwroot\AddonsCustom\**" />
+    <EmbeddedResource Remove="wwwroot\AddOnsCustom\**" />
     <EmbeddedResource Remove="wwwroot\AddOns\**" />
     <EmbeddedResource Remove="wwwroot\Maintenance\**" />
     <EmbeddedResource Remove="wwwroot\SiteFiles\**" />
@@ -88,7 +86,7 @@
     <None Remove="SiteTemplates\**" />
     <None Remove="VaultPrivate\**" />
     <None Remove="wwwroot\AddonsBundles\**" />
-    <None Remove="wwwroot\AddonsCustom\**" />
+    <None Remove="wwwroot\AddOnsCustom\**" />
     <None Remove="wwwroot\AddOns\**" />
     <None Remove="wwwroot\Maintenance\**" />
     <None Remove="wwwroot\SiteFiles\**" />
@@ -116,40 +114,34 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.ApiExplorer" Version="2.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.DataAnnotations" Version="2.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Xml" Version="2.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Localization" Version="2.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ApiExplorer" Version="2.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.DataAnnotations" Version="2.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Xml" Version="2.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Localization" Version="2.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.1.3" />
     <!-- Precompiled views only work if all cshtml are in the web project marked content - unfortunately that's not compatible with YetaWF's modular structure -->
     <!--<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.ViewCompilation" Version="2.0.0" PrivateAssets="All" />-->
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Rewrite" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Rewrite" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Redis.Core" Version="1.0.3" />
-    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="2.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="2.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.1.1" />
     <!--<PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.0" />-->
-  </ItemGroup>
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.Extensions.Caching.SqlConfig.Tools" Version="1.0.0-msbuild3-final" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CoreComponents\Core\Core.csproj" />
