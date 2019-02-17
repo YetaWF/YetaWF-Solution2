@@ -78,7 +78,7 @@ namespace YetaWF.App_Start {
 
             services.AddResponseCompression();
 
-            //TODO: Signalr.ConfigureServices(services);
+            YetaWF.Core.SignalR.ConfigureServices(services);
 
             services.Configure<KeyManagementOptions>(options =>
             {
@@ -121,9 +121,9 @@ namespace YetaWF.App_Start {
                     o.Configuration = config;
                 });
             } else if (distProvider == "sql") {
-                string sqlConn = WebConfigHelper.GetValue<string>("SessionState", "SqlConnection", null, Package: false);
-                string sqlSchema = WebConfigHelper.GetValue<string>("SessionState", "SqlSchema", null, Package: false);
-                string sqlTable = WebConfigHelper.GetValue<string>("SessionState", "SqlTable", null, Package: false);
+                string sqlConn = WebConfigHelper.GetValue<string>("SessionState", "SqlCache-Connection", null, Package: false);
+                string sqlSchema = WebConfigHelper.GetValue<string>("SessionState", "SqlCache-Schema", null, Package: false);
+                string sqlTable = WebConfigHelper.GetValue<string>("SessionState", "SqlCache-Table", null, Package: false);
                 if (string.IsNullOrWhiteSpace(sqlConn) || string.IsNullOrWhiteSpace(sqlSchema) || string.IsNullOrWhiteSpace(sqlTable)) {
                     services.AddDistributedMemoryCache();
                 } else {
@@ -181,7 +181,11 @@ namespace YetaWF.App_Start {
 
                 // Error handling for controllers, not used, we handle action errors instead so this is not needed
                 // options.Filters.Add(new ControllerExceptionFilterAttribute()); // controller exception filter, not used
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            .AddMvcOptions(options => {
+                options.EnableEndpointRouting = false;// no time to research this right now.
+            });
             // We need our own view engine so we have more control over initialization/termination
             services.Configure<MvcViewOptions>(options => { });
         }
@@ -274,8 +278,6 @@ namespace YetaWF.App_Start {
                 });
             }
 
-            //TODO: Signalr.ConfigureHubs(app);
-
             // Everything else
             app.Use(async (context, next) => {
                 await StartupRequest.StartRequestAsync(context, false);
@@ -288,6 +290,8 @@ namespace YetaWF.App_Start {
 
                 Logging.AddLog("Calling AreaRegistration.RegisterPackages()");
                 AreaRegistrationBase.RegisterPackages(routes);
+
+                YetaWF.Core.SignalR.ConfigureHubs(app);
 
                 Logging.AddLog("Adding catchall route");
                 routes.MapRoute(name: "Page", template: "{*path}", defaults: new { controller = "Page", action = "Show" });
