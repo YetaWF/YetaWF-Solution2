@@ -162,7 +162,6 @@
     <ProjectReference Include="..\Modules\YetaWF\Identity\Identity.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\IFrame\IFrame.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\ImageRepository\ImageRepository.csproj" />
-    <ProjectReference Include="..\Modules\YetaWF\IVR\IVR.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Languages\Languages.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Lightbox\Lightbox.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Logging\Logging.csproj" />
