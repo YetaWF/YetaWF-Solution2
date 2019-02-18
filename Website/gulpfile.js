@@ -153,7 +153,7 @@ gulp.task('minify-css', () =>
         ], { follow: true })
         .pipe(print())
         .pipe(cleanCSS({
-            compatibility: 'ie8',
+            compatibility: { properties: { zeroUnits: false } },
             inline: ['local'], // enables local inlining
             rebase: false // don't change url()
         }))
