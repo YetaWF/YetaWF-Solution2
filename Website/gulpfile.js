@@ -1,4 +1,4 @@
-﻿/* Copyright © 2018 Softel vdm, Inc. - https://yetawf.com/Documentation/YetaWF/Licensing */
+﻿/* Copyright © 2019 Softel vdm, Inc. - https://yetawf.com/Documentation/YetaWF/Licensing */
 
 // If you get a message like "node sass could not find a binding for your current environment: windows 64-bit with node.js 4.x"
 // when running sass, use "npm rebuild node-sass".
@@ -28,7 +28,7 @@ var tsFolders = [
 ];
 gulp.task('ts', () => {
     var tsProject = ts.createProject('tsconfig.json');
-    gulp.src(tsFolders, { follow: true })
+    return gulp.src(tsFolders, { follow: true })
         .pipe(print())
         .pipe(sourcemaps.init())
         .pipe(tsProject())
@@ -42,8 +42,8 @@ gulp.task('ts', () => {
 
 /* TypeScript Lint */
 var tslint = require("gulp-tslint");
-gulp.task("tslint", () =>
-    gulp.src(tsFolders, { follow: true })
+gulp.task("tslint", () => {
+    return gulp.src(tsFolders, { follow: true })
         .pipe(print())
         .pipe(tslint({
             formatter: "msbuild",
@@ -51,12 +51,13 @@ gulp.task("tslint", () =>
         }))
         .pipe(tslint.report({
             reportLimit: 50
-        }))
+        }));
+    }
 );
 
 /* TypeScript Lint - 1 file */
-gulp.task("tslint1", () =>
-    gulp.src(["**/Basics.ts"], { follow: true }) // <<<< file name here
+gulp.task("tslint1", () => {
+    return gulp.src(["**/Basics.ts"], { follow: true }) // <<<< file name here
         .pipe(print())
         .pipe(tslint({
             formatter: "msbuild",
@@ -64,7 +65,8 @@ gulp.task("tslint1", () =>
         }))
         .pipe(tslint.report({
             reportLimit: 50
-        }))
+        }));
+    }
 );
 
 
@@ -81,7 +83,7 @@ gulp.task('sass', () => {
     //var sourcemaps = require('gulp-sourcemaps');
     var autoprefixer = require('autoprefixer');
 
-    gulp.src(sassFolders, { follow: true })
+    return gulp.src(sassFolders, { follow: true })
         .pipe(print())
         .pipe(sass({
             includePaths: "node_modules",
@@ -103,22 +105,23 @@ var lessFolders = [
     "!**/*.min.less",
     "!**/*.pack.less"
 ];
-gulp.task('less', () =>
-    gulp.src(lessFolders, { follow: true })
+gulp.task('less', () => {
+    return gulp.src(lessFolders, { follow: true })
         .pipe(print())
         .pipe(less())
         .pipe(ext_replace(".css"))
         .pipe(lec({ eolc: 'CRLF' })) //OMG - We'll deal with it later...
         .pipe(gulp.dest(function (file) {
             return file.base;
-        }))
+        }));
+    }
 );
 
 
 /* Javascript minify */
 var minify = require("gulp-minify");
-gulp.task('minify-js', () =>
-    gulp.src(["wwwroot/AddOns/**/*.js",
+gulp.task('minify-js', () => {
+    return gulp.src(["wwwroot/AddOns/**/*.js",
             "wwwroot/AddOnsCustom/**/*.js",
             "node_modules/jquery-validation-unobtrusive/*.js",
             "node_modules/urijs/src/*.js",
@@ -136,13 +139,14 @@ gulp.task('minify-js', () =>
         }))
         .pipe(gulp.dest(function (file) {
             return file.base;
-        }))
+        }));
+    }
 );
 
 /* CSS Minify */
 var cleanCSS = require('gulp-clean-css');
-gulp.task('minify-css', () =>
-    gulp.src(["wwwroot/AddOns/**/*.css",
+gulp.task('minify-css', () => {
+    return gulp.src(["wwwroot/AddOns/**/*.css",
             "wwwroot/AddOnsCustom/**/*.css",
             "wwwroot/Vault/**/*.css",
             "VaultPrivate/**/*.css",
@@ -160,7 +164,8 @@ gulp.task('minify-css', () =>
         .pipe(ext_replace(".min.css"))
         .pipe(gulp.dest(function (file) {
             return file.base;
-        }))
+        }));
+    }
 );
 
 /* Copy required *.d.ts files */
@@ -174,7 +179,7 @@ var dtsFolders = [
 	"wwwroot/AddOns/YetaWF/ComponentsHTML/_Templates/**/*.d.ts",
 ];
 gulp.task('copydts', function () {
-    gulp.src(dtsFolders, { follow: true })
+    return gulp.src(dtsFolders, { follow: true })
         .pipe(print())
         .pipe(gulp.dest('./node_modules/@types/YetaWF/HTML/'));
 });
