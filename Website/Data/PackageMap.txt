@@ -9,6 +9,7 @@ YetaWF.ComponentsHTML 4.2.0
 YetaWF.Core 4.2.0
 YetaWF.Core.CssHttpHandler 4.2.0
 YetaWF.Core.ImageHttpHandler 4.2.0
+YetaWF.Core.WebpHttpHandler 4.2.0
 YetaWF.CurrencyConverter 4.2.0
 YetaWF.Dashboard 4.2.0
 YetaWF.DataProvider.File 4.2.0
