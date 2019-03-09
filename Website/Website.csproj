@@ -146,6 +146,7 @@
     <ProjectReference Include="..\CoreComponents\Core\Core.csproj" />
     <ProjectReference Include="..\CoreComponents\CssHttpHandler\CssHttpHandler.csproj" />
     <ProjectReference Include="..\CoreComponents\ImageHttpHandler\ImageHttpHandler.csproj" />
+    <ProjectReference Include="..\CoreComponents\WebpHttpHandler\WebpHttpHandler.csproj" />
     <ProjectReference Include="..\DataProvider\Localization\Localization.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\AddThis\AddThis.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Backups\Backups.csproj" />

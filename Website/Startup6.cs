@@ -241,6 +241,16 @@ namespace YetaWF.App_Start {
                     appBranch.UseMiddleware<ImageMiddleware>();
                 });
 
+            // PNG,JPG -> WEBP Handler
+            app.MapWhen(
+                context => {
+                    string path = context.Request.Path.ToString().ToLower();
+                    return WebpHttpHandler.IsValidExtension(path);
+                },
+                appBranch => {
+                    appBranch.UseMiddleware<WebpMiddleware>();
+                });
+
             // Set up custom content types for static files based on MimeSettings.json
             {
                 FileExtensionContentTypeProvider provider = new FileExtensionContentTypeProvider();
