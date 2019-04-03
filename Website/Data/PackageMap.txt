@@ -4,6 +4,7 @@ YetaWF.Backups 4.2.0
 YetaWF.Basics 4.2.0
 YetaWF.Blog 4.2.0
 YetaWF.BootstrapCarousel 4.2.0
+YetaWF.BootstrapSkin 4.2.0
 YetaWF.Caching 4.2.0
 YetaWF.ComponentsHTML 4.2.0
 YetaWF.Core 4.2.0

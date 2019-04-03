@@ -1,6 +1,4 @@
-﻿/* Copyright © 2018 Softel vdm, Inc. - https://yetawf.com/Documentation/YetaWF/Licensing */
-
-#if MVC6
+﻿/* Copyright © 2019 Softel vdm, Inc. - https://yetawf.com/Documentation/YetaWF/Licensing */
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -74,7 +72,6 @@ namespace YetaWF.App_Start {
 
             Services = services;
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<IViewRenderService, ViewRenderService>();
 
             services.AddResponseCompression();
 
@@ -154,9 +151,6 @@ namespace YetaWF.App_Start {
                     policyBuilder.Requirements.Add(new ResourceAuthorizeRequirement());
                 });
             });
-
-            // Find all the views/areas that are available to the website (i.e., core + modules)
-            ViewEnginesStartup.Start(Services);
 
             // load assembly and initialize identity services
             IdentityCreator.Setup(services);
@@ -358,5 +352,3 @@ namespace YetaWF.App_Start {
         }
     }
 }
-#else
-#endif

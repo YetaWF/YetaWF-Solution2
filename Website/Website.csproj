@@ -128,7 +128,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Rewrite" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
@@ -189,6 +189,7 @@
     <ProjectReference Include="..\Modules\YetaWF\UserProfile\UserProfile.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\UserSettings\UserSettings.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Visitors\Visitors.csproj" />
+    <ProjectReference Include="..\Skins\YetaWF\BootstrapSkin\BootstrapSkin.csproj" />
     <ProjectReference Include="..\Skins\YetaWF\DefaultSkin\DefaultSkin.csproj" />
   </ItemGroup>
   <ItemGroup>
