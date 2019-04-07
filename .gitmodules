@@ -13,3 +13,6 @@
 [submodule "Localization/en-US/YetaWF"]
 	path = Localization/en-US/YetaWF
 	url = https://github.com/YetaWF/Localization-YetaWF-Modules-en-US
+[submodule "PublicTools"]
+	path = PublicTools
+	url = https://github.com/YetaWF/PublicTools
