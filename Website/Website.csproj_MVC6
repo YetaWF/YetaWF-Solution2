@@ -14,7 +14,7 @@
     <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-    <TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
@@ -128,7 +128,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Rewrite" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
@@ -146,6 +146,7 @@
     <ProjectReference Include="..\CoreComponents\Core\Core.csproj" />
     <ProjectReference Include="..\CoreComponents\CssHttpHandler\CssHttpHandler.csproj" />
     <ProjectReference Include="..\CoreComponents\ImageHttpHandler\ImageHttpHandler.csproj" />
+    <ProjectReference Include="..\CoreComponents\WebpHttpHandler\WebpHttpHandler.csproj" />
     <ProjectReference Include="..\DataProvider\Localization\Localization.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\AddThis\AddThis.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Backups\Backups.csproj" />
@@ -188,6 +189,7 @@
     <ProjectReference Include="..\Modules\YetaWF\UserProfile\UserProfile.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\UserSettings\UserSettings.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Visitors\Visitors.csproj" />
+    <ProjectReference Include="..\Skins\YetaWF\BootstrapSkin\BootstrapSkin.csproj" />
     <ProjectReference Include="..\Skins\YetaWF\DefaultSkin\DefaultSkin.csproj" />
   </ItemGroup>
   <ItemGroup>

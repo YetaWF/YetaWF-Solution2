@@ -8,12 +8,12 @@ var print = require('gulp-print').default;
 var ext_replace = require('gulp-ext-replace');
 var lec = require('gulp-line-ending-corrector');
 
-var runSequence = require('run-sequence');
-gulp.task('DebugBuild', () => {
-    runSequence(['sass', 'less'] ,'ts', 'copydts');
+var runSequence = require('gulp4-run-sequence');
+gulp.task('DebugBuild', (callback) => {
+    return runSequence(['sass', 'less'], 'ts', 'copydts', ['images-webp'], callback);
 });
-gulp.task('ReleaseBuild', () => {
-    runSequence(['sass', 'less'], ['ts', 'tslint'], 'copydts', ["minify-js", "minify-css"]);
+gulp.task('ReleaseBuild', (callback) => {
+    return runSequence(['sass', 'less'], ['ts', 'tslint'], 'copydts', ["minify-js", "minify-css"], ['images-webp'], callback);
 });
 
 /* TypeScript Compile */
@@ -93,7 +93,7 @@ gulp.task('sass', () => {
         .pipe(postcss([autoprefixer()]))
         .pipe(gulp.dest(function (file) {
             return file.base;
-        }));
+    }));
 });
 
 /* Less Compile */
@@ -182,6 +182,28 @@ gulp.task('copydts', function () {
     return gulp.src(dtsFolders, { follow: true })
         .pipe(print())
         .pipe(gulp.dest('./node_modules/@types/YetaWF/HTML/'));
+});
+
+/* Images -> webp */
+var webp = require("gulp-webp");
+gulp.task('images-webp', () => {
+    //gulp.src('wwwroot/AddOns/Softelvdm/FaxServiceSkin/_Skins/FaxServiceSkin/Images/cent21.png')
+    return gulp.src([
+        "wwwroot/AddOns/**/*.png",
+        "wwwroot/AddOns/**/*.jpg",
+        "wwwroot/AddOns/**/*.jpeg",
+        "wwwroot/AddOnsCustom/**/*.png",
+        "wwwroot/AddOnsCustom/**/*.jpg",
+        "wwwroot/AddOnsCustom/**/*.jpeg",
+        "!**/Assets/**"
+    ], { follow: true })
+    .pipe(print())
+    .pipe(webp())
+    .pipe(ext_replace(".webp-gen"))
+    //.pipe(gulp.dest('dist'));
+    .pipe(gulp.dest(function (file) {
+        return file.base;
+    }));
 });
 
 gulp.task('watch', function () {

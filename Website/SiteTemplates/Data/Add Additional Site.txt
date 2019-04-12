@@ -22,9 +22,9 @@ YetaWF.SiteProperties, YetaWF.Modules.SiteProperties.Modules.SitePropertiesModul
     CurrentSite.NotFoundUrl = "/Errors/404"
 
     CurrentSite.SelectedSkin.Collection = "YetaWF/DefaultSkin/DefaultSkin"
-    CurrentSite.SelectedSkin.FileName = "Default.cshtml"
+    CurrentSite.SelectedSkin.FileName = "Default"
     CurrentSite.SelectedPopupSkin.Collection = "YetaWF/DefaultSkin/DefaultSkin"
-    CurrentSite.SelectedPopupSkin.FileName = "Popup.cshtml"
+    CurrentSite.SelectedPopupSkin.FileName = "Popup"
     CurrentSite.jQueryUISkin = "Start"
     CurrentSite.KendoUISkin = "Blue Opal"
     CurrentSite.BootstrapSkin = "Bootstrap Default"

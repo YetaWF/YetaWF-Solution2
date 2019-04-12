@@ -35,6 +35,11 @@
         "Extensions": ".jpe;.jpeg;.jpg"
       },
       {
+        "Type": "image/webp",
+        "ImageUse": true,
+        "Extensions": ".webp;.webp-gen"
+      },
+      {
         "Type": "application/x-zip-compressed",
         "PackageUse": true,
         "Extensions": ".zip"
