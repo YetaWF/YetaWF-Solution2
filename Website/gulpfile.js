@@ -93,7 +93,7 @@ gulp.task('sass', () => {
         .pipe(postcss([autoprefixer()]))
         .pipe(gulp.dest(function (file) {
             return file.base;
-        }));
+    }));
 });
 
 /* Less Compile */
