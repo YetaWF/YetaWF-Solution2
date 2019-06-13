@@ -45,26 +45,18 @@ namespace YetaWF.App_Start {
         private IConfigurationRoot Configuration { get; }
         private IServiceCollection Services = null;
 
-        private const string AppSettingsFile = "appsettings.json";
-        private const string AppSettingsFileDebug = "appsettings.Debug.json";
-        private const string LanguageSettingsFile = "LanguageSettings.json";
-
         public Startup6(IHostingEnvironment env, ILoggerFactory loggerFactory) {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile(Path.Combine(Globals.DataFolder, AppSettingsFile), optional: false, reloadOnChange: false)
-#if DEBUG
-                .AddJsonFile(Path.Combine(Globals.DataFolder, AppSettingsFileDebug), optional: true, reloadOnChange: false)
-#endif
-                ;
+                .AddJsonFile(Path.Combine(Globals.DataFolder, YetaWF.Core.Support.Startup.APPSETTINGS), optional: false, reloadOnChange: false);
             //builder.AddEnvironmentVariables(); // not used
             Configuration = builder.Build();
 
             YetaWFManager.RootFolder = env.WebRootPath;
             YetaWFManager.RootFolderWebProject = env.ContentRootPath;
 
-            WebConfigHelper.InitAsync(Path.Combine(YetaWFManager.RootFolderWebProject, Globals.DataFolder, AppSettingsFile)).Wait();
-            LanguageSection.InitAsync(Path.Combine(YetaWFManager.RootFolderWebProject, Globals.DataFolder, LanguageSettingsFile)).Wait();
+            WebConfigHelper.InitAsync(Path.Combine(YetaWFManager.RootFolderWebProject, Globals.DataFolder, YetaWF.Core.Support.Startup.APPSETTINGS)).Wait();
+            LanguageSection.InitAsync(Path.Combine(YetaWFManager.RootFolderWebProject, Globals.DataFolder, YetaWF.Core.Support.Startup.LANGUAGESETTINGS)).Wait();
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.

@@ -49,6 +49,7 @@
     "jquery-validation": "^1.19.0",
     "jquery-validation-unobtrusive": "^3.2.11",
     "jstree": "^3.3.7",
+    "masonry-layout": "^4.2.2",
     "node-sass": "^4.11.0",
     "normalize-css": "^2.3.1",
     "popper.js": "^1.15.0",
