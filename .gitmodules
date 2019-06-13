@@ -16,3 +16,6 @@
 [submodule "PublicTools"]
 	path = PublicTools
 	url = https://github.com/YetaWF/PublicTools
+[submodule "Tools"]
+	path = Tools
+	url = https://bitbucket.org/softelvdm/yetawf-tools
