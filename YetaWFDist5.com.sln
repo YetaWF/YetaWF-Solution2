@@ -135,7 +135,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatusCheck", "PublicTools\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{C7B4B708-05F3-4E1E-860F-FFFF2BD9CD0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VerifySiteJsCss", "Tools\VerifySiteJsCss\VerifySiteJsCss.csproj", "{20CD8F44-1724-4226-B92A-A37CCF3502DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VerifySiteJsCss", "Tools\VerifySiteJsCss\VerifySiteJsCss.csproj", "{20CD8F44-1724-4226-B92A-A37CCF3502DE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectSettings", "PublicTools\ProjectSettings\ProjectSettings.csproj", "{B133DE8C-0028-4B9B-B6FC-E9D8EC198C7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -363,6 +365,10 @@ Global
 		{20CD8F44-1724-4226-B92A-A37CCF3502DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20CD8F44-1724-4226-B92A-A37CCF3502DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20CD8F44-1724-4226-B92A-A37CCF3502DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B133DE8C-0028-4B9B-B6FC-E9D8EC198C7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B133DE8C-0028-4B9B-B6FC-E9D8EC198C7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B133DE8C-0028-4B9B-B6FC-E9D8EC198C7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B133DE8C-0028-4B9B-B6FC-E9D8EC198C7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -424,6 +430,7 @@ Global
 		{FCE99E37-EB02-4EBC-832A-0B3147A7B295} = {64E4FF64-35EE-41EC-AD69-78B39C011B1C}
 		{E4FFC1A5-742C-489A-86A5-59368C312597} = {176CA094-542C-4E3B-AF3F-38C11C9EB6FD}
 		{20CD8F44-1724-4226-B92A-A37CCF3502DE} = {C7B4B708-05F3-4E1E-860F-FFFF2BD9CD0D}
+		{B133DE8C-0028-4B9B-B6FC-E9D8EC198C7D} = {176CA094-542C-4E3B-AF3F-38C11C9EB6FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F151937E-7D28-481E-A5B3-A2F239F3C8FC}
