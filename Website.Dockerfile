@@ -57,6 +57,14 @@ RUN dotnet run -p /app/PublicTools/CopySite Backup "/app/Docker.CopySite.txt"
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
 WORKDIR /app
 COPY --from=build-env /app/final .
+# We're renaming the /Data folder to /DataInit - It is only used for fresh installs and is renamed to /Data during YetaWF startup
+# This is done so existing sites that are upgraded with a new image preserve their original /Data folder
+# Same for /wwwroot/Maintenance
+RUN mv ./Data ./DataInit
+RUN cp ./wwwroot/Maintenance/_hc1.html ./wwwroot/_hc.html
+RUN mv ./wwwroot/Maintenance ./wwwroot/MaintenanceInit
+
+HEALTHCHECK --interval=30s --timeout=30s --start-period=15s --retries=3 CMD http://localhost/_hc.html || exit 1
 
 # Needed for webp-image support
 # Depending on linux flavor, this may need to be adjusted
