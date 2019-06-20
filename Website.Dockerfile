@@ -64,7 +64,7 @@ RUN mv ./Data ./DataInit
 RUN cp ./wwwroot/Maintenance/_hc1.html ./wwwroot/_hc.html
 RUN mv ./wwwroot/Maintenance ./wwwroot/MaintenanceInit
 
-HEALTHCHECK --interval=30s --timeout=30s --start-period=15s --retries=3 CMD http://localhost/_hc.html || exit 1
+# HEALTHCHECK --interval=30s --timeout=30s --start-period=15s --retries=3 CMD http://localhost/_hc.html || exit 1
 
 # Needed for webp-image support
 # Depending on linux flavor, this may need to be adjusted
