@@ -46,17 +46,44 @@ namespace YetaWF.App_Start {
         private IServiceCollection Services = null;
 
         public Startup6(IHostingEnvironment env, ILoggerFactory loggerFactory) {
+
+            YetaWFManager.RootFolder = env.WebRootPath;
+            YetaWFManager.RootFolderWebProject = env.ContentRootPath;
+
+            if (Startup.RunningInContainer) {
+                if (!File.Exists(Path.Combine(YetaWFManager.RootFolderWebProject, Globals.DataFolder, YetaWF.Core.Support.Startup.APPSETTINGS))) {
+                    // If we don't have an AppSettings.json file, copy the /DataInit folder to /Data and
+                    // the /wwwroot/MaintenanceInit folder to /wwwroot/Maintenance.
+                    // This is needed with Docker during first-time installs.
+                    string dataFolder = Path.Combine(YetaWFManager.RootFolderWebProject, Globals.DataFolder);
+                    string dataInitFolder = Path.Combine(YetaWFManager.RootFolderWebProject, "DataInit");
+                    CopyFiles(dataInitFolder, dataFolder);
+                    string maintFolder = Path.Combine(YetaWFManager.RootFolderWebProject, "wwwroot", "Maintenance");
+                    string maintInitFolder = Path.Combine(YetaWFManager.RootFolderWebProject, "wwwroot", "MaintenanceInit");
+                    CopyFiles(maintInitFolder, maintFolder);
+                }
+            }
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile(Path.Combine(Globals.DataFolder, YetaWF.Core.Support.Startup.APPSETTINGS), optional: false, reloadOnChange: false);
             //builder.AddEnvironmentVariables(); // not used
             Configuration = builder.Build();
 
-            YetaWFManager.RootFolder = env.WebRootPath;
-            YetaWFManager.RootFolderWebProject = env.ContentRootPath;
-
             WebConfigHelper.InitAsync(Path.Combine(YetaWFManager.RootFolderWebProject, Globals.DataFolder, YetaWF.Core.Support.Startup.APPSETTINGS)).Wait();
             LanguageSection.InitAsync(Path.Combine(YetaWFManager.RootFolderWebProject, Globals.DataFolder, YetaWF.Core.Support.Startup.LANGUAGESETTINGS)).Wait();
+        }
+
+        private void CopyFiles(string srcInitFolder, string srcFolder) {
+            Directory.CreateDirectory(srcFolder);
+            string[] files = Directory.GetFiles(srcInitFolder);
+            foreach (string file in files) {
+                File.Copy(file, Path.Combine(srcFolder, Path.GetFileName(file)));
+            }
+            string[] dirs = Directory.GetDirectories(srcInitFolder);
+            foreach (string dir in dirs) {
+                CopyFiles(dir, Path.Combine(srcFolder, Path.GetFileName(dir)));
+            }
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
