@@ -95,7 +95,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="logs\" />
     <None Include="bower.json" />
     <Content Remove="bower.json" />
@@ -108,8 +107,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Data\appsettings.json" />
-    <Content Include="Data\appsettings.Prod.json" />
+    <Content Include="Data\AppSettings.Docker.json" />
+    <Content Include="Data\AppSettings.json" />
+    <Content Include="Data\AppSettings.Prod.json" />
     <Content Include="Data\LanguageSettings.json" />
     <Content Include="Data\MimeSettings.json" />
   </ItemGroup>
