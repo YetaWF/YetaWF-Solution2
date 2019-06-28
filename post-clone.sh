@@ -15,7 +15,4 @@ npm install
 npm rebuild cwebp-bin
 sudo bower install --allow-root
 dotnet build
-# Run the website, connect with browser at http://localhost:50000
-dotnet run
-cd ..
 
