@@ -18,6 +18,5 @@ TargetFolder /app/final
 # named app.config, AppSettings.json, hosting.json, Web.config on the deployed site.
 # If one of the files app.Prod.config, AppSettings.Prod.json, hosting.Prod.json or Web.Prod.config does not exist, the matching
 # file (without the ConfigParm string) is copied instead.
-
 ConfigParm Docker
 
