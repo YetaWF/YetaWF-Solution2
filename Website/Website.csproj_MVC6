@@ -95,9 +95,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="logs\" />
     <None Include="bower.json" />
+    <None Include="Data\NLog.config" />
+    <None Include="Data\NLog.Prod.config" />
     <Content Remove="bower.json" />
   </ItemGroup>
 
@@ -108,10 +109,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Data\appsettings.json" />
-    <Content Include="Data\appsettings.Prod.json" />
+    <Content Include="Data\AppSettings.Docker.json" />
+    <Content Include="Data\AppSettings.json" />
+    <Content Include="Data\AppSettings.Prod.json" />
     <Content Include="Data\LanguageSettings.json" />
     <Content Include="Data\MimeSettings.json" />
+    <Content Include="Sites\DataFolder\YetaWF_StaticPages\dontdeploy.txt" />
   </ItemGroup>
 
   <ItemGroup>
