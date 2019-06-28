@@ -97,6 +97,8 @@
   <ItemGroup>
     <Folder Include="logs\" />
     <None Include="bower.json" />
+    <None Include="Data\NLog.config" />
+    <None Include="Data\NLog.Prod.config" />
     <Content Remove="bower.json" />
   </ItemGroup>
 
@@ -112,6 +114,7 @@
     <Content Include="Data\AppSettings.Prod.json" />
     <Content Include="Data\LanguageSettings.json" />
     <Content Include="Data\MimeSettings.json" />
+    <Content Include="Sites\DataFolder\YetaWF_StaticPages\dontdeploy.txt" />
   </ItemGroup>
 
   <ItemGroup>
