@@ -10,38 +10,27 @@ packages/
 
 Website/Areas/
 Website/bower_components/
+
+Website/Data/InitialInstall.txt
 Website/Data/PackageMap.txt
+Website/Data/StartupLogFile.txt
 Website/Data/UpgradeLogFile.txt
-Website/Sites
-Website/Properties/PublishProfiles/
-Website/SiteTemplates/*.txt
+
+Website/Localization/
+
 Website/node_modules/
 
+Website/package-lock.json
+
+Website/Properties/PublishProfiles/
+Website/Properties/launchSettings.Generic.json
+
+Website/Sites
+Website/SiteTemplates/*.txt
+
 Website/wwwroot/Addons/
-Website/wwwroot/AddonsCustom/
 Website/wwwroot/AddonsBundles/
 Website/wwwroot/lib/
 Website/wwwroot/_references.js
 
-Website/package-lock.json
-
-Website/Data/appsettings.YetaWFDist5.json
-Website/Data/Appsettings.Generic.json
-Website/Data/Appsettings.GenericProd.json
-Website/Data/LanguageSettings.Generic.json
-Website/Data/MimeSettings.Generic.json
-
-Website/Data/DataFolder/InitialInstall.txt
-
-Website/Properties/launchSettings.Generic.json
-
-Website/app.Generic.config
-Website/hosting.Generic.json
-Website/web.Generic.config
-Website/web.GenericProd.config
-Website/Website.Generic.csproj_MVC6
-YetaWF2.Generic.sln
-Website/Data/StartupLogFile.txt
-Website/Data/InitialInstall.txt
-Website/Localization/
 
