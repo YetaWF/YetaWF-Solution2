@@ -4,31 +4,37 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.IO;
+using YetaWF.Core;
+using YetaWF.Core.Support;
 using YetaWF2.Logger;
 
 namespace YetaWF.App_Start {
 
     public class Program {
+
         public static void Main(string[] args) {
 
+            string currPath = Directory.GetCurrentDirectory();
+
             IConfigurationRoot config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(currPath)
                 .AddJsonFile("hosting.json", optional: false)
 #if DEBUG
                 .AddJsonFile("hosting.Debug.json", optional: true)
 #endif
+                .AddJsonFile(Path.Combine(currPath, Globals.DataFolder, YetaWF.Core.Support.Startup.APPSETTINGS))
+                .AddEnvironmentVariables()
                 .Build();
 
             IWebHost host = new WebHostBuilder()
                 .UseConfiguration(config)
-                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseContentRoot(currPath)
                 .ConfigureLogging((hostingContext, logging) => {
-                    //$$logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.ClearProviders();
-
+                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                    logging.AddConsole();
                     logging.AddYetaWFLogger();
 #if DEBUG
-                    //logging.AddDebug();
+                    logging.AddDebug();
 #endif
                 })
                 .UseKestrel()

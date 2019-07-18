@@ -94,8 +94,6 @@ namespace YetaWF.App_Start {
 
             services.AddResponseCompression();
 
-            YetaWF.Core.SignalR.ConfigureServices(services);
-
             services.Configure<KeyManagementOptions>(options =>
             {
                 options.XmlRepository = new DataProtectionKeyRepository();
@@ -201,6 +199,8 @@ namespace YetaWF.App_Start {
             });
             // We need our own view engine so we have more control over initialization/termination
             services.Configure<MvcViewOptions>(options => { });
+
+            YetaWF.Core.SignalR.ConfigureServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -211,7 +211,7 @@ namespace YetaWF.App_Start {
 
             IHttpContextAccessor httpContextAccessor = (IHttpContextAccessor)svp.GetService(typeof(IHttpContextAccessor));
             IMemoryCache memoryCache = (IMemoryCache)svp.GetService(typeof(IMemoryCache));
-            YetaWFManager.Init(httpContextAccessor, memoryCache);
+            YetaWFManager.Init(httpContextAccessor, memoryCache, app.ApplicationServices);
 
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
@@ -219,8 +219,8 @@ namespace YetaWF.App_Start {
             }
 
             RewriteOptions rewriteOptions = new RewriteOptions();
-            if (File.Exists("web.config"))
-                rewriteOptions.AddIISUrlRewrite(env.ContentRootFileProvider, "web.config");
+            if (File.Exists("Web.config"))
+                rewriteOptions.AddIISUrlRewrite(env.ContentRootFileProvider, "Web.config");
             if (File.Exists(".htaccess"))
                 rewriteOptions.AddApacheModRewrite(env.ContentRootFileProvider, ".htaccess");
 
@@ -264,21 +264,9 @@ namespace YetaWF.App_Start {
                     appBranch.UseMiddleware<WebpMiddleware>();
                 });
 
-            // Set up custom content types for static files based on MimeSettings.json
+            // Set up custom content types for static files based on MimeSettings.json and location
             {
-                FileExtensionContentTypeProvider provider = new FileExtensionContentTypeProvider();
-                MimeSection staticMimeSect = new MimeSection();
-                await staticMimeSect.InitAsync(Path.Combine(Globals.DataFolder, MimeSection.MimeSettingsFile));
-                List<MimeSection.MimeEntry> mimeTypes = staticMimeSect.GetMimeTypes();
-                if (mimeTypes != null) {
-                    foreach (MimeSection.MimeEntry entry in mimeTypes) {
-                        string[] extensions = entry.Extensions.Split(new char[] { ';' });
-                        foreach (string extension in extensions) {
-                            if (!provider.Mappings.ContainsKey(extension.Trim()))
-                                provider.Mappings.Add(extension.Trim(), entry.Type);
-                        }
-                    }
-                }
+                // Serve any file from these locations
                 app.UseStaticFiles(new StaticFileOptions {
                     FileProvider = new PhysicalFileProvider(Path.Combine(YetaWFManager.RootFolderWebProject, @"node_modules")),
                     RequestPath = new PathString("/" + Globals.NodeModulesFolder),
@@ -293,6 +281,35 @@ namespace YetaWF.App_Start {
                         YetaWFManager.SetStaticCacheInfo(context.Context);
                     }
                 });
+                //app.UseStaticFiles(new StaticFileOptions {
+                //    FileProvider = new PhysicalFileProvider(Path.Combine(YetaWFManager.RootFolderWebProject, @"VaultPrivate")),
+                //    RequestPath = new PathString("/" + Globals.VaultPrivateFolder),
+                //    OnPrepareResponse = (context) => {
+                //        YetaWFManager.SetStaticCacheInfo(context.Context);
+                //    }
+                //});
+                //app.UseStaticFiles(new StaticFileOptions {
+                //    FileProvider = new PhysicalFileProvider(Path.Combine(YetaWFManager.RootFolder, @"Vault")),
+                //    RequestPath = new PathString("/" + Globals.VaultFolder),
+                //    OnPrepareResponse = (context) => {
+                //        YetaWFManager.SetStaticCacheInfo(context.Context);
+                //    }
+                //});
+
+                // everything else is based on mimetype
+                FileExtensionContentTypeProvider provider = new FileExtensionContentTypeProvider();
+                MimeSection staticMimeSect = new MimeSection();
+                await staticMimeSect.InitAsync(Path.Combine(Globals.DataFolder, MimeSection.MimeSettingsFile));
+                List<MimeSection.MimeEntry> mimeTypes = staticMimeSect.GetMimeTypes();
+                if (mimeTypes != null) {
+                    foreach (MimeSection.MimeEntry entry in mimeTypes) {
+                        string[] extensions = entry.Extensions.Split(new char[] { ';' });
+                        foreach (string extension in extensions) {
+                            if (!provider.Mappings.ContainsKey(extension.Trim()))
+                                provider.Mappings.Add(extension.Trim(), entry.Type);
+                        }
+                    }
+                }
                 app.UseStaticFiles(new StaticFileOptions {
                     ContentTypeProvider = provider,
                     OnPrepareResponse = (context) => {
@@ -324,13 +341,13 @@ namespace YetaWF.App_Start {
             StartYetaWF();
         }
 
-        private static AsyncLock _lockObject = new AsyncLock();
+        private static object _lockObject = new object();
 
         public void StartYetaWF() {
 
             if (!YetaWF.Core.Support.Startup.Started) {
 
-                using (_lockObject.Lock()) { // protect from duplicate startup
+                lock (_lockObject) { // protect from duplicate startup
 
                     if (!YetaWF.Core.Support.Startup.Started) {
 
@@ -342,7 +359,7 @@ namespace YetaWF.App_Start {
 
                             Logging.AddLog("StartYetaWF starting");
 
-                            YetaWFManager manager = YetaWFManager.MakeInitialThreadInstance(new SiteDefinition() { SiteDomain = "__STARTUP" }); // while loading packages we need a manager
+                            YetaWFManager manager = YetaWFManager.MakeInitialThreadInstance(new SiteDefinition() { SiteDomain = "__STARTUP" }, null); // while loading packages we need a manager
                             YetaWFManager.Syncify(async () => {
                                 // External data providers
                                 ExternalDataProviders.RegisterExternalDataProviders();

@@ -73,8 +73,7 @@ gulp.task("tslint1", () => {
 var sass = require('gulp-sass');
 var sassFolders = [
     "wwwroot/Addons/**/*.scss",
-    "wwwroot/Vault/**/*.scss",
-    "VaultPrivate/**/*.scss"
+    "wwwroot/Vault/**/*.scss"
 ];
 gulp.task('sass', () => {
 
@@ -100,7 +99,6 @@ var less = require('gulp-less');
 var lessFolders = [
     "wwwroot/Addons/**/*.less",
     "wwwroot/Vault/**/*.less",
-    "VaultPrivate/**/*.less",
     "!**/*.min.less",
     "!**/*.pack.less"
 ];
@@ -122,6 +120,7 @@ var minify = require("gulp-minify");
 gulp.task('minify-js', () => {
     return gulp.src(["wwwroot/Addons/**/*.js",
             "wwwroot/AddonsCustom/**/*.js",
+            "wwwroot/Vault/**/*.js",
             "node_modules/jquery-validation-unobtrusive/*.js",
             "node_modules/urijs/src/*.js",
             "!**/*.min.js",
@@ -148,7 +147,6 @@ gulp.task('minify-css', () => {
     return gulp.src(["wwwroot/Addons/**/*.css",
             "wwwroot/AddonsCustom/**/*.css",
             "wwwroot/Vault/**/*.css",
-            "VaultPrivate/**/*.css",
             "node_modules/normalize-css/*.css",
             "node_modules/smartmenus/dist/addons/bootstrap-4/*.css",
             "!**/*.min.css",
