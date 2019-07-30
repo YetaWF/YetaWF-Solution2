@@ -34,8 +34,7 @@ WORKDIR /app/PublicTools/ProjectSettings
 RUN cp ProjectSettings.csproj_MVC6 ProjectSettings.csproj
 RUN dotnet restore
 RUN dotnet build ProjectSettings.csproj
-RUN dotnet run Symlinks
-RUN dotnet run SetMVC6
+RUN dotnet run Symlinks SetMVC6
 
 # CopySite, build and later run to merge the published output with the supporting files we need at runtime
 WORKDIR /app/PublicTools/CopySite

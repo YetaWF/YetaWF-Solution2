@@ -7,8 +7,7 @@ sudo apt-get install -y libgdiplus libc6-dev
 # Build and run ProjectSettings tool to set MVC6 project files and all symlinks
 cp PublicTools/ProjectSettings/ProjectSettings.csproj_MVC6 PublicTools/ProjectSettings/ProjectSettings.csproj
 dotnet build PublicTools/ProjectSettings
-dotnet run -p PublicTools/ProjectSettings SetMVC6
-dotnet run -p PublicTools/ProjectSettings SymLinks
+dotnet run -p PublicTools/ProjectSettings SetMVC6 SymLinks
 # Build the website
 cd Website
 npm install
