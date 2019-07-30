@@ -5,14 +5,6 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 15.0.26228.4
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Website", "Website\Website.csproj", "{072CD286-C986-4D8E-9CB8-EC87FF249060}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CopySite", "CopySite", "{25FB755E-C71E-4D97-B199-C1A39902DC84}"
-	ProjectSection(SolutionItems) = preProject
-		Utilities\CopySite\CopySite FROM DEV.bat = Utilities\CopySite\CopySite FROM DEV.bat
-		Utilities\CopySite\CopySite FROM DEV.txt = Utilities\CopySite\CopySite FROM DEV.txt
-		Utilities\CopySite\CopySite TO PROD.bat = Utilities\CopySite\CopySite TO PROD.bat
-		Utilities\CopySite\CopySite TO PROD.txt = Utilities\CopySite\CopySite TO PROD.txt
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataProvider", "DataProvider", "{3D6DCCA8-B3FB-45DB-B37E-7F29DBB124D0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "File", "DataProvider\File\File.csproj", "{D2F9BA80-1EE4-43ED-85CC-EF13EBABC72F}"
