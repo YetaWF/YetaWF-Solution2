@@ -1,7 +1,13 @@
 
 *.csproj
 
-**/bin
+CoreComponents/**/bin
+DataProvider/**/bin
+Modules/**/bin
+PublicTools/**/bin
+Skins/**/bin
+Website/**/bin
+
 **/obj
 
 .vs/
