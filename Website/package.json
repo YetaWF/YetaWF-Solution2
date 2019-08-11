@@ -17,8 +17,8 @@
   "homepage": "https://github.com/YetaWF/YetaWF-Solution2#readme",
   "dependencies": {
     "@aspnet/signalr": "^1.1.4",
-    "@fortawesome/fontawesome-free": "^5.9.0",
-    "@types/jquery": "^3.3.30",
+    "@fortawesome/fontawesome-free": "^5.10.1",
+    "@types/jquery": "^3.3.31",
     "@types/jquery-validation-unobtrusive": "^3.2.32",
     "@types/jqueryui": "^1.12.7",
     "@types/kendo-ui": "^2019.1.2",
