@@ -24,15 +24,12 @@ using System.IO;
 using System.Threading.Tasks;
 using YetaWF.Core;
 using YetaWF.Core.Controllers;
-using YetaWF.Core.DataProvider;
 using YetaWF.Core.HttpHandler;
 using YetaWF.Core.Identity;
 using YetaWF.Core.Language;
 using YetaWF.Core.Log;
 using YetaWF.Core.Models.Attributes;
-using YetaWF.Core.Packages;
 using YetaWF.Core.Pages;
-using YetaWF.Core.Site;
 using YetaWF.Core.Support;
 using YetaWF.Core.Views;
 using YetaWF2.Middleware;
@@ -50,40 +47,14 @@ namespace YetaWF.App_Start {
             YetaWFManager.RootFolder = env.WebRootPath;
             YetaWFManager.RootFolderWebProject = env.ContentRootPath;
 
-            if (Startup.RunningInContainer) {
-                if (!File.Exists(Path.Combine(YetaWFManager.RootFolderWebProject, Globals.DataFolder, YetaWF.Core.Support.Startup.APPSETTINGS))) {
-                    // If we don't have an AppSettings.json file, copy the /DataInit folder to /Data and
-                    // the /wwwroot/MaintenanceInit folder to /wwwroot/Maintenance.
-                    // This is needed with Docker during first-time installs.
-                    string dataFolder = Path.Combine(YetaWFManager.RootFolderWebProject, Globals.DataFolder);
-                    string dataInitFolder = Path.Combine(YetaWFManager.RootFolderWebProject, "DataInit");
-                    CopyFiles(dataInitFolder, dataFolder);
-                    string maintFolder = Path.Combine(YetaWFManager.RootFolderWebProject, "wwwroot", "Maintenance");
-                    string maintInitFolder = Path.Combine(YetaWFManager.RootFolderWebProject, "wwwroot", "MaintenanceInit");
-                    CopyFiles(maintInitFolder, maintFolder);
-                }
-            }
-
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile(Path.Combine(Globals.DataFolder, YetaWF.Core.Support.Startup.APPSETTINGS), optional: false, reloadOnChange: false);
+                .AddJsonFile(Program.GetAppSettingsFile(), optional: false, reloadOnChange: false);
             //builder.AddEnvironmentVariables(); // not used
             Configuration = builder.Build();
 
-            WebConfigHelper.InitAsync(Path.Combine(YetaWFManager.RootFolderWebProject, Globals.DataFolder, YetaWF.Core.Support.Startup.APPSETTINGS)).Wait();
+            WebConfigHelper.InitAsync(Program.GetAppSettingsFile()).Wait();
             LanguageSection.InitAsync(Path.Combine(YetaWFManager.RootFolderWebProject, Globals.DataFolder, YetaWF.Core.Support.Startup.LANGUAGESETTINGS)).Wait();
-        }
-
-        private void CopyFiles(string srcInitFolder, string srcFolder) {
-            Directory.CreateDirectory(srcFolder);
-            string[] files = Directory.GetFiles(srcInitFolder);
-            foreach (string file in files) {
-                File.Copy(file, Path.Combine(srcFolder, Path.GetFileName(file)));
-            }
-            string[] dirs = Directory.GetDirectories(srcInitFolder);
-            foreach (string dir in dirs) {
-                CopyFiles(dir, Path.Combine(srcFolder, Path.GetFileName(dir)));
-            }
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -218,11 +189,15 @@ namespace YetaWF.App_Start {
                 //app.UseBrowserLink();
             }
 
-            RewriteOptions rewriteOptions = new RewriteOptions();
-            if (File.Exists("Web.config"))
-                rewriteOptions.AddIISUrlRewrite(env.ContentRootFileProvider, "Web.config");
-            if (File.Exists(".htaccess"))
-                rewriteOptions.AddApacheModRewrite(env.ContentRootFileProvider, ".htaccess");
+            try {
+                RewriteOptions rewriteOptions = new RewriteOptions();
+                if (File.Exists("Web.config"))
+                    rewriteOptions.AddIISUrlRewrite(env.ContentRootFileProvider, "Web.config");
+                if (File.Exists(".htaccess"))
+                    rewriteOptions.AddApacheModRewrite(env.ContentRootFileProvider, ".htaccess");
+            } catch (Exception exc) {
+                Logging.AddLog($"URL rewrite failed - {ErrorHandling.FormatExceptionMessage(exc)}");
+            }
 
             app.UseResponseCompression();
 
@@ -338,53 +313,7 @@ namespace YetaWF.App_Start {
 
             });
 
-            StartYetaWF();
-        }
-
-        private static object _lockObject = new object();
-
-        public void StartYetaWF() {
-
-            if (!YetaWF.Core.Support.Startup.Started) {
-
-                lock (_lockObject) { // protect from duplicate startup
-
-                    if (!YetaWF.Core.Support.Startup.Started) {
-
-                        YetaWFManager.Syncify(async () => { // startup code
-
-                            // Create a startup log file
-                            StartupLogging startupLog = new StartupLogging();
-                            await Logging.RegisterLoggingAsync(startupLog);
-
-                            Logging.AddLog("StartYetaWF starting");
-
-                            YetaWFManager manager = YetaWFManager.MakeInitialThreadInstance(new SiteDefinition() { SiteDomain = "__STARTUP" }, null); // while loading packages we need a manager
-                            YetaWFManager.Syncify(async () => {
-                                // External data providers
-                                ExternalDataProviders.RegisterExternalDataProviders();
-                                // Call all classes that expose the interface IInitializeApplicationStartup
-                                await YetaWF.Core.Support.Startup.CallStartupClassesAsync();
-
-                                if (!YetaWF.Core.Support.Startup.MultiInstance)
-                                    await Package.UpgradeToNewPackagesAsync();
-
-                                YetaWF.Core.Support.Startup.Started = true;
-                            });
-
-                            // Stop startup log file
-                            Logging.UnregisterLogging(startupLog);
-
-                            // start real logging
-                            await Logging.SetupLoggingAsync();
-
-                            YetaWFManager.RemoveThreadInstance(); // Remove startup manager
-
-                            Logging.AddLog("StartYetaWF completed");
-                        });
-                    }
-                }
-            }
+            StartupRequest.StartYetaWF();
         }
     }
 }
