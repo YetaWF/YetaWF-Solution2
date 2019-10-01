@@ -22,7 +22,7 @@ Website/Data/PackageMap.txt
 Website/Data/StartupLogFile.txt
 Website/Data/UpgradeLogFile.txt
 
-Website/Localization/
+Website/Localization
 
 Website/node_modules/
 
@@ -40,3 +40,5 @@ Website/wwwroot/lib/
 Website/wwwroot/_references.js
 
 
+
+package-lock.json
