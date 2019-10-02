@@ -15,4 +15,4 @@
 	url = https://github.com/YetaWF/Localization-YetaWF-Modules-en-US
 [submodule "PublicTools"]
 	path = PublicTools
-	url = https://github.com/YetaWF/PublicTools
+	url = https://github.com/YetaWF/YetaWF-PublicTools

@@ -1,0 +1,22 @@
+﻿
+# ASP.NET Core sites are first published using Visual Studio (manually) or dotnet publish, then deployed from the target location where the site was published.
+# The absolute path below must match the path where the project was published.
+PublishOutput /app/out
+
+# Relative location of the website we want to deploy.
+# The following relative path within the project defines where the Website folder is located.
+SiteLocation ./Website
+
+# The location where the combined output is created.
+# The following absolute path defines where the published output and the Website folder are merged to create the final deployable project output.
+TargetFolder /app/final
+
+# The config file portion that is used for app.config, AppSettings.json, hosting.json, Web.config.
+# Optional. When specified, the config file name adds the specified ConfigParm string before the extension. The ConfigParm string can contain periods.
+# Example: ConfigParm Prod
+# In this example, the files app.Prod.config, AppSettings.Prod.json, hosting.Prod.json and Web.Prod.config are copied for deployment
+# named app.config, AppSettings.json, hosting.json, Web.config on the deployed site.
+# If one of the files app.Prod.config, AppSettings.Prod.json, hosting.Prod.json or Web.Prod.config does not exist, the matching
+# file (without the ConfigParm string) is copied instead.
+ConfigParm Docker
+

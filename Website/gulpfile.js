@@ -37,8 +37,7 @@ gulp.task('ts', () => {
         .pipe(gulp.dest(function (file) {
             return file.base;
         }));
-    }
-);
+});
 
 /* TypeScript Lint */
 var tslint = require("gulp-tslint");
@@ -73,9 +72,8 @@ gulp.task("tslint1", () => {
 /* Scss Compile */
 var sass = require('gulp-sass');
 var sassFolders = [
-    "wwwroot/AddOns/**/*.scss",
-    "wwwroot/Vault/**/*.scss",
-    "VaultPrivate/**/*.scss",
+    "wwwroot/Addons/**/*.scss",
+    "wwwroot/Vault/**/*.scss"
 ];
 gulp.task('sass', () => {
 
@@ -87,7 +85,7 @@ gulp.task('sass', () => {
         .pipe(print())
         .pipe(sass({
             includePaths: "node_modules",
-         }))
+        }))
         .pipe(ext_replace('.css'))
         .pipe(lec({ eolc: 'CRLF' })) //OMG - We'll deal with it later...
         .pipe(postcss([autoprefixer()]))
@@ -99,9 +97,8 @@ gulp.task('sass', () => {
 /* Less Compile */
 var less = require('gulp-less');
 var lessFolders = [
-    "wwwroot/AddOns/**/*.less",
+    "wwwroot/Addons/**/*.less",
     "wwwroot/Vault/**/*.less",
-    "VaultPrivate/**/*.less",
     "!**/*.min.less",
     "!**/*.pack.less"
 ];
@@ -121,8 +118,9 @@ gulp.task('less', () => {
 /* Javascript minify */
 var minify = require("gulp-minify");
 gulp.task('minify-js', () => {
-    return gulp.src(["wwwroot/AddOns/**/*.js",
-            "wwwroot/AddOnsCustom/**/*.js",
+    return gulp.src(["wwwroot/Addons/**/*.js",
+            "wwwroot/AddonsCustom/**/*.js",
+            "wwwroot/Vault/**/*.js",
             "node_modules/jquery-validation-unobtrusive/*.js",
             "node_modules/urijs/src/*.js",
             "!**/*.min.js",
@@ -146,10 +144,9 @@ gulp.task('minify-js', () => {
 /* CSS Minify */
 var cleanCSS = require('gulp-clean-css');
 gulp.task('minify-css', () => {
-    return gulp.src(["wwwroot/AddOns/**/*.css",
-            "wwwroot/AddOnsCustom/**/*.css",
+    return gulp.src(["wwwroot/Addons/**/*.css",
+            "wwwroot/AddonsCustom/**/*.css",
             "wwwroot/Vault/**/*.css",
-            "VaultPrivate/**/*.css",
             "node_modules/normalize-css/*.css",
             "node_modules/smartmenus/dist/addons/bootstrap-4/*.css",
             "!**/*.min.css",
@@ -170,13 +167,14 @@ gulp.task('minify-css', () => {
 
 /* Copy required *.d.ts files */
 var dtsFolders = [
-    "wwwroot/AddOns/YetaWF/Core/_Addons/Basics/*.d.ts",
-    "wwwroot/AddOns/YetaWF/Core/_Addons/Forms/*.d.ts",
-    "wwwroot/AddOns/YetaWF/Core/_Addons/Popups/*.d.ts",
-    "wwwroot/AddOns/YetaWF/ComponentsHTML/_Addons/Forms/*.d.ts",
-    "wwwroot/AddOns/YetaWF/ComponentsHTML/_Addons/Popups/*.d.ts",
-    "wwwroot/AddOns/YetaWF/ComponentsHTML/_Main/ComponentsHTML.d.ts",
-	"wwwroot/AddOns/YetaWF/ComponentsHTML/_Templates/**/*.d.ts",
+    "wwwroot/Addons/YetaWF/Core/_Addons/Basics/*.d.ts",
+    "wwwroot/Addons/YetaWF/Core/_Addons/Forms/*.d.ts",
+    "wwwroot/Addons/YetaWF/Core/_Addons/Popups/*.d.ts",
+    "wwwroot/Addons/YetaWF/ComponentsHTML/_Addons/Forms/*.d.ts",
+    "wwwroot/Addons/YetaWF/ComponentsHTML/_Addons/Popups/*.d.ts",
+    "wwwroot/Addons/YetaWF/ComponentsHTML/_Main/ComponentsHTML.d.ts",
+    "wwwroot/Addons/YetaWF/ComponentsHTML/_Main/Controls.d.ts",
+	"wwwroot/Addons/YetaWF/ComponentsHTML/_Templates/**/*.d.ts"
 ];
 gulp.task('copydts', function () {
     return gulp.src(dtsFolders, { follow: true })
@@ -187,14 +185,14 @@ gulp.task('copydts', function () {
 /* Images -> webp */
 var webp = require("gulp-webp");
 gulp.task('images-webp', () => {
-    //gulp.src('wwwroot/AddOns/Softelvdm/FaxServiceSkin/_Skins/FaxServiceSkin/Images/cent21.png')
+    //gulp.src('wwwroot/Addons/Softelvdm/FaxServiceSkin/_Skins/FaxServiceSkin/Images/cent21.png')
     return gulp.src([
-        "wwwroot/AddOns/**/*.png",
-        "wwwroot/AddOns/**/*.jpg",
-        "wwwroot/AddOns/**/*.jpeg",
-        "wwwroot/AddOnsCustom/**/*.png",
-        "wwwroot/AddOnsCustom/**/*.jpg",
-        "wwwroot/AddOnsCustom/**/*.jpeg",
+        "wwwroot/Addons/**/*.png",
+        "wwwroot/Addons/**/*.jpg",
+        "wwwroot/Addons/**/*.jpeg",
+        "wwwroot/AddonsCustom/**/*.png",
+        "wwwroot/AddonsCustom/**/*.jpg",
+        "wwwroot/AddonsCustom/**/*.jpeg",
         "!**/Assets/**"
     ], { follow: true })
     .pipe(print())

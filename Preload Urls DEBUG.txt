@@ -1,0 +1,111 @@
+http://localhost:50000/
+
+LOGIN POST http://localhost:50000/YetaWF_Identity/LoginModule/LoginDirect?Name=Superuser&Password=SuperuserPassword&__ModuleGuid=47C80477-1F25-4f9d-902C-E3D8B3A62686&Security={0C5BFA3C-B12E-44c0-B401-6DC2EB8C280A}
+
+http://localhost:50000/
+http://localhost:50000/__CKEditor/FlashBrowseLinkUrl
+http://localhost:50000/__CKEditor/ImageBrowseLinkUrl
+http://localhost:50000/__CKEditor/PageBrowseLinkUrl
+http://localhost:50000/__SiteMaintenance
+http://localhost:50000/__UnsupportedBrowser
+http://localhost:50000/About%20YetaWF
+http://localhost:50000/Admin
+http://localhost:50000/Admin/Backups
+http://localhost:50000/Admin/BlogCategories
+http://localhost:50000/Admin/BlogEntries
+http://localhost:50000/Admin/Config
+http://localhost:50000/Admin/Config/AddThis%20Sharing%20Sidebar
+http://localhost:50000/Admin/Config/Alert
+http://localhost:50000/Admin/Config/Backups
+http://localhost:50000/Admin/Config/Blog
+http://localhost:50000/Admin/Config/Control%20Panel
+http://localhost:50000/Admin/Config/CurrencyConverter
+http://localhost:50000/Admin/Config/Disqus
+http://localhost:50000/Admin/Config/Feedback
+http://localhost:50000/Admin/Config/Localization
+http://localhost:50000/Admin/Config/RecaptchaV2
+http://localhost:50000/Admin/Config/Site%20Settings
+http://localhost:50000/Admin/Config/Syntax%20Highlighter
+http://localhost:50000/Admin/Config/TawkTo
+-- http://localhost:50000/Admin/Config/TwilioProcessor
+http://localhost:50000/Admin/Config/User%20Login
+http://localhost:50000/Admin/Dashboard
+http://localhost:50000/Admin/Dashboard/AuditRecords
+http://localhost:50000/Admin/Dashboard/DataProviders
+http://localhost:50000/Admin/Dashboard/DisposableTracker
+http://localhost:50000/Admin/Dashboard/HttpModules
+http://localhost:50000/Admin/Dashboard/HttpRuntimeCache
+http://localhost:50000/Admin/Dashboard/Logging
+http://localhost:50000/Admin/Dashboard/Session
+http://localhost:50000/Admin/Dashboard/Static%20Pages
+http://localhost:50000/Admin/Dashboard/Visitors
+http://localhost:50000/Admin/Feedback
+http://localhost:50000/Admin/Identity
+http://localhost:50000/Admin/Languages
+http://localhost:50000/Admin/Modules
+http://localhost:50000/Admin/Packages
+http://localhost:50000/Admin/Pages
+http://localhost:50000/Admin/Scheduler
+http://localhost:50000/Admin/Scheduler/Log
+http://localhost:50000/Admin/Site%20Announcements
+http://localhost:50000/Admin/Sites
+http://localhost:50000/Admin/Unified%20Pages
+http://localhost:50000/Blog
+-- http://localhost:50000/BlogEntry
+http://localhost:50000/Errors/404
+http://localhost:50000/Feedback/Send
+http://localhost:50000/Tests
+http://localhost:50000/Tests/Alert
+http://localhost:50000/Tests/Bootstrap%20Carousel
+http://localhost:50000/Tests/Browser%20Notification
+-- http://localhost:50000/Tests/CurrencyConversion
+-- http://localhost:50000/Tests/Disqus
+http://localhost:50000/Tests/Escapes
+http://localhost:50000/Tests/Feedback
+http://localhost:50000/Tests/IFrame
+http://localhost:50000/Tests/MakeKeys
+http://localhost:50000/Tests/Module%20Panels
+http://localhost:50000/Tests/ModuleSkinInfo
+http://localhost:50000/Tests/News%20Feed
+http://localhost:50000/Tests/Page%20Ear
+http://localhost:50000/Tests/RSS
+-- http://localhost:50000/Tests/Site%20Announcement
+http://localhost:50000/Tests/SMS
+http://localhost:50000/Tests/Steps
+-- http://localhost:50000/Tests/TawkTo
+http://localhost:50000/Tests/Templates/Basic%20Components
+http://localhost:50000/Tests/Templates/ColorPicker
+http://localhost:50000/Tests/Templates/DateTime
+http://localhost:50000/Tests/Templates/Email
+http://localhost:50000/Tests/Templates/Grid
+http://localhost:50000/Tests/Templates/GridAjax
+http://localhost:50000/Tests/Templates/ImageSelection
+http://localhost:50000/Tests/Templates/ListOfEmailAddresses
+http://localhost:50000/Tests/Templates/ListOfLocalPages
+http://localhost:50000/Tests/Templates/ListOfUserNames
+http://localhost:50000/Tests/Templates/ModuleSelection
+http://localhost:50000/Tests/Templates/MultiString
+-- http://localhost:50000/Tests/Templates/RecaptchaV2
+http://localhost:50000/Tests/Templates/ReferencedModules
+http://localhost:50000/Tests/Templates/RolesSelector
+http://localhost:50000/Tests/Templates/Scroller
+http://localhost:50000/Tests/Templates/Skins
+http://localhost:50000/Tests/Templates/TextAreaSourceOnly
+http://localhost:50000/Tests/Templates/TimeZone
+http://localhost:50000/Tests/Templates/Tree
+http://localhost:50000/Tests/Templates/Url
+http://localhost:50000/Tests/Templates/UserId
+http://localhost:50000/Tests/Text
+http://localhost:50000/Tests/Twitter
+http://localhost:50000/User
+http://localhost:50000/User/Account
+http://localhost:50000/User/Change%20Password
+http://localhost:50000/User/Forgot%20Password
+http://localhost:50000/User/Login
+http://localhost:50000/User/Profile
+http://localhost:50000/User/Register
+http://localhost:50000/User/Settings
+-- http://localhost:50000/User/Setup%20External%20Account
+-- http://localhost:50000/User/Two-Step%20Auth%20Setup
+
+LOGOFF http://www.statuspie.com/YetaWF_Identity/LoginDirect/Logoff
