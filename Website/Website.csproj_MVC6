@@ -110,7 +110,6 @@
 
   <ItemGroup>
     <Content Include="Data\AppSettings.Docker.json" />
-    <Content Include="Data\AppSettings.json" />
     <Content Include="Data\AppSettings.Prod.json" />
     <Content Include="Data\LanguageSettings.json" />
     <Content Include="Data\MimeSettings.json" />
