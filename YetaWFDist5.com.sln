@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29324.140
 MinimumVisualStudioVersion = 15.0.26228.4
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Website", "Website\Website.csproj", "{072CD286-C986-4D8E-9CB8-EC87FF249060}"
 EndProject
@@ -154,6 +154,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggingDataProvider", "Modules\YetaWF\LoggingDataProvider\LoggingDataProvider.csproj", "{1413D437-6281-4138-960C-5238B0D94DCD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwilioProcessorDataProvider", "Modules\YetaWF\TwilioProcessorDataProvider\TwilioProcessorDataProvider.csproj", "{95A1F339-D6D5-4C6A-9C6A-40DD60E148FD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleStartup", "CoreComponents\ConsoleStartup\ConsoleStartup.csproj", "{051E2C7A-2C3C-45B8-8A29-5055C5ADC1A5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStartup", "CoreComponents\WebStartup\WebStartup.csproj", "{73B315C9-4C5E-4682-A538-332394F05EA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -397,6 +401,14 @@ Global
 		{95A1F339-D6D5-4C6A-9C6A-40DD60E148FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95A1F339-D6D5-4C6A-9C6A-40DD60E148FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95A1F339-D6D5-4C6A-9C6A-40DD60E148FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{051E2C7A-2C3C-45B8-8A29-5055C5ADC1A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{051E2C7A-2C3C-45B8-8A29-5055C5ADC1A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{051E2C7A-2C3C-45B8-8A29-5055C5ADC1A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{051E2C7A-2C3C-45B8-8A29-5055C5ADC1A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73B315C9-4C5E-4682-A538-332394F05EA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73B315C9-4C5E-4682-A538-332394F05EA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73B315C9-4C5E-4682-A538-332394F05EA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73B315C9-4C5E-4682-A538-332394F05EA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -462,6 +474,8 @@ Global
 		{65252767-FC96-4BDF-AA02-F888479CFFAC} = {176CA094-542C-4E3B-AF3F-38C11C9EB6FD}
 		{1413D437-6281-4138-960C-5238B0D94DCD} = {2814D707-63E6-4220-9AFD-D710B95E8B09}
 		{95A1F339-D6D5-4C6A-9C6A-40DD60E148FD} = {2814D707-63E6-4220-9AFD-D710B95E8B09}
+		{051E2C7A-2C3C-45B8-8A29-5055C5ADC1A5} = {FEE0C728-7D15-4C0B-8364-58D810A83F94}
+		{73B315C9-4C5E-4682-A538-332394F05EA9} = {FEE0C728-7D15-4C0B-8364-58D810A83F94}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F151937E-7D28-481E-A5B3-A2F239F3C8FC}
