@@ -43,7 +43,7 @@ YetaWF.Panels 5.0.0
 YetaWF.Scheduler 5.0.0
 YetaWF.Search 5.0.0
 YetaWF.Security 5.0.0
-YetaWF.SiteProperties 5.1.0
+YetaWF.SiteProperties 5.0.0
 YetaWF.Sites 5.0.0
 YetaWF.SyntaxHighlighter 5.0.0
 YetaWF.TawkTo 5.0.0
