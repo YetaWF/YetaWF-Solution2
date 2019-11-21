@@ -6,7 +6,7 @@ namespace YetaWF.App_Start {
 
         public static void Main(string[] args) {
 
-            YetaWF.WebStartup.StartupMVC6.Main(args);
+            YetaWF.Core.WebStartup.StartupMVC6.Main(args);
 
         }
     }
