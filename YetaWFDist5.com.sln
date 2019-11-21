@@ -159,6 +159,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleStartup", "CoreCompo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStartup", "CoreComponents\WebStartup\WebStartup.csproj", "{73B315C9-4C5E-4682-A538-332394F05EA9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeoLocation", "CoreComponents\GeoLocation\GeoLocation.csproj", "{1F084D06-DA36-4C72-B140-0C549CCE1746}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -409,6 +411,10 @@ Global
 		{73B315C9-4C5E-4682-A538-332394F05EA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73B315C9-4C5E-4682-A538-332394F05EA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73B315C9-4C5E-4682-A538-332394F05EA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F084D06-DA36-4C72-B140-0C549CCE1746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F084D06-DA36-4C72-B140-0C549CCE1746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F084D06-DA36-4C72-B140-0C549CCE1746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F084D06-DA36-4C72-B140-0C549CCE1746}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -476,6 +482,7 @@ Global
 		{95A1F339-D6D5-4C6A-9C6A-40DD60E148FD} = {2814D707-63E6-4220-9AFD-D710B95E8B09}
 		{051E2C7A-2C3C-45B8-8A29-5055C5ADC1A5} = {FEE0C728-7D15-4C0B-8364-58D810A83F94}
 		{73B315C9-4C5E-4682-A538-332394F05EA9} = {FEE0C728-7D15-4C0B-8364-58D810A83F94}
+		{1F084D06-DA36-4C72-B140-0C549CCE1746} = {FEE0C728-7D15-4C0B-8364-58D810A83F94}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F151937E-7D28-481E-A5B3-A2F239F3C8FC}
