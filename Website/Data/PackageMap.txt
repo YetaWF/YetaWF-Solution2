@@ -1,4 +1,5 @@
 Softelvdm.TwilioProcessor 5.0.0
+Softelvdm.TwilioProcessorDataProvider 5.0.0
 YetaWF.AddThis 5.0.0
 YetaWF.Backups 5.0.0
 YetaWF.Basics 5.0.0
@@ -9,8 +10,10 @@ YetaWF.Caching 5.0.0
 YetaWF.ComponentsHTML 5.0.0
 YetaWF.Core 5.0.0
 YetaWF.Core.CssHttpHandler 5.0.0
+YetaWF.Core.GeoLocation 5.0.0
 YetaWF.Core.ImageHttpHandler 5.0.0
 YetaWF.Core.WebpHttpHandler 5.0.0
+YetaWF.Core.WebStartup 5.0.0
 YetaWF.CurrencyConverter 5.0.0
 YetaWF.Dashboard 5.0.0
 YetaWF.DataProvider.File 5.0.0
@@ -27,6 +30,7 @@ YetaWF.ImageRepository 5.0.0
 YetaWF.Languages 5.0.0
 YetaWF.Lightbox 5.0.0
 YetaWF.Logging 5.0.0
+YetaWF.LoggingDataProvider 5.0.0
 YetaWF.Menus 5.0.0
 YetaWF.Messenger 5.0.0
 YetaWF.ModuleEdit 5.0.0
@@ -39,7 +43,7 @@ YetaWF.Panels 5.0.0
 YetaWF.Scheduler 5.0.0
 YetaWF.Search 5.0.0
 YetaWF.Security 5.0.0
-YetaWF.SiteProperties 5.0.0
+YetaWF.SiteProperties 5.1.0
 YetaWF.Sites 5.0.0
 YetaWF.SyntaxHighlighter 5.0.0
 YetaWF.TawkTo 5.0.0
