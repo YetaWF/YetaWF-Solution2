@@ -16,7 +16,7 @@ RUN npm install -g bower
 
 # Needed for webp-image support while building
 # Depending on linux flavor, this may need to be adjusted
-RUN apt-get install -y libgl1-mesa-glx libxi6
+RUN apt-get install -y libgl1-mesa-glx libxi6 libjpeg62
 
 # Projects
 COPY ./CoreComponents/ ./CoreComponents/
