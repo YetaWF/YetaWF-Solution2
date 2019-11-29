@@ -1,6 +1,6 @@
 ![Yet Another Web Framework](logo.jpg)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/ovmr42gt5ucurfei/branch/master?svg=true)](https://ci.appveyor.com/project/YetaWF/yetawf-solution/branch/master)
+![Build status](https://teamcity.softelvdm.com/app/rest/builds/project:YetaWF%20Solution2/statusIcon.svg)
 
 *STOP* - Do not simply retrieve the repository. There [are a few easy steps](https://yetawf.com/Documentation/YetaWF/Topic/g_installing_git) you need to follow to correctly install YetaWF.
 
@@ -15,7 +15,7 @@ It builds on ASP.NET Core MVC (also available using ASP.NET 4 MVC 5) to create a
 YetaWF offers [Single Page Sites](https://YetaWF.com/Documentation/YetaWF/Topic/g_doc_unifiedpagesets) "out of the box" (every site is a single page site) and [Static Pages](https://YetaWF.com/Documentation/YetaWF/Topic/g_doc_staticpages). It follows [ROCA principles](https://roca-style.org/) and best practices (like using WEBP for images) so landing pages can easily achieve a [Page Insights](https://developers.google.com/speed/pagespeed/insights/) score in the high 90s, both mobile and desktop).
 
 While it has many attributes commonly found in today's CMS like DNN, Umbraco, Drupal, etc., it instead focuses on rapid application development.
-Tightly integrating with Visual Studio 2015, 2017, it lends itself to rapid module development, offering built-in BREAD (Browse, Read, Edit, Add, Delete) module generation, taking advantage of ASP.NET Core MVC, Data Annotation, Components, UIHint and many other innovative features made possible by ASP.NET Core MVC.
+It lends itself to rapid module development, offering built-in BREAD (Browse, Read, Edit, Add, Delete) module generation, taking advantage of ASP.NET Core MVC, Data Annotation, Components, UIHint and many other innovative features made possible by ASP.NET Core MVC.
 Rather than being all things to all people, it narrowly focuses on offering 100% of the features that will satisfy most average websites and offers a platform for rapid custom development.
 
 It makes extensive use of TypeScript, jQuery, jQuery-UI, Kendo UI Core, AJAX and many client-side plugins (like grids, menus, syntax highlighter, lightbox, CKEditor, tabs, overlays and many more).
