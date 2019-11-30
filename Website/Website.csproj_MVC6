@@ -20,7 +20,7 @@
     <PublishReadyToRun>true</PublishReadyToRun>
     <PublishReadyToRunShowWarnings>true</PublishReadyToRunShowWarnings>
   </PropertyGroup>
-    
+
   <PropertyGroup>
     <DefineConstants>DEBUG;MVC6;NETCOREAPP2_0;NETCOREAPP</DefineConstants>
     <WarningLevel>4</WarningLevel>
@@ -56,7 +56,7 @@
     <Compile Remove="VaultPrivate\**" />
     <Compile Remove="wwwroot\AddonsBundles\**" />
     <Compile Remove="wwwroot\AddonsCustom\**" />
-    <Compile Remove="wwwroot\AddOns\**" />
+    <Compile Remove="wwwroot\Addons\**" />
     <Compile Remove="wwwroot\Maintenance\**" />
     <Compile Remove="wwwroot\SiteFiles\**" />
     <Compile Remove="wwwroot\Vault\**" />
@@ -67,7 +67,7 @@
     <Content Remove="VaultPrivate\**" />
     <Content Remove="wwwroot\AddonsBundles\**" />
     <Content Remove="wwwroot\AddonsCustom\**" />
-    <Content Remove="wwwroot\AddOns\**" />
+    <Content Remove="wwwroot\Addons\**" />
     <Content Remove="wwwroot\Vault\**" />
     <Content Remove="wwwroot\Maintenance\**" />
     <Content Remove="wwwroot\SiteFiles\**" />
@@ -78,7 +78,7 @@
     <EmbeddedResource Remove="VaultPrivate\**" />
     <EmbeddedResource Remove="wwwroot\AddonsBundles\**" />
     <EmbeddedResource Remove="wwwroot\AddonsCustom\**" />
-    <EmbeddedResource Remove="wwwroot\AddOns\**" />
+    <EmbeddedResource Remove="wwwroot\Addons\**" />
     <EmbeddedResource Remove="wwwroot\Maintenance\**" />
     <EmbeddedResource Remove="wwwroot\SiteFiles\**" />
     <EmbeddedResource Remove="wwwroot\Vault\**" />
@@ -89,7 +89,7 @@
     <None Remove="VaultPrivate\**" />
     <None Remove="wwwroot\AddonsBundles\**" />
     <None Remove="wwwroot\AddonsCustom\**" />
-    <None Remove="wwwroot\AddOns\**" />
+    <None Remove="wwwroot\Addons\**" />
     <None Remove="wwwroot\Maintenance\**" />
     <None Remove="wwwroot\SiteFiles\**" />
     <None Remove="wwwroot\Vault\**" />
@@ -118,9 +118,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CoreComponents\Core\Core.csproj" />
-    <ProjectReference Include="..\CoreComponents\CssHttpHandler\CssHttpHandler.csproj" />
-    <ProjectReference Include="..\CoreComponents\ImageHttpHandler\ImageHttpHandler.csproj" />
-    <ProjectReference Include="..\CoreComponents\WebpHttpHandler\WebpHttpHandler.csproj" />
     <ProjectReference Include="..\CoreComponents\WebStartup\WebStartup.csproj" />
     <ProjectReference Include="..\DataProvider\Localization\Localization.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\AddThis\AddThis.csproj" />
