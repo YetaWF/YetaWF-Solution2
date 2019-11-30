@@ -72,6 +72,7 @@ gulp.task("tslint1", () => {
 /* Scss Compile */
 var sass = require('gulp-sass');
 var sassFolders = [
+    //"VaultPrivate/**/*.scss",
     "wwwroot/Addons/**/*.scss",
     "wwwroot/Vault/**/*.scss"
 ];
@@ -121,7 +122,7 @@ gulp.task('minify-js', () => {
     return gulp.src(["wwwroot/Addons/**/*.js",
             "wwwroot/AddonsCustom/**/*.js",
             "wwwroot/Vault/**/*.js",
-            "node_modules/jquery-validation-unobtrusive/*.js",
+            //"VaultPrivate/**/*.js",
             "!**/*.min.js",
             "!**/*.pack.js"
         ], { follow: true })
@@ -146,6 +147,7 @@ gulp.task('minify-css', () => {
     return gulp.src(["wwwroot/Addons/**/*.css",
             "wwwroot/AddonsCustom/**/*.css",
             "wwwroot/Vault/**/*.css",
+            //"VaultPrivate/**/*.css",
             "node_modules/normalize-css/*.css",
             "node_modules/smartmenus/dist/addons/bootstrap-4/*.css",
             "!**/*.min.css",
