@@ -1,5 +1,5 @@
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 
 WORKDIR /app
 
@@ -55,7 +55,7 @@ RUN dotnet publish -c Release -o /app/out -r linux-x64
 RUN dotnet run -p /app/PublicTools/CopySite Backup "/app/Docker.CopySite.txt"
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
 WORKDIR /app
 COPY --from=build-env /app/final .
 # We're renaming the /Data folder to /DataInit - It is only used for fresh installs and is renamed to /Data during YetaWF startup
