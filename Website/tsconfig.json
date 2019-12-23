@@ -23,7 +23,7 @@
     "strictFunctionTypes": true,
     "strictPropertyInitialization": true,
     "strictNullChecks": true,
-    "types": [ "jquery", "jqueryui", "kendo-ui" ]
+    "types": [ "jquery", "jqueryui", "kendo-ui", "showdown" ]
   },
   "compileOnSave": false,
   "typeAcquisition": { "enable": false },

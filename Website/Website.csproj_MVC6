@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>YetaWF</AssemblyName>
     <RootNamespace>YetaWF2</RootNamespace>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
@@ -96,7 +96,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="logs\" />
     <None Include="bower.json" />
     <Content Remove="bower.json" />
@@ -110,7 +109,9 @@
 
   <ItemGroup>
     <Content Include="Data\AppSettings.Docker.json" />
+    <Content Include="Data\AppSettings.Linux.json" />
     <Content Include="Data\AppSettings.Prod.json" />
+    <Content Include="Data\AppSettings.Windows.json" />
     <Content Include="Data\LanguageSettings.json" />
     <Content Include="Data\MimeSettings.json" />
     <Content Include="Sites\DataFolder\YetaWF_StaticPages\dontdeploy.txt" />

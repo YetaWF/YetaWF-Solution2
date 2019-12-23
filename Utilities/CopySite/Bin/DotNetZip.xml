@@ -17931,6 +17931,15 @@
             <param name="dictionary">The dictionary bytes to use.</param>
             <returns>Z_OK if all goes well.</returns>
         </member>
+        <member name="M:Ionic.Zlib.ZlibCodec.SetDictionaryUnconditionally(System.Byte[])">
+            <summary>
+            Set the dictionary to be used for either Inflation or Deflation unconditionally.
+            </summary>
+            <remarks>Decoding a MSZip file requires the dictionary state to be set unconditionally
+            at the end of each block to the previous decoded data</remarks>
+            <param name="dictionary">The dictionary bytes to use.</param>
+            <returns>Z_OK if all goes well.</returns>
+        </member>
         <member name="T:Ionic.Zlib.ZlibConstants">
             <summary>
             A bunch of constants used in the Zlib interface.
