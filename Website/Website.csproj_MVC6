@@ -19,6 +19,7 @@
     <!--<PublishTrimmed>true</PublishTrimmed> doesn't work as we discover via reflection, so no reference to classes -->
     <PublishReadyToRun>true</PublishReadyToRun>
     <PublishReadyToRunShowWarnings>true</PublishReadyToRunShowWarnings>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -105,6 +106,10 @@
     <None Update="web.Prod.config" />
     <None Remove="app.config_MVC6" />
     <None Remove="Website.csproj_MVC6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Program.cs" />
   </ItemGroup>
 
   <ItemGroup>

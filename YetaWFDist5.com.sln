@@ -147,7 +147,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy Linux", "Deploy Linux", "{9A256BFE-1D4E-4688-9045-05FC01500B76}"
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
-		Docker.CopySite.txt = Docker.CopySite.txt
+		Docker.DeploySite.yaml = Docker.DeploySite.yaml
 		post-clone.sh = post-clone.sh
 		YetaWFDist5.Dockerfile = YetaWFDist5.Dockerfile
 	EndProjectSection
