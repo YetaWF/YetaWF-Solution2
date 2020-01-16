@@ -51,7 +51,7 @@
   "Currency": "USD",
   "CurrencyFormat": "$ #,0.00",
   "CurrencyDecimals": 2,
-  "CopyrightEvaluated": "YetaWF.com - © Copyright 2019 Softel vdm, Inc.",
+  "CopyrightEvaluated": "YetaWF.com - © Copyright 2020 Softel vdm, Inc.",
   "StaticPages": false,
   "DEBUGMODE": true,
   "DiagnosticsMode": true,
@@ -96,7 +96,14 @@
   "LoginUrl": "/User/Login",
   "PostLoginUrl": null,
   "ExternalAccountSetupUrl": "/User/Setup External Account",
-  "ReferencedModules": [],
+  "ReferencedModules": [
+    {
+      "ModuleGuid": "466c0cca-3e63-43f3-8754-f4267767eed1"
+    },
+    {
+      "ModuleGuid": "267f00cc-c619-4854-baed-9e4b812d7e95"
+    }
+  ],
   "SelectedSkin": {
     "Collection": "YetaWF/DefaultSkin/DefaultSkin",
     "FileName": "Default"
@@ -110,8 +117,8 @@
   "jQueryUISkin": "Start",
   "KendoUISkin": "Blue Opal",
   "TabStyle": 0,
-  "PublicKey": "\u003cRSAKeyValue\u003e\u003cModulus\u003e0v3eDbSp7oajC6Po5kZWBvmi0dVQXklF9rRokgc9c1i7fhD9IIBHYUfkWikdReYJOKEY35whNV280oq4z+msI2ZZ8rvfkwcqDeXyS+mjQlbfSGwDu/Rda4dgqCxLAKIenwNMd8ZCMieR+rFHus55zKz4N02l24LBOswGt3NE6B0=\u003c/Modulus\u003e\u003cExponent\u003eAQAB\u003c/Exponent\u003e\u003cP\u003e\u003c/P\u003e\u003cQ\u003e\u003c/Q\u003e\u003cDP\u003e\u003c/DP\u003e\u003cDQ\u003e\u003c/DQ\u003e\u003cInverseQ\u003e\u003c/InverseQ\u003e\u003cD\u003e\u003c/D\u003e\u003c/RSAKeyValue\u003e",
-  "PrivateKey": "\u003cRSAKeyValue\u003e\u003cModulus\u003e0v3eDbSp7oajC6Po5kZWBvmi0dVQXklF9rRokgc9c1i7fhD9IIBHYUfkWikdReYJOKEY35whNV280oq4z+msI2ZZ8rvfkwcqDeXyS+mjQlbfSGwDu/Rda4dgqCxLAKIenwNMd8ZCMieR+rFHus55zKz4N02l24LBOswGt3NE6B0=\u003c/Modulus\u003e\u003cExponent\u003eAQAB\u003c/Exponent\u003e\u003cP\u003e9punFYhXajNRy6j9X/G8FEN90kS8GGD5sV2zro+nalJFtlDVW5zVDqvjc0HiOUsCTC4TPWQk16nbLXjiITgVpw==\u003c/P\u003e\u003cQ\u003e2wb3jWAbzbD2E1qR/qLZv9a6cWwB0DBP122leOXNYMkzXgQOKzTg9ZtW+kgn0h6UnR8YOMcT4UxsUmdOJ8NUmw==\u003c/Q\u003e\u003cDP\u003e27A4Pb9zGEHVmVfXOHSyN18UpI/k/NbPOcmeu2BwJRBb2BnUqENjrilEe7XyoVWIG3NkYmlnRNSlU7H/yNYcuw==\u003c/DP\u003e\u003cDQ\u003eWFVb+3F6ZR9sbuvFG5wUE7GHKf00UgFaAfkflj2f8dvTUqRyDmzaGVPX5UK6hJx+tUt4GlX3p5KJ0UYGmDTH5w==\u003c/DQ\u003e\u003cInverseQ\u003eRUD5wAO0XEhu9TGicAzKnGIh3/x/+7dS8wGRh2BKbD2wgv9za3ey/aTxL6qdxPssXcvGli/Yc7IhjSVYj4BIpQ==\u003c/InverseQ\u003e\u003cD\u003eKkSTXHmJ5W/xb96JRMBocYNHG/Q44nqZWn/vxvlOVTI8dVff7cflBNcLJwi/hYY86KxVOE6l1HQP5LnHplcwlZWeWGmb8DJszuwKnZjZ+rND2SXK4nvojBLdRHQ6d4Y+ajYCQR+oYCYNzpCDisq5D5xAQuIK/lugnbburPtKt70=\u003c/D\u003e\u003c/RSAKeyValue\u003e",
+  "PublicKey": "\u003cRSAKeyValue\u003e\u003cModulus\u003eyCstIsZKYTetIvtpfhuvsUFNQHbJURKwIDHPLtJR9fejpcW51r2TcSXo3Dl3vwi6VTIRMWQx4A/esgegMjbnosR2++qBTH1DK7THduJhLH79rhi5CBZRDde4jlVsAs2WcCg2mEL7AYmmJB7FAi5WthYr//NPqfGRyMBDKHKpNfE=\u003c/Modulus\u003e\u003cExponent\u003eAQAB\u003c/Exponent\u003e\u003cP\u003e\u003c/P\u003e\u003cQ\u003e\u003c/Q\u003e\u003cDP\u003e\u003c/DP\u003e\u003cDQ\u003e\u003c/DQ\u003e\u003cInverseQ\u003e\u003c/InverseQ\u003e\u003cD\u003e\u003c/D\u003e\u003c/RSAKeyValue\u003e",
+  "PrivateKey": "\u003cRSAKeyValue\u003e\u003cModulus\u003eyCstIsZKYTetIvtpfhuvsUFNQHbJURKwIDHPLtJR9fejpcW51r2TcSXo3Dl3vwi6VTIRMWQx4A/esgegMjbnosR2++qBTH1DK7THduJhLH79rhi5CBZRDde4jlVsAs2WcCg2mEL7AYmmJB7FAi5WthYr//NPqfGRyMBDKHKpNfE=\u003c/Modulus\u003e\u003cExponent\u003eAQAB\u003c/Exponent\u003e\u003cP\u003e7oRnaX+B4Ysr0cB815lfIuKRVuVb8C5+n+PX6xdApA+uEdJX59CZp2rNYxCdulunkc61V6dUm4fkMDOucbUHCw==\u003c/P\u003e\u003cQ\u003e1tcw01ePgowwZ5vAqSWlFtO4U8fg/IZuwXdr6lQfcll9xgjOt6uI/vck+L8Zw5Ofw/yX4Q+GXXaBvBwfxfykcw==\u003c/Q\u003e\u003cDP\u003eZuiRhZ8R9rIJMfKO6qatuWtvscI7rKEi2PGBE1lw9lgdjmrmqooCAY2/F+Lvapxo7Cv3ad40TvaOqY1i0oR8iQ==\u003c/DP\u003e\u003cDQ\u003eR2yrUtfdYi1xOkDRwGo/hGNG+LOO3OVklPU672CgQ8f0xI3RC8b/eKR5qij+S8Mcbm/fnncm2JO5dexzs8LWeQ==\u003c/DQ\u003e\u003cInverseQ\u003eAZwEMY6kpnrVljmYR/mwT7L1R/RABII/uijMg3+W2Jmc20R5ZpglaPvn3DV+sSLXjT56yHJyQW6zku4R2G9Osg==\u003c/InverseQ\u003e\u003cD\u003ebX44tWH0Q9OZ0J3n6cSpSXOoF1Ai9Uccsq+sXjdMABkTGlXbPxz6LxWGmBiTaRsUGhBGGVdudNsZfRbwyScBcy64w8C2cpdlQJyJXZ0Lf63NzKDpsJs1PQiiJWN5dYhvqYOvUa0WdEOrBPFZDh8KpSl0e6/YcLbGoHPCFSRWThU=\u003c/D\u003e\u003c/RSAKeyValue\u003e",
   "Analytics": null,
   "AnalyticsContent": null,
   "GoogleVerification": null,
@@ -121,6 +128,7 @@
   "UseGeoLocation": false,
   "SiteMetaTags": null,
   "PageMetaTags": null,
+  "DefaultSiteMap": false,
   "SiteMapPriority": 50,
   "DefaultChangeFrequency": 4,
   "ModuleControlServices": "96caead9-068d-4b83-8f46-5269834f3b16",
@@ -133,5 +141,5 @@
   "MenuServicesFallback": "59909bb1-75f4-419f-b961-8569bb282131",
   "PageEditingServices": "fbb3c6d3-fbd2-4ab1-bf0e-8716f3d1b052",
   "PageEditingServicesFallback": "fbb3c6d3-fbd2-4ab1-bf0e-8716f3d1b052",
-  "CurrentYear": "2019"
+  "CurrentYear": "2020"
 }
