@@ -31,7 +31,7 @@ Website/package-lock.json
 Website/Properties/PublishProfiles/
 Website/Properties/launchSettings.Generic.json
 
-Website/Sites
+Website/Sites/DataFolder
 Website/SiteTemplates/*.txt
 
 Website/wwwroot/Addons/
