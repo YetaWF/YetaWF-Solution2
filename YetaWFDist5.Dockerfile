@@ -1,5 +1,5 @@
 
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 
 WORKDIR /app
 
@@ -16,7 +16,7 @@ RUN npm install -g bower
 
 # Needed for webp-image support while building
 # Depending on linux flavor, this may need to be adjusted
-RUN apt-get install -y libgl1-mesa-glx libxi6
+RUN apt-get install -y libgl1-mesa-glx libxi6 libjpeg62
 
 # Projects
 COPY ./CoreComponents/ ./CoreComponents/
@@ -27,7 +27,7 @@ COPY ./PublicTools/ ./PublicTools/
 COPY ./Skins/ ./Skins/
 COPY ./Website/ ./Website/
 COPY ./*.sln .
-COPY Docker.CopySite.txt .
+COPY Docker.DeploySite.yaml .
 
 # ProjectSettings, build the project, then run to create symlinks and to set the correct project files
 WORKDIR /app/PublicTools/ProjectSettings
@@ -36,10 +36,10 @@ RUN dotnet restore
 RUN dotnet build ProjectSettings.csproj
 RUN dotnet run Symlinks SetMVC6
 
-# CopySite, build and later run to merge the published output with the supporting files we need at runtime
-WORKDIR /app/PublicTools/CopySite
+# DeploySite, build and later run to merge the published output with the supporting files we need at runtime
+WORKDIR /app/PublicTools/DeploySite
 RUN dotnet restore
-RUN dotnet build CopySite.csproj
+RUN dotnet build -c Release DeploySite.csproj
 
 # Build Website
 WORKDIR /app/Website
@@ -50,25 +50,24 @@ RUN bower install --allow-root
 RUN dotnet restore
 RUN dotnet publish -c Release -o /app/out -r linux-x64
 
-# Merge all package Addons using CopySite, because dotnet publish doesn't follow symlinks and doesn't know about all the things YetaWF adds
-# The merged output is placed in /app/final. See Docker.CopySite.txt.
-RUN dotnet run -p /app/PublicTools/CopySite Backup "/app/Docker.CopySite.txt"
+# Merge all package Addons using DeploySite, because dotnet publish doesn't follow symlinks and doesn't know about all the things YetaWF adds
+# The merged output is placed in /app/final. See Docker.DeploySite.yaml.
+RUN dotnet run -p /app/PublicTools/DeploySite Backup "/app/Docker.DeploySite.yaml"
 
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
-WORKDIR /app
-COPY --from=build-env /app/final .
+RUN cp /app/Website/wwwroot/Maintenance/_hc1.html /app/final/wwwroot/_hc.html  # Docker deploy indicator
+
 # We're renaming the /Data folder to /DataInit - It is only used for fresh installs and is renamed to /Data during YetaWF startup
 # This is done so existing sites that are upgraded with a new image preserve their original /Data folder
 # Same for /wwwroot/Maintenance
-RUN mv ./Data ./DataInit
-RUN cp ./wwwroot/Maintenance/_hc1.html ./wwwroot/_hc.html  # Docker deploy indicator
-RUN mv ./wwwroot/Maintenance ./wwwroot/MaintenanceInit
+RUN mv /app/final/Data /app/final/DataInit
+RUN mv /app/final/wwwroot/Maintenance /app/final/wwwroot/MaintenanceInit
 
-# HEALTHCHECK --interval=30s --timeout=30s --start-period=15s --retries=3 CMD http://localhost/_hc.html || exit 1
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
+WORKDIR /app
+COPY --from=build-env /app/final .
 
-# Needed for webp-image support
-# Depending on linux flavor, this may need to be adjusted
+# Needed for webp-image support. Depending on linux flavor, this may need to be adjusted
 RUN apt-get update
 RUN apt-get install -y libgdiplus libc6-dev
 

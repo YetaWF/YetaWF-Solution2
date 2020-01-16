@@ -1,4 +1,7 @@
 bin/
 obj/
+bower_components/
 node_modules/
 TEMP/
+Utilities/
+Website/logs

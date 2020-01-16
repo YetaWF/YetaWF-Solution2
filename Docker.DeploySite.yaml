@@ -1,0 +1,11 @@
+﻿
+# https://yetawf.com/Documentation/YetaWF/Topic/g_deploysite
+
+Deploy:
+  Type: folder
+  To: /app/final
+  BaseFolder: /app
+  From: /app/out
+  ConfigParm: Docker
+  Localization: false
+  SiteTemplates: false
