@@ -1,6 +1,4 @@
 
-*.csproj
-
 CoreComponents/**/bin
 DataProvider/**/bin
 Modules/**/bin
