@@ -14,7 +14,7 @@
     <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>3.9</TypeScriptToolsVersion>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <!--<PublishTrimmed>true</PublishTrimmed> doesn't work as we discover via reflection, so no reference to classes -->
     <PublishReadyToRun>true</PublishReadyToRun>

@@ -20,7 +20,7 @@
     ],
     "ban-comma-operator": true,
     "callable-types": false,
-    "class-name": true,
+    "class-name": false,
     "comment-format": [
       false
     ],
