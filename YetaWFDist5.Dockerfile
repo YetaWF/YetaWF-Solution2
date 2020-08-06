@@ -31,10 +31,9 @@ COPY Docker.DeploySite.yaml .
 
 # ProjectSettings, build the project, then run to create symlinks and to set the correct project files
 WORKDIR /app/PublicTools/ProjectSettings
-RUN cp ProjectSettings.csproj_MVC6 ProjectSettings.csproj
 RUN dotnet restore
 RUN dotnet build ProjectSettings.csproj
-RUN dotnet run Symlinks SetMVC6
+RUN dotnet run Symlinks
 
 # DeploySite, build and later run to merge the published output with the supporting files we need at runtime
 WORKDIR /app/PublicTools/DeploySite

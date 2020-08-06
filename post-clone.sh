@@ -4,10 +4,9 @@ sudo chown $USER -R .
 # get libgdiplus for webp image support
 sudo apt-get update
 sudo apt-get install -y libgdiplus libc6-dev
-# Build and run ProjectSettings tool to set MVC6 project files and all symlinks
-cp PublicTools/ProjectSettings/ProjectSettings.csproj_MVC6 PublicTools/ProjectSettings/ProjectSettings.csproj
+# Build and run ProjectSettings tool to set all symlinks
 dotnet build PublicTools/ProjectSettings
-dotnet run -p PublicTools/ProjectSettings SetMVC6 SymLinks
+dotnet run -p PublicTools/ProjectSettings SymLinks
 # Build the website
 cd Website
 npm install

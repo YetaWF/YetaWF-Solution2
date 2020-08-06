@@ -1,0 +1,30 @@
+
+
+Add this file to a solution's root folder to use Dynamic SQL (without SQL stored procedures).
+This uses the "legacy" SQLDyn data provider, instead of the default SQL data provider.
+
+Each project directly referencing SQL must include the following:
+
+  <Choose>
+    <When Condition="Exists('$(SolutionDir)USE_SQLDYN.txt')">
+      <ItemGroup>
+        <ProjectReference Include="..\SQLDyn\SQL.csproj" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <ProjectReference Include="..\SQL\SQL.csproj" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+
+
+
+Add the SQL or SQLDyn dataprovider project to the solution.
+
+It is best to edit solution file directly as to not lose references to SQL/Dyn in projects.
+
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLDyn", "DataProvider\SQLDyn\SQLDyn.csproj", "{69BFC9FF-8090-4E1B-8506-02FF67606B14}"
+EndProject
+
+
