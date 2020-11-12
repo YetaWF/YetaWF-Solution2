@@ -6,9 +6,9 @@ This uses the "legacy" SQLDyn data provider, instead of the default SQL data pro
 Each project directly referencing SQL must include the following:
 
   <Choose>
-    <When Condition="Exists('$(SolutionDir)USE_SQLDYN.txt')">
+    <When Condition="Exists('..\..\USE_SQLDYN.txt')">
       <ItemGroup>
-        <ProjectReference Include="..\SQLDyn\SQL.csproj" />
+        <ProjectReference Include="..\SQLDyn\SQLDyn.csproj" />
       </ItemGroup>
     </When>
     <Otherwise>
@@ -19,10 +19,9 @@ Each project directly referencing SQL must include the following:
   </Choose>
 
 
+Add the SQL or SQLDyn data provider project to the solution.
 
-Add the SQL or SQLDyn dataprovider project to the solution.
-
-It is best to edit solution file directly as to not lose references to SQL/Dyn in projects.
+It is best to edit the solution file directly as to not lose references to SQLDyn/SQLDyn in projects.
 
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLDyn", "DataProvider\SQLDyn\SQLDyn.csproj", "{69BFC9FF-8090-4E1B-8506-02FF67606B14}"
 EndProject

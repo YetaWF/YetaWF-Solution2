@@ -1,5 +1,5 @@
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
 
 WORKDIR /app
 
@@ -27,7 +27,7 @@ COPY ./PublicTools/ ./PublicTools/
 COPY ./Skins/ ./Skins/
 COPY ./Website/ ./Website/
 COPY ./*.sln .
-COPY Docker.DeploySite.yaml .
+COPY DeploySite.Docker.yaml .
 
 # ProjectSettings, build the project, then run to create symlinks and to set the correct project files
 WORKDIR /app/PublicTools/ProjectSettings
@@ -51,7 +51,7 @@ RUN dotnet publish -c Release -o /app/out -r linux-x64
 
 # Merge all package Addons using DeploySite, because dotnet publish doesn't follow symlinks and doesn't know about all the things YetaWF adds
 # The merged output is placed in /app/final. See Docker.DeploySite.yaml.
-RUN dotnet run -p /app/PublicTools/DeploySite Backup "/app/Docker.DeploySite.yaml"
+RUN dotnet run -p /app/PublicTools/DeploySite Backup "/app/DeploySite.Docker.yaml"
 
 RUN cp /app/Website/wwwroot/Maintenance/_hc1.html /app/final/wwwroot/_hc.html  # Docker deploy indicator
 
@@ -62,7 +62,7 @@ RUN mv /app/final/Data /app/final/DataInit
 RUN mv /app/final/wwwroot/Maintenance /app/final/wwwroot/MaintenanceInit
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
 WORKDIR /app
 COPY --from=build-env /app/final .
 
