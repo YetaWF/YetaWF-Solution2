@@ -23,13 +23,12 @@
     "strictFunctionTypes": true,
     "strictPropertyInitialization": true,
     "strictNullChecks": true,
-    "types": [ "jquery", "jqueryui", "kendo-ui", "showdown" ]
+    "types": [ "jquery", "kendo-ui", "showdown" ]
   },
   "compileOnSave": false,
   "typeAcquisition": { "enable": false },
   "exclude": [
     "./bower_components",
-    "./node_modules",
-    "./wwwroot"
+    "./node_modules"
   ]
 }

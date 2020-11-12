@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>YetaWF</AssemblyName>
     <RootNamespace>YetaWF2</RootNamespace>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
@@ -14,7 +14,6 @@
     <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-    <TypeScriptToolsVersion>3.9</TypeScriptToolsVersion>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <!--<PublishTrimmed>true</PublishTrimmed> doesn't work as we discover via reflection, so no reference to classes -->
     <PublishReadyToRun>true</PublishReadyToRun>
@@ -104,8 +103,6 @@
 
   <ItemGroup>
     <None Update="web.Prod.config" />
-    <None Remove="app.config_MVC6" />
-    <None Remove="Website.csproj_MVC6" />
   </ItemGroup>
 
   <ItemGroup>

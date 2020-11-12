@@ -6,7 +6,7 @@
   "homepage": "",
   "private": true,
   "dependencies": {
-    "kendo-ui": "kendo-ui-core#^2020.2.701"
+    "kendo-ui": "kendo-ui-core#^2020.3.1007"
   },
   "ignore": [
     "**/.*",
