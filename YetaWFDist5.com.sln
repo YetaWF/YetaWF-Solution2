@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataProvider", "DataProvide
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "File", "DataProvider\File\File.csproj", "{D2F9BA80-1EE4-43ED-85CC-EF13EBABC72F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQL", "DataProvider\SQL\SQL.csproj", "{26CC121D-4CAC-4249-B4CD-F865812914D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLDyn", "DataProvider\SQLDyn\SQLDyn.csproj", "{26CC121D-4CAC-4249-B4CD-F865812914D8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Localization", "DataProvider\Localization\Localization.csproj", "{F6D1E730-0B70-40FF-A46E-6D7C537A52DB}"
 EndProject
@@ -145,7 +145,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy Linux", "Deploy Linux", "{9A256BFE-1D4E-4688-9045-05FC01500B76}"
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
-		Docker.DeploySite.yaml = Docker.DeploySite.yaml
+		DeploySite.Docker.yaml = DeploySite.Docker.yaml
 		post-clone.sh = post-clone.sh
 		YetaWFDist5.Dockerfile = YetaWFDist5.Dockerfile
 	EndProjectSection

@@ -20,7 +20,7 @@ YetaWF.DataProvider.File 5.3.0
 YetaWF.DataProvider.Localization 5.3.0
 YetaWF.DataProvider.ModuleDefinition 5.3.0
 YetaWF.DataProvider.PostgreSQL 5.3.0
-YetaWF.DataProvider.SQL 5.3.0
+YetaWF.DataProvider.SQLDyn 5.3.0
 YetaWF.DataProvider.SQLGeneric 5.3.0
 YetaWF.DefaultSkin 5.3.0
 YetaWF.DevTests 5.3.0
