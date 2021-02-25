@@ -12,7 +12,6 @@ RUN apt-get install -y nodejs
 RUN apt-get install -y build-essential
 RUN npm install -g npm
 RUN npm install -g gulp
-RUN npm install -g bower
 
 # Needed for webp-image support while building
 # Depending on linux flavor, this may need to be adjusted
@@ -44,7 +43,6 @@ RUN dotnet build -c Release DeploySite.csproj
 WORKDIR /app/Website
 RUN npm install
 RUN npm rebuild node-sass
-RUN bower install --allow-root
 
 RUN dotnet restore
 RUN dotnet publish -c Release -o /app/out -r linux-x64

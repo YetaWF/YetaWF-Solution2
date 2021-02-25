@@ -1,4 +1,4 @@
-﻿/* Copyright © 2020 Softel vdm, Inc. - https://yetawf.com/Documentation/YetaWF/Licensing */
+﻿/* Copyright © 2021 Softel vdm, Inc. - https://yetawf.com/Documentation/YetaWF/Licensing */
 
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 
@@ -133,7 +133,6 @@ gulp.task("minify-css", () => {
             "wwwroot/Vault/**/*.css",
             //"VaultPrivate/**/*.css",
             "node_modules/normalize-css/*.css",
-            "node_modules/smartmenus/dist/addons/bootstrap-4/*.css",
             "!**/*.min.css",
             "!**/*.pack.css"
         ], { follow: true })

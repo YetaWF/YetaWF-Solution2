@@ -11,6 +11,5 @@ dotnet run -p PublicTools/ProjectSettings SymLinks
 cd Website
 npm install
 npm rebuild cwebp-bin
-sudo bower install --allow-root
 dotnet build
 

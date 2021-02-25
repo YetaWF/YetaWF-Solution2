@@ -97,8 +97,6 @@
 
   <ItemGroup>
     <Folder Include="logs\" />
-    <None Include="bower.json" />
-    <Content Remove="bower.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -164,7 +162,7 @@
     <ProjectReference Include="..\Modules\YetaWF\UserProfile\UserProfile.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\UserSettings\UserSettings.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Visitors\Visitors.csproj" />
-    <ProjectReference Include="..\Skins\YetaWF\BootstrapSkin\BootstrapSkin.csproj" />
+
     <ProjectReference Include="..\Skins\YetaWF\DefaultSkin\DefaultSkin.csproj" />
   </ItemGroup>
   <ItemGroup>
