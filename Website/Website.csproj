@@ -153,6 +153,7 @@
     <ProjectReference Include="..\Modules\YetaWF\Security\Security.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\SiteProperties\SiteProperties.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Sites\Sites.csproj" />
+    <ProjectReference Include="..\Modules\YetaWF\SkinPalette\SkinPalette.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\SyntaxHighlighter\SyntaxHighlighter.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\TawkTo\TawkTo.csproj" />
     <ProjectReference Include="..\Modules\YetaWF\Text\Text.csproj" />

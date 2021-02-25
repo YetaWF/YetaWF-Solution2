@@ -21,13 +21,9 @@ YetaWF.SiteProperties, YetaWF.Modules.SiteProperties.Modules.SitePropertiesModul
     CurrentSite.ExternalAccountSetupUrl = "/User/Setup External Account"
     CurrentSite.NotFoundUrl = "/Errors/404"
 
-    CurrentSite.SelectedSkin.Collection = "YetaWF/DefaultSkin/DefaultSkin"
-    CurrentSite.SelectedSkin.FileName = "Default"
-    CurrentSite.SelectedPopupSkin.Collection = "YetaWF/DefaultSkin/DefaultSkin"
-    CurrentSite.SelectedPopupSkin.FileName = "Popup"
-    CurrentSite.jQueryUISkin = "Start"
-    CurrentSite.KendoUISkin = "Blue Opal"
-    CurrentSite.BootstrapSkin = "Bootstrap Default"
+    CurrentSite.Skin.Collection = "YetaWF/DefaultSkin/DefaultSkin"
+    CurrentSite.Skin.PageFileName = "Default"
+    CurrentSite.Skin.PopupFileName = "Popup"
 
     CurrentSite.CssLocation = 1
     CurrentSite.JSLocation = 1
