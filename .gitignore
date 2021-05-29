@@ -34,10 +34,10 @@ Website/SiteTemplates/*.txt
 
 Website/wwwroot/Addons/
 Website/wwwroot/AddonsBundles/
+Website/wwwroot/_L/
 Website/wwwroot/lib/
 Website/wwwroot/_references.js
 
 
 
 package-lock.json
-Website/wwwroot/_L/
