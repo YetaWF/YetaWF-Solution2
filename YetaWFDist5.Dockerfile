@@ -1,5 +1,5 @@
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 
 WORKDIR /app
 
@@ -42,7 +42,6 @@ RUN dotnet build -c Release DeploySite.csproj
 # Build Website
 WORKDIR /app/Website
 RUN npm install
-RUN npm rebuild node-sass
 
 RUN dotnet restore
 RUN dotnet publish -c Release -o /app/out -r linux-x64
@@ -60,7 +59,7 @@ RUN mv /app/final/Data /app/final/DataInit
 RUN mv /app/final/wwwroot/Maintenance /app/final/wwwroot/MaintenanceInit
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 WORKDIR /app
 COPY --from=build-env /app/final .
 

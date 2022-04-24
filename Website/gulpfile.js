@@ -1,14 +1,6 @@
-﻿/* Copyright © 2021 Softel vdm, Inc. - https://yetawf.com/Documentation/YetaWF/Licensing */
+﻿/* Copyright © 2022 Softel vdm, Inc. - https://yetawf.com/Documentation/YetaWF/Licensing */
 
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
-
-// If you get a message like "node sass could not find a binding for your current environment: windows 64-bit with node.js 4.x"
-// when running sass, use "npm rebuild node-sass".
-// VS 2019: node-gyp can't find VS2019 MSBuild:
-// Change C:\Development\YetaWF nginx\Website\node_modules\node-gyp\lib\configure.js
-// variables['msbuild_path'] = path.join(vsSetup.path, 'MSBuild', '15.0',
-// to
-// variables['msbuild_path'] = path.join(vsSetup.path, 'MSBuild', 'Current',
 
 var gulp = require("gulp");
 var print = require("gulp-print").default;
@@ -57,7 +49,7 @@ gulp.task("tslint", () => {
 });
 
 /* Scss Compile */
-var sass = require("gulp-sass");
+var sass = require("gulp-sass")(require('sass'));
 var sassFolders = [
     //"VaultPrivate/**/*.scss",
     "wwwroot/Addons/**/*.scss",
@@ -132,7 +124,7 @@ gulp.task("minify-css", () => {
             "wwwroot/AddonsCustom/**/*.css",
             "wwwroot/Vault/**/*.css",
             //"VaultPrivate/**/*.css",
-            "node_modules/normalize-css/*.css",
+            "node_modules/normalize.css/*.css",
             "!**/*.min.css",
             "!**/*.pack.css"
         ], { follow: true })
@@ -151,7 +143,6 @@ gulp.task("minify-css", () => {
 /* Images -> webp */
 var webp = require("gulp-webp");
 gulp.task("images-webp", () => {
-    //gulp.src('wwwroot/Addons/Softelvdm/FaxServiceSkin/_Skins/FaxServiceSkin/Images/cent21.png')
     return gulp.src([
         "wwwroot/Addons/**/*.png",
         "wwwroot/Addons/**/*.jpg",
